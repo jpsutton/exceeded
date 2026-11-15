@@ -1,19 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <!-- Exceeded: a greater-than sign, "exceeds", over a deep blue tile. Original artwork made for this project (GPL-3.0). -->
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#2a4fc4"/>
-      <stop offset="1" stop-color="#0d1b4f"/>
-    </linearGradient>
-    <linearGradient id="fg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#ffe066"/>
-      <stop offset="1" stop-color="#ff9a1f"/>
-    </linearGradient>
-  </defs>
-  <rect x="0" y="0" width="512" height="512" rx="112" fill="url(#bg)"/>
-  <rect x="6" y="6" width="500" height="500" rx="106" fill="none" stroke="#ffffff" stroke-opacity="0.18" stroke-width="4"/>
-  <!-- the echo: a fainter sign behind -->
-  <polyline points="140,130 262,256 140,382" fill="none" stroke="#ffffff" stroke-opacity="0.32" stroke-width="64" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- the sign -->
-  <polyline points="214,112 366,256 214,400" fill="none" stroke="url(#fg)" stroke-width="84" stroke-linecap="round" stroke-linejoin="round"/>
+<!-- Exceeded: the four arithmetic operators on a dark tile. Original artwork made for this project (GPL-3.0). -->
+<rect width="512" height="512" rx="112" fill="#1b2340"/>
+<rect x="64" y="64" width="188" height="188" rx="38" fill="#3b82f6"/>
+<rect x="260" y="64" width="188" height="188" rx="38" fill="#f59e0b"/>
+<rect x="64" y="260" width="188" height="188" rx="38" fill="#10b981"/>
+<rect x="260" y="260" width="188" height="188" rx="38" fill="#ec4899"/>
+<g fill="#fff" stroke="#fff" stroke-linecap="round">
+<rect x="108" y="150" width="100" height="16" rx="8" stroke="none"/><rect x="150" y="108" width="16" height="100" rx="8" stroke="none"/>
+<rect x="304" y="150" width="100" height="16" rx="8" stroke="none"/>
+<circle cx="354" cy="110" r="11" stroke="none"/><circle cx="354" cy="206" r="11" stroke="none"/>
+<line x1="108" y1="304" x2="208" y2="404" stroke-width="18"/><line x1="208" y1="304" x2="108" y2="404" stroke-width="18"/>
+<rect x="304" y="346" width="100" height="16" rx="8" stroke="none"/>
+</g>
 </svg>
