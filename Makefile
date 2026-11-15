@@ -5,10 +5,14 @@ CFLAGS ?= -O2 -g -Wall -Wextra -Wno-unused-parameter
 ifneq ($(filter Windows_NT,$(OS))$(WIN),)
 EXE := .exe
 CFLAGS += -Isrc/compat -include src/compat.h
+WINDRES ?= windres
 endif
 
 SRC := $(wildcard src/*.c)
 OBJ := $(SRC:src/%.c=build/%.o)
+ifneq ($(EXE),)
+OBJ += build/exceeded_rc.o
+endif
 
 SDL_CFLAGS := $(shell pkg-config --cflags sdl2 2>/dev/null)
 SDL_LIBS := $(shell pkg-config --libs sdl2 2>/dev/null)
@@ -39,6 +43,10 @@ build/%.o: src/%.c $(wildcard src/*.h) | build
 build:
 	mkdir -p build
 
+# the Windows icon resource
+build/exceeded_rc.o: assets/exceeded.rc assets/exceeded.ico | build
+	$(WINDRES) -O coff -i assets/exceeded.rc -o $@
+
 clean:
 	rm -rf build engine engine.exe dist
 
@@ -56,5 +64,7 @@ install: engine$(EXE)
 	install -Dm644 LICENSE $(DESTDIR)$(PREFIX)/share/licenses/exceeded/LICENSE
 	install -Dm644 soundfont/LICENSE.txt $(DESTDIR)$(PREFIX)/share/licenses/exceeded/GeneralUser-GS-LICENSE.txt
 	install -Dm644 packaging/linux/exceeded.desktop $(DESTDIR)$(PREFIX)/share/applications/exceeded.desktop
+	for n in 16 24 32 48 64 128 256 512; do install -Dm644 assets/icons/hicolor/$${n}x$${n}/apps/exceeded.png $(DESTDIR)$(PREFIX)/share/icons/hicolor/$${n}x$${n}/apps/exceeded.png; done
+	install -Dm644 assets/icons/hicolor/scalable/apps/exceeded.svg $(DESTDIR)$(PREFIX)/share/icons/hicolor/scalable/apps/exceeded.svg
 
 .PHONY: clean dist install

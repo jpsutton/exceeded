@@ -17,6 +17,7 @@ rm -rf out
 mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources" "$app/Contents/Frameworks"
 cp engine "$app/Contents/MacOS/exceeded"
 cp -R soundfont "$app/Contents/Resources/"
+cp assets/exceeded.icns "$app/Contents/Resources/"
 cp LICENSE "$app/Contents/Resources/"
 cat > "$app/Contents/Info.plist" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
@@ -27,6 +28,7 @@ cat > "$app/Contents/Info.plist" <<PLIST
   <key>CFBundleDisplayName</key><string>Exceeded</string>
   <key>CFBundleIdentifier</key><string>io.github.jpsutton.exceeded</string>
   <key>CFBundleExecutable</key><string>exceeded</string>
+  <key>CFBundleIconFile</key><string>exceeded</string>
   <key>CFBundlePackageType</key><string>APPL</string>
   <key>CFBundleShortVersionString</key><string>${version}</string>
   <key>CFBundleVersion</key><string>${version}</string>

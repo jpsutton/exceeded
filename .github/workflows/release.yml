@@ -89,6 +89,10 @@ jobs:
         shell: msys2 {0}
     steps:
       - uses: actions/checkout@v4
+      - name: NSIS (the installer)
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "${env:ProgramFiles(x86)}\NSIS\makensis.exe")) { choco install nsis -y --no-progress }
       - uses: msys2/setup-msys2@v2
         with:
           msystem: UCRT64
@@ -100,12 +104,16 @@ jobs:
             mingw-w64-ucrt-x86_64-SDL2
             mingw-w64-ucrt-x86_64-fluidsynth
             mingw-w64-ucrt-x86_64-zlib
-      - name: Build the .zip
+      - name: Build the .zip and the installer
         run: scripts/ci/build-windows.sh
+        env:
+          REQUIRE_INSTALLER: "1"
       - uses: actions/upload-artifact@v4
         with:
           name: exceeded-windows
-          path: out/*.zip
+          path: |
+            out/*.zip
+            out/*-setup.exe
           if-no-files-found: error
           retention-days: 7
           compression-level: 0

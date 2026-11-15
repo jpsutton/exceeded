@@ -13,6 +13,8 @@
 #include "util.h"
 #include "res.h"
 #include <SDL.h>
+#include <zlib.h>
+#include "appicon.h"
 #ifdef HAVE_FLUIDSYNTH
 #include <fluidsynth.h>
 #endif
@@ -390,6 +392,18 @@ static const PlatBackend be = {sdl_now, sdl_wait_until, sdl_present, sdl_pump, s
 
 void plat_sdl_set_title(const char *title) { if (win) SDL_SetWindowTitle(win, title); }
 
+/* the window icon (assets/icon.svg, embedded by assets/make_icons.py) */
+static void set_window_icon(SDL_Window *w) {
+    uLongf raw = (uLongf)APPICON_RAW;
+    uint8_t *px = malloc(raw);
+    if (!px) return;
+    if (uncompress(px, &raw, APPICON_Z, (uLong)APPICON_ZLEN) == Z_OK && raw == APPICON_RAW) {
+        SDL_Surface *s = SDL_CreateRGBSurfaceWithFormatFrom(px, APPICON_WIDTH, APPICON_HEIGHT, 32, APPICON_WIDTH * 4, SDL_PIXELFORMAT_RGBA32);
+        if (s) { SDL_SetWindowIcon(w, s); SDL_FreeSurface(s); }        /* SDL copies the pixels */
+    }
+    free(px);
+}
+
 int plat_sdl_start(const char *soundfont, int fullscreen) {
     soundfont_path = soundfont;
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) { fprintf(stderr, "SDL: %s\n", SDL_GetError()); return -1; }
@@ -398,6 +412,7 @@ int plat_sdl_start(const char *soundfont, int fullscreen) {
     win = SDL_CreateWindow("OutNumbered! CD", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1024, 808,
                            SDL_WINDOW_RESIZABLE | (fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0));
     if (!win) return -1;
+    set_window_icon(win);
     ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_PRESENTVSYNC);
     if (!ren) ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_SOFTWARE);
     if (!ren) return -1;

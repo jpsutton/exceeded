@@ -3,7 +3,7 @@
 #   pacman -S mingw-w64-ucrt-x86_64-{gcc,make,pkgconf,SDL2,fluidsynth,zlib} zip
 #   scripts/ci/build-windows.sh
 # The .zip holds exceeded.exe, the DLLs it needs (found with ldd), the licenses of the packages they come from,
-# the SoundFont, README.md and LICENSE.
+# the SoundFont, README.md and LICENSE. Also the NSIS installer exceeded-<version>-windows-x64-setup.exe.
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 version=$(scripts/ci/version.sh)
@@ -39,4 +39,21 @@ echo "prefix $prefix"
 ls "$dist"
 
 (cd out && zip -qr "$name.zip" "$name")
+
+# The installer (NSIS, per user by default). makensis comes with the GitHub Windows runners; elsewhere install NSIS
+# (choco install nsis) or set MAKENSIS to its path.
+makensis=${MAKENSIS:-}
+if [ -z "$makensis" ]; then
+  if command -v makensis >/dev/null 2>&1; then makensis=makensis
+  elif [ -x "/c/Program Files (x86)/NSIS/makensis.exe" ]; then makensis="/c/Program Files (x86)/NSIS/makensis.exe"
+  elif [ -x "/c/Program Files/NSIS/makensis.exe" ]; then makensis="/c/Program Files/NSIS/makensis.exe"
+  fi
+fi
+if [ -n "$makensis" ]; then
+  MSYS2_ARG_CONV_EXCL='*' "$makensis" -V2 "-DVERSION=$version" "-DSRCDIR=$(cygpath -w "$PWD/$dist")" \
+    "-DOUTFILE=$(cygpath -w "$PWD/out/$name-setup.exe")" "$(cygpath -w "$PWD/packaging/windows/exceeded.nsi")"
+else
+  echo "makensis not found: no installer built (only the .zip)" >&2
+  [ -z "${REQUIRE_INSTALLER:-}" ] || exit 1
+fi
 ls -la out
