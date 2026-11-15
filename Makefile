@@ -1,4 +1,5 @@
 CC ?= gcc
+PREFIX ?= /usr/local
 CFLAGS ?= -O2 -g -Wall -Wextra -Wno-unused-parameter
 SRC := $(wildcard src/*.c)
 OBJ := $(SRC:src/%.c=build/%.o)
@@ -41,4 +42,12 @@ dist: engine
 	cp engine dist/engine
 	cp soundfont/* dist/soundfont/
 	cp README.md dist/
-.PHONY: clean dist
+
+# system install (packages use DESTDIR and PREFIX=/usr): the program is `exceeded`, its SoundFont is found at ../share/exceeded/soundfont
+install: engine
+	install -Dm755 engine $(DESTDIR)$(PREFIX)/bin/exceeded
+	install -Dm644 soundfont/GeneralUser-GS.sf2 $(DESTDIR)$(PREFIX)/share/exceeded/soundfont/GeneralUser-GS.sf2
+	install -Dm644 soundfont/LICENSE.txt $(DESTDIR)$(PREFIX)/share/licenses/exceeded/GeneralUser-GS-LICENSE.txt
+	install -Dm644 packaging/linux/exceeded.desktop $(DESTDIR)$(PREFIX)/share/applications/exceeded.desktop
+
+.PHONY: clean dist install

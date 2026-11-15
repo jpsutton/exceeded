@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Exceeded
+Comment=Play Super Solvers: OutNumbered! from your own copy of the game
+Exec=exceeded
+Terminal=false
+Categories=Game;EducationalGame;

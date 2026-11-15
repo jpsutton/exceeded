@@ -1,0 +1,148 @@
+# Build and publish a release whenever the release branch moves (a merge from staging).
+# Nothing else builds: pull requests and merges into staging run no workflow at all.
+#
+# The Arch Linux package is required for a release. The macOS build is best effort (unsigned by
+# Apple): a release ships it if it built. Every asset is signed with EXCEEDED_GPG_KEY, the release
+# is tagged v<version> (the version in src/setup.h), and jpsutton/arch-repo is told to pick up the
+# new Arch package.
+name: release
+
+on:
+  push:
+    branches: [release]
+  workflow_dispatch:
+
+permissions:
+  contents: write   # tag and release
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  version:
+    name: Read version
+    # Creating the release branch is a push too; there is nothing to publish yet.
+    if: ${{ !github.event.created }}
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.v.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: v
+        name: Version from src/setup.h
+        run: |
+          version=$(scripts/ci/version.sh)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          if git rev-parse -q --verify "refs/tags/v$version" >/dev/null; then
+            echo "::error::v$version is already released. Bump ENGINE_VERSION in src/setup.h (and pkgver in packaging/arch/PKGBUILD) before releasing."
+            exit 1
+          fi
+
+  arch:
+    name: Build (Arch Linux package)
+    needs: [version]
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the package (archlinux container)
+        run: |
+          docker run --rm -v "$GITHUB_WORKSPACE:/src" -w /src archlinux:latest scripts/ci/build-arch.sh
+          sudo chown -R "$(id -u):$(id -g)" out
+      - uses: actions/upload-artifact@v4
+        with:
+          name: exceeded-arch
+          path: out/*.pkg.tar.zst
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+  macos:
+    name: Build (macOS, Apple silicon)
+    needs: [version]
+    runs-on: macos-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install libraries and tools
+        run: brew install sdl2 fluid-synth zlib pkgconf dylibbundler
+      - name: Build the app and the .dmg
+        run: scripts/ci/build-macos.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: exceeded-macos
+          path: out/*.dmg
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+  publish:
+    name: Publish GitHub release
+    needs: [version, arch, macos]
+    # The macOS build may fail without blocking the release.
+    if: ${{ !cancelled() && needs.arch.result == 'success' }}
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: What was built
+        run: |
+          if [ "${{ needs.macos.result }}" != success ]; then
+            echo "::warning::the macOS build did not finish; releasing without it"
+          fi
+          ls -la dist
+
+      # Detached signatures for every asset, SHA256SUMS and its signature, and the public key. The
+      # Arch package's .sig is what jpsutton/arch-repo checks. Without the key the release still
+      # goes out, with only SHA256SUMS, and arch-repo will not take the package.
+      - name: Sign (archlinux container)
+        env:
+          EXCEEDED_GPG_KEY: ${{ secrets.EXCEEDED_GPG_KEY }}
+        run: |
+          set -euo pipefail
+          if [ -z "$EXCEEDED_GPG_KEY" ]; then
+            echo "::warning::EXCEEDED_GPG_KEY is not set; releasing unsigned (only SHA256SUMS)"
+            (cd dist && sha256sum -- * > SHA256SUMS)
+            exit 0
+          fi
+          docker run --rm -e EXCEEDED_GPG_KEY \
+            -v "$GITHUB_WORKSPACE:/src" -w /src archlinux:latest \
+            scripts/ci/sign-release.sh dist
+          sudo chown -R "$(id -u):$(id -g)" dist
+
+      - name: Tag
+        run: |
+          set -euo pipefail
+          tag="v${{ needs.version.outputs.version }}"
+          git tag "$tag" "$GITHUB_SHA"
+          git push origin "$tag"
+
+      - name: GitHub Release
+        run: |
+          set -euo pipefail
+          gh release create "v${{ needs.version.outputs.version }}" -R "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" --title "Exceeded ${{ needs.version.outputs.version }}" \
+            --generate-notes dist/*
+
+      # Start jpsutton/arch-repo's publish workflow so the pacman repository updates.
+      # Needs a fine-grained token with Actions: write on that repository.
+      - name: Update the pacman repository
+        env:
+          ARCH_REPO_DISPATCH_TOKEN: ${{ secrets.ARCH_REPO_DISPATCH_TOKEN }}
+        run: |
+          if [ -z "$ARCH_REPO_DISPATCH_TOKEN" ]; then
+            echo "::warning::ARCH_REPO_DISPATCH_TOKEN is not set; jpsutton/arch-repo was not updated"
+            exit 0
+          fi
+          GH_TOKEN=$ARCH_REPO_DISPATCH_TOKEN gh workflow run publish.yml -R jpsutton/arch-repo \
+            || echo "::warning::could not notify jpsutton/arch-repo; the pacman repository was not updated"

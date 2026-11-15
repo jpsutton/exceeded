@@ -13,9 +13,41 @@ Exceeded does **not** include the game. It reads the game's data from your own c
 * **Your own copy of the game.** The Windows CD of *Super Solvers: OutNumbered!*, as a disc image (`.iso`, `.bin` + `.cue`) or a folder with the CD's contents.
 * *(Optional)* The MS-DOS version of the game. If you add it, you can switch the music and sound effects to the original Tandy or
   PC-speaker sound in **Audio Options**.
-* A Linux computer. (This is the only system it has been built and tested on so far.)
+* A Linux computer, or a Mac with Apple silicon. (Linux is where it has been built and tested the most; the Mac build is best effort.)
 
-## Get it running
+## Install
+
+Builds are on the [Releases page](https://github.com/jpsutton/exceeded/releases/latest). Every file is signed, and `SHA256SUMS` lists their checksums.
+
+### Arch Linux
+
+Exceeded is in the jpsutton pacman repository. Add the repository once, then install:
+
+```sh
+curl -fsSLO https://jpsutton.github.io/arch-repo/setup.sh
+bash setup.sh --install exceeded
+```
+
+After that, `pacman -Syu` keeps it up to date. You can also download the `.pkg.tar.zst` from the release and install it with `sudo pacman -U`.
+Start it with `exceeded`, or from your applications menu.
+
+### macOS
+
+Apple silicon only. The build is best effort and isn't signed by Apple. The easiest way to install or update is the install script. It downloads the latest `.dmg`, checks it against the release's `SHA256SUMS`, and copies Exceeded into `/Applications`:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/jpsutton/exceeded/release/scripts/install-macos.sh | bash
+```
+
+Files downloaded with `curl` aren't quarantined, so Exceeded opens without a Gatekeeper prompt. Run the same command again to update.
+
+If you download the `.dmg` in a browser instead, macOS says Apple could not verify that Exceeded is free of malware. After the first attempt to open it, go to **System Settings › Privacy & Security** and click **Open Anyway**. Or clear the quarantine from a terminal:
+
+```sh
+xattr -dr com.apple.quarantine /Applications/Exceeded.app
+```
+
+### Build it yourself
 
 You need a C compiler and these development packages: SDL2, FluidSynth, zlib and pkg-config.
 On Debian or Ubuntu:
@@ -33,6 +65,8 @@ make
 ./engine
 ```
 
+`sudo make install` installs it as `exceeded` under `/usr/local`.
+
 ## First start
 
 The first time, a setup screen opens:
@@ -41,7 +75,7 @@ The first time, a setup screen opens:
 2. If you have the DOS version, drag that on too. This step is optional.
 3. Press **Install**. The game copies the files it needs (about 15 MB) and starts.
 
-After that, `./engine` goes straight into the game.
+After that, starting it goes straight into the game.
 
 ## Playing
 
@@ -54,7 +88,7 @@ Everything works with the mouse, and the usual keys work too.
 * Pick **Audio Options** from the Options menu for volume sliders, an "even out volume" switch (on by default, so nothing is
   suddenly loud), and the choice of music and sound style.
 
-To start in full screen, run `./engine --fullscreen`.
+To start in full screen, run it with `--fullscreen`.
 
 ## Where your players and settings live
 
@@ -64,14 +98,14 @@ Everything is stored in your own folder, by default `~/.local/share/outnumbered`
 * `dos/` holds the DOS files, if you added them
 * `saves/` holds your players, scores and settings
 
-To reset the setup or add the DOS version later, run `./engine --setup`.
+To reset the setup or add the DOS version later, run it with `--setup`.
 To uninstall, delete that folder. **That also removes your saved players**, so copy `saves/` somewhere first if you want to keep them.
 
 ## Music
 
 Music is played through FluidSynth using the free [GeneralUser GS](https://www.schristiancollins.com/generaluser.php) SoundFont,
 which is included in the `soundfont/` folder (its license is in `soundfont/LICENSE.txt`). If you prefer another SoundFont, start with
-`./engine --soundfont /path/to/file.sf2`.
+`--soundfont /path/to/file.sf2`.
 
 ## Good to know
 
@@ -82,5 +116,6 @@ which is included in the `soundfont/` folder (its license is in `soundfont/LICEN
 ## For developers
 
 * `make` builds the `engine` program. `make dist` puts it next to the SoundFont and this README in `dist/`.
+* Work goes into `staging`. Merging `staging` into `release` builds the packages and publishes a release; the version comes from `ENGINE_VERSION` in `src/setup.h`, which must also match `pkgver` in `packaging/arch/PKGBUILD`.
 * The source is in `src/` (plain C). `tests/mkdata.py` builds a small stand-in data set so the engine can be exercised without the real game.
 * `third_party/font8x8` is a public-domain bitmap font used on the setup screen.
