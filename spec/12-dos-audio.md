@@ -406,17 +406,29 @@ The driver produces register states that change only on tick boundaries. Tick *k
 `k × 5041 / 1193182` s of driver time.
 
 ### 4.1 Tandy / PCjr: SN76489-type chip (clock 3,579,545 Hz)
-* **Tone voices 0–2:** 50 % square, f = 3579545 / (32 × N). The chip uses N & 0x3FF, and N = 0
+* **Tone voices 0–2:** 50 % pulse, f = 3579545 / (32 × N). The chip uses N & 0x3FF, and N = 0
   sounds as 1024. When N changes, the phase continues (no reset).
-* **Attenuation:** amplitude = A × 10^(−2·a/20) for a = 0..14 (2 dB per step); a = 15 is silent.
+* **Output polarity (v1.33, H):** every voice is **unipolar**. Its output is 0 or +2·amp, never
+  negative: the tone flip-flop (or the noise output bit) gates the attenuated level. 2·amp keeps the
+  peak-to-peak level of a sustained tone the same as a ±amp square. The sum of the 4 voices passes
+  through an AC coupling, a one-pole **high-pass at 20 Hz** (`x − lowpass(x)` with the one-pole
+  low-pass of §4.2). The corner is a recommendation (M); the polarity is not.
+  Audible consequence: a voice that is switched on and off every tick or two produces a strong
+  118 Hz (tick-rate) thump, because each switch-on is a DC step. In songs made of 1-tick notes
+  alternating with 1-tick rests this thump dominates and the melody is heard only faintly. The
+  elevator ride songs 21 and 22 are the clearest case: on the real machine they sound like a buzz at
+  the tick rate under the hanging music note (§3.14), not like a clean rising or falling sweep. Other
+  songs with long on/off runs (Tandy): 11, 16, 18, 19, 27, 35, 36, 45. Short notes in most other songs
+  gain a soft click at each start. A ±amp square (the model before v1.33) loses all of this.
+* **Attenuation:** amp = A × 10^(−2·a/20) for a = 0..14 (2 dB per step); a = 15 is silent.
 * **Noise voice (channel 3):** control value bits 0–2 (higher bits ignored). Bit 2: 1 = white noise,
   0 = periodic. Bits 0–1 = shift rate: 0 → clk/512, 1 → clk/1024, 2 → clk/2048, 3 → the current
   frequency of tone voice 2 (clk/(32·N2)).
   15-bit shift register, reset to 0x4000 on **every write** to the noise register (each `noise`
   and each `off` on channel 3). Each shift: output = bit 0; feedback = bit0 XOR bit1 (white) or
-  bit 0 (periodic); register = (register >> 1) | (feedback << 14). The output bit gives ±amplitude
-  (periodic noise = a 15-step pulse).
-* Mix the 4 voices by summing them.
+  bit 0 (periodic); register = (register >> 1) | (feedback << 14). Output bit 1 gives +2·amp,
+  bit 0 gives 0 (periodic noise = a 15-step pulse).
+* Mix the 4 voices by summing them, then apply the AC coupling above.
 
 ### 4.2 PC speaker (PIT clock 1,193,182 Hz)
 * While the speaker is on: full-amplitude 50 % square, f = 1193182 / N (N = 0 → 65536). Off → 0.
