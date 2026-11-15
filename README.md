@@ -1,9 +1,9 @@
-# OutNumbered!
+# Exceeded
 
 A modern, open-source player for **Super Solvers: OutNumbered!** (the 1995 Windows version), the math-adventure game where you chase the
 Master of Mischief through his hideout, solving math problems to collect clues.
 
-This program is a new game engine written from scratch. It does **not** include the game itself. You need your own copy of the game
+Exceeded is a new game engine written from scratch. It does **not** include the game itself. You need your own copy of the game
 (the Windows CD) to play.
 
 ## What you need
@@ -25,8 +25,8 @@ sudo apt install build-essential pkg-config libsdl2-dev libfluidsynth-dev zlib1g
 Then:
 
 ```sh
-git clone https://github.com/jpsutton/outnumbered.git
-cd outnumbered
+git clone https://github.com/jpsutton/exceeded.git
+cd exceeded
 make
 ./engine
 ```
