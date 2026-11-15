@@ -612,7 +612,7 @@ static int sfx_song(int id, int ctx, int flags) {
     switch (id) {
     case 1700: return 10; case 1727: return 11; case 1706: return 12; case 1750: return 13;
     case 1701: case 1736: return 27; case 1702: return 26; case 1703: case 1747: return 37; case 1704: return 51; case 1705: return 24;
-    case 1707: return 35; case 1708: return 36; case 1709: case 1769: return 48; case 1711: return 9; case 1712: return 25; case 1714: return 22;
+    case 1707: return 35; case 1708: return 36; case 1709: case 1769: return 48; case 1711: return 9; case 1712: return 25;
     case 1718: return 34; case 1720: case 1723: return 20; case 1722: return 33; case 1726: return 38; case 1730: return 29; case 1731: return 18;
     case 1732: return 19; case 1734: return 28; case 1737: return 45; case 1738: return 10; case 1739: case 1753: return 50; case 1740: case 1752: return 23;
     case 1742: return 31; case 1743: return 7; case 1744: return 6; case 1748: return 46; case 1749: return 47; case 1754: return 17; case 1755: return 26;
@@ -669,7 +669,7 @@ int dosint_sfx(int id, int flags, int ctx) {
         req(b, OP_LOOP, 1, 0, 0, 0, t);
         PLAYS(25);
         break;
-    case 1714: PLAY(22); break;
+    case 1714: break;                                        /* the doors are silent in DOS; the ride has one sound, the ride song (dosint_elevator_ride) */
     case 1718: PLAY(34); break;
     case 1720: case 1723: PLAY(20); break;
     case 1722: PLAY(33); break;
@@ -751,19 +751,38 @@ void dosint_sfx_stop(int id) {
     UNLOCK();
 }
 
-void dosint_stop_effects(void) {
+/* the elevator ride song (spec 12 section 5.6a): a plain play, requested once when the departure doors have finished closing.
+ * 22 going up (departure area 0 or 4), 21 going down (5 or 9). It runs to its natural end. */
+void dosint_elevator_ride(int up) {
+    Bus *b = D.bus_sfx;
+    if (!b) return;
+    int song = up ? 22 : 21;
+    levels_dos_ensure(&D.game, b->variant, song);
+    LOCK();
+    sync_virtual();
+    g_owner = 1714;
+    req(b, OP_PLAY, song, KD_SFX, 1714, 0, now_cs());
+    UNLOCK();
+}
+
+/* stop the effect driver's sound; keep_ride leaves the elevator ride song playing (the arrival's "stop all sounds", 12 section 5.6) */
+static void stop_effects(int keep_ride) {
     Bus *b = D.bus_sfx;
     if (!b) return;
     LOCK();
     sync_virtual();
     int64_t t = now_cs();
-    if (b->d.state != DOS_IDLE && (b->cur_kind == KD_SFX || !b->role_music)) req(b, OP_STOP, 0, 0, 0, 0, t);
+    int ride = keep_ride && b->cur_kind == KD_SFX && b->cur_id == 1714;
+    if (!ride && b->d.state != DOS_IDLE && (b->cur_kind == KD_SFX || !b->role_music)) req(b, OP_STOP, 0, 0, 0, 0, t);
     if (b->d.loop_flag) req(b, OP_LOOP, 0, 0, 0, 0, t);
     for (int i = 0; i < MAXFLAG; i++) D.flags[i] = 0;
     for (int i = 0; i < MAXSCHED; i++) if (D.sched[i].used && D.sched[i].b == b) D.sched[i].used = 0;
     D.award = 0;
     UNLOCK();
 }
+
+void dosint_stop_effects(void) { stop_effects(0); }
+void dosint_stop_effects_keep_ride(void) { stop_effects(1); }
 
 /* called when Sound Effects is switched off */
 void dosint_effects_off(void) { if (!D.keep_sfx) dosint_stop_effects(); }

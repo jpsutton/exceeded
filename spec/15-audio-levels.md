@@ -237,7 +237,7 @@ Output:
 ```
 * `assets`: every WAVE of SND.DAT, SSO3.DAT (`effects`) and SPEECH.DAT (`speech`) in id order; the
   8 MIDI files of the active set (`source` "MIDI", `id` like `"level1.mid"`; only if a SoundFont is
-  found); DOS songs 0–51 except 21, 41, 44 for `tandy` then `speaker` (`source` "DOS", only if the
+  found); DOS songs 0–51 except 41, 44 for `tandy` then `speaker` (`source` "DOS", only if the
   DOS files are valid). With `--wav`: one entry per file, `source` "file", `id` = the file name.
 * `lufs`, `peak_dbfs`: rounded to 0.01, null when silent. `gain_db` per §4.3 (computed from the
   unrounded L), `total_db` = gain_db + slider_db (null when muted). The command waits for the MIDI

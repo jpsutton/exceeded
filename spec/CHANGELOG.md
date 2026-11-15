@@ -306,3 +306,15 @@ Follow-up to the engine 1.12.0 check of chapter 15.
   toggles mid-challenge, recommendations).
 * 03 §4.3: robustness rule — never save before the game's state is initialised; discard an invalid saved
   state at sign-in. (A playtester's new player got an all-zero saved game and an empty, unwinnable game.)
+
+## v1.32 — 2026-11-15
+Playtest report: in DOS effect style, the elevator doors closing after the player steps out made the
+same sound as the ride between floors.
+* 12 §5.3, 1714: DOS plays **one** sound per elevator ride, the ride song, requested once when the
+  departure doors have finished closing: song **22** going up (departure area 0 or 4), song **21**
+  going down (area 5 or 9). The arrival door close (the second 1714 of a ride) makes **no sound**.
+  Door opens (1713) stay silent. Song 21 is no longer unused.
+* 12 §5.6: the arrival "stop all sounds" of the ride does not stop the ride song.
+* 12 §5.6a (new): the elevator ride's DOS sound, phase by phase, with timing.
+* 12 §1.1: the Music / Effects / Voice reference now points to §5.7 Options.
+* 15 §7.1: `audio-levels` lists DOS song 21 as well (now played).

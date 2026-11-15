@@ -586,10 +586,11 @@ static void elevator(int slot) {
     run_state(5, -1, 0, -4);                  /* walks into the open cab, y 71 -> 55 */
     snd_play(1714, 6, 0);
     elev_D(slot_col, 0, 22, 0);               /* departure close: panels over the player */
+    int up = (area0 == 0 || area0 == 4);
+    snd_elevator_ride(up);                    /* DOS: the one sound of the ride, requested now (12 section 5.6a) */
     telly_remove();
     trick_remove();
     obj[OB_PLAYER].active = 0;                /* nobody visible during the slide */
-    int up = (area0 == 0 || area0 == 4);
     int newarea = up ? area0 + 5 : area0 - 5;
     /* snapshot the old floor, build the new one off-screen */
     draw_scene();
@@ -629,7 +630,8 @@ static void elevator(int slot) {
     obj[OB_PLAYER].y = 55;
     ag.facing = 1;
     action_screen_rebuild();                  /* full hall draw at the new scroll, no player, no door cels yet */
-    stop_everything();
+    snd_stop_all_keep_ride();                 /* the arrival's "stop all sounds": the DOS ride song runs on (12 section 5.6) */
+    music_stop();
     snd_play(1713, 5, 0);
     int new_slot_col = hot[newarea][1].col;
     obj[OB_PLAYER].active = 1;
