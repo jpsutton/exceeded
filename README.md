@@ -51,11 +51,13 @@ xattr -dr com.apple.quarantine /Applications/Exceeded.app
 
 Windows 10 or 11, 64-bit. The build is best effort and isn't signed, so Windows shows a warning the first time you run it.
 
-1. Download `exceeded-<version>-windows-x64.zip` from the [Releases page](https://github.com/jpsutton/exceeded/releases/latest) and unzip it anywhere.
-2. Run `exceeded.exe`.
-3. If Windows SmartScreen says it protected your PC, click **More info**, then **Run anyway**.
+1. Download `exceeded-<version>-windows-x64-setup.exe` from the [Releases page](https://github.com/jpsutton/exceeded/releases/latest) and run it.
+2. If Windows SmartScreen says it protected your PC, click **More info**, then **Run anyway**.
+3. Follow the installer. It installs for your user by default (no administrator prompt) and adds a Start menu shortcut. A desktop shortcut is optional.
 
-To update, download the new zip and unzip it over the old folder. Your players and settings are kept elsewhere (see below), so nothing is lost.
+To update, run the newer installer. To remove it, use **Settings › Apps** (or run the uninstaller from the install folder). Your players and settings are kept elsewhere (see below), so neither step loses them.
+
+Prefer no installer? `exceeded-<version>-windows-x64.zip` is the same program: unzip it anywhere and run `exceeded.exe`.
 
 ### Build it yourself
 
