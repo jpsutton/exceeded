@@ -275,7 +275,7 @@ if os.name == 'nt':                                                       # the 
     env['LOCALAPPDATA'] = os.path.join(t, 'Ünï Cödé', 'Local')
     out = os.path.join(t, 'r.json')
     subprocess.run([eng, '--conform', 'resolve', '--out', out], capture_output=True, text=True, env=env)
-    got = json.load(open(out)) if os.path.exists(out) else {}
+    got = json.load(open(out, encoding='utf-8')) if os.path.exists(out) else {}
     want = (env['LOCALAPPDATA'] + '/OutNumbered').replace('\\', '/')
     check('Windows default base folder: %LOCALAPPDATA%/OutNumbered (non-ASCII path)', str(got.get('home', '')).replace('\\', '/') == want, str(got) + ' want ' + want)
     shutil.rmtree(t, ignore_errors=True)
