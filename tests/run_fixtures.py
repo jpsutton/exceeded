@@ -254,6 +254,7 @@ for c in sexp['install']:
 check('setup install (%d cases)' % len(sexp['install']), not bad, str(bad))
 bad = []
 for c in sexp['resolve']:
+    if os.name == 'nt' and c['case'].startswith('xdg'): continue          # XDG_DATA_HOME is a POSIX rule; Windows uses %LOCALAPPDATA% (14 section 1.1)
     t = tempfile.mkdtemp()
     home = c['home'].replace('<T>', t)
     if c['home_fixture']: shutil.copytree(os.path.join(sx, 'homes', c['home_fixture']), home)
@@ -267,6 +268,17 @@ for c in sexp['resolve']:
     if got != {k: (sub(v) if isinstance(v, str) else v) for k, v in c['expected'].items()}: bad.append(c['case'])
     shutil.rmtree(t, ignore_errors=True)
 check('setup resolve (%d cases)' % len(sexp['resolve']), not bad, str(bad))
+if os.name == 'nt':                                                       # the default base folder on Windows (14 section 1.1)
+    t = tempfile.mkdtemp()
+    env = dict(os.environ)
+    for k in ('XDG_DATA_HOME', 'OUTNUMBERED_HOME'): env.pop(k, None)
+    env['LOCALAPPDATA'] = os.path.join(t, 'Ünï Cödé', 'Local')
+    out = os.path.join(t, 'r.json')
+    subprocess.run([eng, '--conform', 'resolve', '--out', out], capture_output=True, text=True, env=env)
+    got = json.load(open(out)) if os.path.exists(out) else {}
+    want = (env['LOCALAPPDATA'] + '/OutNumbered').replace('\\', '/')
+    check('Windows default base folder: %LOCALAPPDATA%/OutNumbered (non-ASCII path)', str(got.get('home', '')).replace('\\', '/') == want, str(got) + ' want ' + want)
+    shutil.rmtree(t, ignore_errors=True)
 def strip_h(o):
     if isinstance(o, dict): return {k: strip_h(v) for k, v in o.items() if k not in ('home', 'name', 'text')}
     if isinstance(o, list): return [strip_h(x) for x in o]

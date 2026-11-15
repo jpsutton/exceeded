@@ -287,13 +287,19 @@ int statvfs(const char *path, struct statvfs *sv) {
     return 0;
 }
 
-/* start-up: binary file mode (no CRLF translation), and the parent's console for output when built as a GUI program */
+/* start-up: binary file mode (no CRLF translation), and, when built as a GUI program and started from a console, that console for
+ * any standard stream that is not redirected (a pipe or file the parent set up is left alone) */
+static int std_missing(DWORD which) {
+    HANDLE h = GetStdHandle(which);
+    return h == NULL || h == INVALID_HANDLE_VALUE;
+}
 __attribute__((constructor)) static void win_init(void) {
     _set_fmode(_O_BINARY);
-    if (!GetConsoleWindow() && AttachConsole(ATTACH_PARENT_PROCESS)) {
-        freopen("CONOUT$", "w", stdout);
-        freopen("CONOUT$", "w", stderr);
-        freopen("CONIN$", "r", stdin);
+    int o = std_missing(STD_OUTPUT_HANDLE), e = std_missing(STD_ERROR_HANDLE), i = std_missing(STD_INPUT_HANDLE);
+    if ((o || e || i) && !GetConsoleWindow() && AttachConsole(ATTACH_PARENT_PROCESS)) {
+        if (o) freopen("CONOUT$", "w", stdout);
+        if (e) freopen("CONOUT$", "w", stderr);
+        if (i) freopen("CONIN$", "r", stdin);
     }
 }
 #endif
