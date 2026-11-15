@@ -456,4 +456,46 @@ r3, m3, e3 = styles('--dos-audio', 'speaker')
 r4, m4, e4 = styles('--music-style', 'bogus')
 check('style options: "=" and space forms are the same; a bad value is an error', (m1, e1) == ('tandy', 'speaker') and (m2, e2) == ('tandy', 'speaker') and (m3, e3) == ('speaker', 'speaker') and r4.returncode == 1 and 'expected windows, tandy or speaker' in r4.stderr, str((m1, e1, m2, e2, m3, e3, r4.returncode, r4.stderr)))
 shutil.rmtree(t, ignore_errors=True)
+
+# ---------------------------------------------------------------- DOS ending timelines (spec 12 section 5.5): award, Champion, lose (MoM wins), midnight
+def ending_run(score, cmd, extra_enters=3):
+    t = tempfile.mkdtemp()
+    sp = os.path.join(t, 's.txt')
+    open(sp, 'w').write('seed time 1\naudio tandy tandy %s\nsignin TEST %d\nwait 30\n%s\nwait 6000\n%s' % (os.path.join(dx, 'game'), score, cmd, 'press ENTER\nwait 50\n' * extra_enters))
+    subprocess.run([eng, '--data', mock, '--conform', 'play', sp, '--out', os.path.join(t, 'o')], capture_output=True, text=True, timeout=300)
+    lines = open(os.path.join(t, 'o', 'events.log')).read().splitlines() if os.path.exists(os.path.join(t, 'o', 'events.log')) else []
+    shutil.rmtree(t, ignore_errors=True)
+    return lines
+def dos_reqs(lines, verbs=('PLAY', 'FORCE')):
+    out = []
+    for l in lines:
+        m = _re.match(r'(\d+) DOS (PLAY|FORCE) (\d+) accepted', l)
+        if m and m.group(2) in verbs: out.append((int(m.group(1)), m.group(2), int(m.group(3))))
+    return out
+def timeline_ok(reqs, expect, tol=2.0):
+    """reqs: (cs, verb, song) in order; expect: (ticks after T0, verb, song). T0 = the first expected request's time minus its ticks."""
+    if len(reqs) != len(expect): return False
+    cs_per_tick = 5041 * 100 / 1193182.0
+    t0 = reqs[0][0] - expect[0][0] * cs_per_tick
+    return all(r[1] == e[1] and r[2] == e[2] and abs(r[0] - (t0 + e[0] * cs_per_tick)) <= tol for r, e in zip(reqs, expect))
+F, P = 'FORCE', 'PLAY'
+ev = ending_run(0, 'decide win')
+cut = next((i for i, l in enumerate(ev) if 'SFX 1764' in l), len(ev))
+aw = [r for r in dos_reqs(ev[:cut]) if r[1] == F and r[2] in (16, 10, 50)]
+check('DOS award timeline: force 16 +90, 10 at +300/+360/+420, 50 at +510/+540/+570 ticks', timeline_ok(aw, [(90, F, 16), (300, F, 10), (360, F, 10), (420, F, 10), (510, F, 50), (540, F, 50), (570, F, 50)]), str(aw))
+ev = ending_run(600000, 'decide win')
+cut = next((i for i, l in enumerate(ev) if 'SFX 1764' in l), len(ev))
+ch = [r for r in dos_reqs(ev[:cut]) if r[1] == F and r[2] in (43, 22, 13, 14, 48)]
+check('DOS Champion timeline: forced 43 +60, 22 +500, 13 x6 from +820 every 60, 14 +1450, 48 +1750 ticks', timeline_ok(ch, [(60, F, 43), (500, F, 22)] + [(820 + 60 * i, F, 13) for i in range(6)] + [(1450, F, 14), (1750, F, 48)]), str(ch))
+after = dos_reqs(ev[cut:])
+check('DOS score-screen Champion extra: force(14) and force(7); the ending cues 1738 / 1739 / 1768 / 1769 make no request', [(r[1], r[2]) for r in after if r[2] in (14, 7)] == [(F, 14), (F, 7)], str(after))
+ev = ending_run(0, 'decide lose')
+allr = dos_reqs(ev)
+i17 = next((i for i, r in enumerate(allr) if r[1] == 'PLAY' and r[2] == 17), 0)
+ls = [r for r in allr[i17:] if r[2] in (17, 11, 20, 49)]       # from the timeline's start (a thud, song 20, comes earlier from the trap-door cue)
+lose_ok = timeline_ok(ls, [(0, P, 17), (60, F, 11), (180, F, 20), (300, F, 49)]) and not any(' DOS FORCE 17 ' in l or ('SFX 1762' in l and False) for l in ev)
+check('DOS lose timeline: play 17 +0, force 11 +60, 20 +180, 49 +300 ticks; no request from 1760 / 1762 or from MIDNITE afterwards', lose_ok, str(ls))
+ev = ending_run(0, 'midnight', 2)
+md = [r for r in dos_reqs(ev) if r[2] == 49]
+check('DOS midnight (clock ran out): ten plain play(49) requests 100 ticks apart', timeline_ok(md, [(100 * i, P, 49) for i in range(10)]), str(md))
 sys.exit(1 if fails else 0)

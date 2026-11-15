@@ -318,6 +318,8 @@ static int exec_head(void) {
         int n = (cq_t + 1) % 16;
         if (n != cq_h) { cq_x[cq_t] = x; cq_y[cq_t] = y; cq_t = n; }
     } else if (!strcasecmp(a, "close")) plat_menu_request(MR_CLOSE, 0);          /* the window close box */
+    else if (!strcasecmp(a, "decide")) kq_push(!strcasecmp(b, "lose") ? 0x5002 : 0x5001);   /* conformance: the Decide ending, right (win) or wrong (lose) room, without the decoder */
+    else if (!strcasecmp(a, "midnight")) kq_push(0x5003);                         /* conformance: the clock runs out (Out of Time) */
     else if (!strcasecmp(a, "menu")) plat_menu_request(MR_COMMAND, atoi(b));   /* menu command id (500..1500) */
     else if (!strcasecmp(a, "drop")) {
         const char *rest = t + 4;

@@ -273,11 +273,12 @@ void ao_set_fps(AO *ao, int fps) {
     ao->period = 100 / fps;
     if (ao->period < 1) ao->period = 1;
 }
-void ao_stop(AO *ao) { ao->state = AO_STOPPED; ao_erase(ao); }
-void ao_hide(AO *ao) { ao->hidden = 1; ao_erase(ao); }
-void ao_show(AO *ao) { ao->hidden = 0; }
-void ao_pause(AO *ao) { ao->state = AO_PAUSED; }
-void ao_resume(AO *ao) { if (ao->state == AO_PAUSED) ao->state = AO_RUNNING; }
+/* a missing resource gives a NULL AO (the engine then runs the sequence without it): these accept it */
+void ao_stop(AO *ao) { if (!ao) return; ao->state = AO_STOPPED; ao_erase(ao); }
+void ao_hide(AO *ao) { if (!ao) return; ao->hidden = 1; ao_erase(ao); }
+void ao_show(AO *ao) { if (!ao) return; ao->hidden = 0; }
+void ao_pause(AO *ao) { if (!ao) return; ao->state = AO_PAUSED; }
+void ao_resume(AO *ao) { if (ao && ao->state == AO_PAUSED) ao->state = AO_RUNNING; }
 
 void eng_stamp_cel(Aseq *as, int cel, int x, int y, int into_back) {
     const Cel *c = aseq_cel(as, cel);

@@ -17,6 +17,9 @@ void snd_play(int id, int prio, int flags);   /* flags bit0: loop; bit1: restart
 void snd_stop(int id);
 void snd_stop_all(void);                      /* all SFX channels and speech */
 void snd_stop_all_keep_ride(void);            /* ... but the DOS elevator ride song keeps playing (the ride's arrival, 12 section 5.6) */
+int snd_timeline_begin(int kind);             /* a DOS ending timeline (TL_*, dosint.h); 0 when the DOS driver is not in use */
+int snd_timeline_active(void);
+void snd_zap_lit_telly(void);                 /* DOS: the zap that hits a lit Telly, force(16), after the Windows stop-all */
 void snd_elevator_ride(int up);               /* DOS effect style: the ride song 22 (up) / 21 (down), once, after the departure doors have closed */
 int snd_playing(int id);
 void speech_play(int id);

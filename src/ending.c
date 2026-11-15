@@ -50,6 +50,11 @@ static void wait_clips(AO **aos, int n) {
 static void wait_clip(AO *a) { AO *l[1] = {a}; wait_clips(l, 1); }
 static void wait_units(int n) { int cs = dly(n); for (int i = 0; i < cs; i++) { tick_aos(); plat_wait(1); } if (cs <= 0) tick_aos(); }
 
+/* the DOS ending timeline is still running: the last animation frame stays (capped, 12 section 5.5) */
+static void wait_timeline(void) {
+    for (int64_t w0 = plat_now(); snd_timeline_active() && plat_now() - w0 < 1500;) plat_wait(1);
+}
+
 static AO *mkao(int aseq, int x, int y, int z) {
     AO *a = ao_create(aseq);
     if (!a) return NULL;
@@ -98,17 +103,21 @@ static void score_add(int n) {
 }
 
 /* ---------------------------------------------------------------- midnight */
+static int midnight_after_loss;
 void midnight_sequence(void) {
     g_menu_grey = 1;                 /* the flashes: every item greyed, and the clock box is finished */
     g_clock_box_live = 0;
     music_stop();
-    music_play(1735, 0);
+    int dos = dosint_music_dos();
+    if (!dos) music_play(1735, 0);
+    else if (!midnight_after_loss) snd_timeline_begin(TL_MIDNIGHT);     /* DOS: ten plain play(49) requests, 100 ticks apart (12 section 5.5) */
     for (int i = 0; i < 10; i++) {
         ui_stamp(aseq_load(200), (i & 1) ? 75 : 74, 402, 304, 0);
         plat_present();
         plat_wait(dly(200));
     }
-    music_wait();
+    if (dos) wait_timeline();         /* DOS: the MIDNITE wait ends when the requests are done and song 49 has ended */
+    else music_wait();
 }
 
 void continue_prompt(int x, int y) {
@@ -322,12 +331,12 @@ static void score_screen(void) {
         for (int rep = 0; rep < 2; rep++)
             for (int c = 6; c <= 8; c++) { ui_stamp(a225, c, cx[c - 6], 0, 0); plat_present(); plat_wait(dly(30)); }
         ui_stamp(a225, 9, 243, 0, 0); plat_present(); plat_wait(dly(30));
-        snd_play(1727, 3, 0);
+        snd_play_ctx(1727, 3, 0, SC_SCORE);                  /* DOS: the score-screen Champion extra, force(14) */
         ui_stamp(a225, 10, 243, 2, 0); plat_present(); plat_wait(dly(30));
         for (int c = 11; c <= 13; c++) { ui_stamp(a225, c, 128, 2, 0); plat_present(); plat_wait(dly(30)); }
         ui_stamp(a225, 14, 128, 0, 0); plat_present(); plat_wait(dly(30));
         ui_stamp(a225, 15, 128, 0, 0); plat_present();
-        snd_play(1739, 2, 0);
+        snd_play_ctx(1739, 2, 0, SC_SCORE);                  /* DOS: force(7) */
     }
 }
 
@@ -379,10 +388,10 @@ void ending_decide(int room) {
         /* 2.2 */
         eseq_seq(mom, 2);
         wait_clip(mom);
-        mom->use_viewport = 1;
+        if (mom) mom->use_viewport = 1;
         eseq_seq(mom, 1);
         wait_clip(mom);
-        mom->use_viewport = 0;
+        if (mom) mom->use_viewport = 0;
         int m = rnga_scaled(8);
         if (!ses.voice) {
             ui_stamp(aset, 27, 307, 48, 0);
@@ -415,12 +424,13 @@ void ending_decide(int room) {
         AO *plz = pl;      /* the hall player is one AO for the whole ending */
         if (life < 500000) {
             AO *both[2] = {plz, mom};
-            dosint_award_begin();                   /* DOS effect style: the DOS award timeline starts with the player's zap */
+            snd_timeline_begin(TL_AWARD);           /* DOS effect style: the DOS award timeline starts with the player's zap */
             startao(plz, -4);
             startao(mom, -4);
             wait_clips(both, 2);
-            for (int64_t w0 = plat_now(); dosint_award_active() && plat_now() - w0 < 1500;) plat_wait(1);   /* the last award frame stays until the DOS timeline is done (capped) */
+            wait_timeline();                        /* the last award frame stays until the DOS timeline is done (capped) */
         } else {
+            snd_timeline_begin(TL_CHAMPION);        /* DOS effect style: the DOS Champion timeline starts when the player aims */
             startao(plz, -2);
             wait_clip(plz);
             startao(mom, -8);
@@ -429,6 +439,7 @@ void ending_decide(int room) {
             wait_clip(plz);
             startao(mom, -10);
             wait_clip(mom);
+            wait_timeline();                        /* the victory step waits for the DOS Champion timeline */
         }
         music_play(1757, 0);
         startao(plz, -3);
@@ -439,6 +450,7 @@ void ending_decide(int room) {
         /* 2.3 */
         snd_stop_all();
         AO *plz = pl;      /* the hall player is one AO for the whole ending */
+        snd_timeline_begin(TL_LOSE);                /* DOS effect style: the DOS lose timeline starts with the lightning clip (cues 1762 / 1760 make no request) */
         startao(plz, -6);
         startao(mom, -2);
         AO *both[2] = {plz, mom};
@@ -451,6 +463,7 @@ void ending_decide(int room) {
             plat_present();
         } else {
             snd_wait(1760);
+            wait_timeline();                        /* DOS: the wait ends when the lose timeline is finished */
             speech_play(1854 + g);
             speech_wait();
         }
@@ -468,7 +481,9 @@ void ending_decide(int room) {
         gs.score = 0;
         hud_score();
         snd_play(1747, 2, 0);
+        midnight_after_loss = 1;                    /* MIDNITE makes no DOS request after a wrong decision */
         midnight_sequence();
+        midnight_after_loss = 0;
     }
     /* clean up */
     ao_destroy(mom);
