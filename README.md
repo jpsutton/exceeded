@@ -1,14 +1,16 @@
 # Exceeded
 
-A modern, open-source player for **Super Solvers: OutNumbered!** (the 1995 Windows version), the math-adventure game where you chase the
-Master of Mischief through his hideout, solving math problems to collect clues.
+Exceeded is a **clean-room reimplementation of a game engine**: a new program, written from scratch, that can run the 1995 Windows
+edutainment game *Super Solvers: OutNumbered!* on modern computers.
 
-Exceeded is a new game engine written from scratch. It does **not** include the game itself. You need your own copy of the game
-(the Windows CD) to play.
+"Clean room" means the engine was written from a written description of how the original behaves, by people who never saw the original
+program's code. Nothing from the original program was copied.
+
+Exceeded does **not** include the game. It reads the game's data from your own copy, so you need that copy to play.
 
 ## What you need
 
-* **Your copy of the game.** The Windows CD, as a disc image (`.iso`, `.bin` + `.cue`) or a folder with the CD's contents.
+* **Your own copy of the game.** The Windows CD of *Super Solvers: OutNumbered!*, as a disc image (`.iso`, `.bin` + `.cue`) or a folder with the CD's contents.
 * *(Optional)* The MS-DOS version of the game. If you add it, you can switch the music and sound effects to the original Tandy or
   PC-speaker sound in **Audio Options**.
 * A Linux computer. (This is the only system it has been built and tested on so far.)
@@ -73,9 +75,9 @@ which is included in the `soundfont/` folder (its license is in `soundfont/LICEN
 
 ## Good to know
 
-* This is an unofficial fan project. It is not made by, or connected to, the original publisher or developers.
+* Exceeded is an independent project. It is not made by, or connected to, the original publisher or developers.
 * No game files (art, sound, music, text) are included or distributed here. You supply your own copy.
-* Found a bug, or something that doesn't behave like the original? Please open an issue.
+* Found a bug, or something that doesn't behave like the original game? Please open an issue.
 
 ## For developers
 
