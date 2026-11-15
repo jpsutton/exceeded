@@ -13,7 +13,7 @@ Exceeded does **not** include the game. It reads the game's data from your own c
 * **Your own copy of the game.** The Windows CD of *Super Solvers: OutNumbered!*, as a disc image (`.iso`, `.bin` + `.cue`) or a folder with the CD's contents.
 * *(Optional)* The MS-DOS version of the game. If you add it, you can switch the music and sound effects to the original Tandy or
   PC-speaker sound in **Audio Options**.
-* A Linux computer, or a Mac with Apple silicon. (Linux is where it has been built and tested the most; the Mac build is best effort.)
+* A computer running Linux, Windows 10 or 11 (64-bit), or macOS on Apple silicon. (Linux is where it has been used the most; the Windows and Mac builds are best effort.)
 
 ## Install
 
@@ -47,9 +47,20 @@ If you download the `.dmg` in a browser instead, macOS says Apple could not veri
 xattr -dr com.apple.quarantine /Applications/Exceeded.app
 ```
 
+### Windows
+
+Windows 10 or 11, 64-bit. The build is best effort and isn't signed, so Windows shows a warning the first time you run it.
+
+1. Download `exceeded-<version>-windows-x64.zip` from the [Releases page](https://github.com/jpsutton/exceeded/releases/latest) and unzip it anywhere.
+2. Run `exceeded.exe`.
+3. If Windows SmartScreen says it protected your PC, click **More info**, then **Run anyway**.
+
+To update, download the new zip and unzip it over the old folder. Your players and settings are kept elsewhere (see below), so nothing is lost.
+
 ### Build it yourself
 
 You need a C compiler and these development packages: SDL2, FluidSynth, zlib and pkg-config.
+On Windows, use an [MSYS2](https://www.msys2.org/) UCRT64 shell and `scripts/ci/build-windows.sh`, which also makes the `.zip`.
 On Debian or Ubuntu:
 
 ```sh
@@ -92,7 +103,7 @@ To start in full screen, run it with `--fullscreen`.
 
 ## Where your players and settings live
 
-Everything is stored in your own folder, by default `~/.local/share/outnumbered`:
+Everything is stored in your own folder: `~/.local/share/outnumbered` on Linux, `~/Library/Application Support/OutNumbered` on macOS and `%LOCALAPPDATA%\OutNumbered` on Windows. It holds:
 
 * `game/` holds the installed game files
 * `dos/` holds the DOS files, if you added them

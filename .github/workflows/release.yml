@@ -1,8 +1,8 @@
 # Build and publish a release whenever the release branch moves (a merge from staging).
 # Nothing else builds: pull requests and merges into staging run no workflow at all.
 #
-# The Arch Linux package is required for a release. The macOS build is best effort (unsigned by
-# Apple): a release ships it if it built. Every asset is signed with EXCEEDED_GPG_KEY, the release
+# The Arch Linux package is required for a release. The macOS and Windows builds are best effort
+# (unsigned): a release ships them if they built. Every asset is signed with EXCEEDED_GPG_KEY, the release
 # is tagged v<version> (the version in src/setup.h), and jpsutton/arch-repo is told to pick up the
 # new Arch package.
 name: release
@@ -79,10 +79,41 @@ jobs:
           retention-days: 7
           compression-level: 0
 
+  windows:
+    name: Build (Windows, MSYS2 UCRT64)
+    needs: [version]
+    runs-on: windows-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: false
+          install: >-
+            make zip
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-pkgconf
+            mingw-w64-ucrt-x86_64-SDL2
+            mingw-w64-ucrt-x86_64-fluidsynth
+            mingw-w64-ucrt-x86_64-zlib
+      - name: Build the .zip
+        run: scripts/ci/build-windows.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: exceeded-windows
+          path: out/*.zip
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
   publish:
     name: Publish GitHub release
-    needs: [version, arch, macos]
-    # The macOS build may fail without blocking the release.
+    needs: [version, arch, macos, windows]
+    # The macOS and Windows builds may fail without blocking the release.
     if: ${{ !cancelled() && needs.arch.result == 'success' }}
     runs-on: ubuntu-latest
     env:
@@ -97,9 +128,12 @@ jobs:
 
       - name: What was built
         run: |
-          if [ "${{ needs.macos.result }}" != success ]; then
-            echo "::warning::the macOS build did not finish; releasing without it"
-          fi
+          for job in macos windows; do
+            result=$(echo '${{ toJSON(needs) }}' | jq -r ".$job.result")
+            if [ "$result" != success ]; then
+              echo "::warning::the $job build did not finish; releasing without it"
+            fi
+          done
           ls -la dist
 
       # Detached signatures for every asset, SHA256SUMS and its signature, and the public key. The
