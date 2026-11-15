@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include "vfs.h"
 
-#define ENGINE_VERSION "1.15.2"
+#define ENGINE_VERSION "1.15.3"
 
 typedef struct SFile { char path[512]; uint64_t size; uint32_t crc; } SFile;   /* path relative to the base: game/MIDI/B00.MID */
 typedef struct SPart {
