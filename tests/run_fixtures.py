@@ -2,7 +2,7 @@
 """Compare engine conformance output with spec/fixtures. Usage: tests/run_fixtures.py"""
 import json, subprocess, sys, os, tempfile, zlib, struct
 here = os.path.dirname(os.path.abspath(__file__))
-eng = os.path.join(here, '..', 'engine')
+eng = os.path.join(here, '..', 'engine' + ('.exe' if os.name == 'nt' or sys.platform in ('msys', 'cygwin') else ''))
 spec = next(p for p in (os.path.join(here, '..', 'spec'), os.path.join(here, '..', '..', 'spec')) if os.path.isdir(p))   # repo root, or the engine folder beside spec/
 fx = os.path.join(spec, 'fixtures')
 tmp = tempfile.mkdtemp()
