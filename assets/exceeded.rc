@@ -1,0 +1,2 @@
+/* the program's icon on Windows (Explorer, taskbar, shortcuts) */
+1 ICON "assets/exceeded.ico"
