@@ -428,4 +428,20 @@ if ok:
     ok = ok and not any(closes[0] <= x <= closes[1] or closes[2] <= x <= closes[3] for x in stops)   # the arrival's stop-all and close do not cut it
 check('DOS elevator ride: ride song once per ride (22 up, 21 down) after the departure close; arrival close silent, nothing stops it', ok, str((opens, closes, p22, p21, stops)))
 shutil.rmtree(t, ignore_errors=True)
+
+# ---------------------------------------------------------------- style options: --name=V and --name V, bad values are errors (12 section 1.2)
+t = tempfile.mkdtemp()
+sp = os.path.join(t, 's.txt')
+open(sp, 'w').write('seed time 1\nsignin TEST\nwait 20\nstate s1\n')
+def styles(*opts):
+    o = os.path.join(t, 'o_' + str(abs(hash(opts))))
+    r = subprocess.run([eng, '--data', mock, '--dos-game', os.path.join(dx, 'game'), *opts, '--conform', 'play', sp, '--out', o], capture_output=True, text=True, timeout=120)
+    a = json.load(open(os.path.join(o, 's1.json')))['audio'] if os.path.exists(os.path.join(o, 's1.json')) else {}
+    return r, a.get('music_style'), a.get('sfx_style')
+r1, m1, e1 = styles('--music-style=tandy', '--sfx-style=speaker')
+r2, m2, e2 = styles('--music-style', 'tandy', '--sfx-style', 'speaker')
+r3, m3, e3 = styles('--dos-audio', 'speaker')
+r4, m4, e4 = styles('--music-style', 'bogus')
+check('style options: "=" and space forms are the same; a bad value is an error', (m1, e1) == ('tandy', 'speaker') and (m2, e2) == ('tandy', 'speaker') and (m3, e3) == ('speaker', 'speaker') and r4.returncode == 1 and 'expected windows, tandy or speaker' in r4.stderr, str((m1, e1, m2, e2, m3, e3, r4.returncode, r4.stderr)))
+shutil.rmtree(t, ignore_errors=True)
 sys.exit(1 if fails else 0)

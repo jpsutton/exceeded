@@ -13,6 +13,24 @@ const char *g_opt_soundfont;
 const char *g_opt_wav[64][2];
 int g_opt_nwav;   /* command-line audio options (spec 12 section 1.2) */
 
+/* --name=VALUE or --name VALUE (like --dos-game): the number of argv entries used, 0 if argv[i] is not this option. The value must be a
+ * style; anything else is an error, not silently ignored. */
+static int style_option(int argc, char **argv, int i, const char *name, const char **dst, int apply) {
+    size_t n = strlen(name);
+    const char *v = NULL;
+    int used = 0;
+    if (!strncmp(argv[i], name, n) && argv[i][n] == '=') { v = argv[i] + n + 1; used = 1; }
+    else if (!strcmp(argv[i], name) && i + 1 < argc) { v = argv[i + 1]; used = 2; }
+    else if (!strcmp(argv[i], name)) { fprintf(stderr, "engine: %s needs a value: windows, tandy or speaker.\n", name); exit(1); }
+    if (!used) return 0;
+    if (strcasecmp(v, "windows") && strcasecmp(v, "tandy") && strcasecmp(v, "speaker")) {
+        if (apply) { fprintf(stderr, "engine: %s: expected windows, tandy or speaker (got '%s').\n", name, v); exit(1); }
+        return used;
+    }
+    if (apply) *dst = v;
+    return used;
+}
+
 /* returns the number of argv entries used (0 = not an audio / setup option) */
 static int audio_option(int argc, char **argv, int i, int apply) {
     if (!strcmp(argv[i], "--soundfont") && i + 1 < argc) { if (apply) { g_opt_soundfont = argv[i + 1]; } return 2; }
@@ -26,9 +44,9 @@ static int audio_option(int argc, char **argv, int i, int apply) {
     if (!strcmp(argv[i], "--setup")) { if (apply) { g_opts.setup = 1; } return 1; }
     if (!strcmp(argv[i], "--verify-install")) { if (apply) { g_opts.verify = 1; } return 1; }
     if (!strcmp(argv[i], "--dos-game") && i + 1 < argc) { if (apply) { g_opt_dos_game = argv[i + 1]; } return 2; }
-    if (!strncmp(argv[i], "--dos-audio=", 12)) { if (apply) { g_opt_dos_audio = argv[i] + 12; } return 1; }
-    if (!strncmp(argv[i], "--music-style=", 14)) { if (apply) { g_opt_music_style = argv[i] + 14; } return 1; }
-    if (!strncmp(argv[i], "--sfx-style=", 12)) { if (apply) { g_opt_sfx_style = argv[i] + 12; } return 1; }
+    { int u = style_option(argc, argv, i, "--dos-audio", &g_opt_dos_audio, apply); if (u) return u; }
+    { int u = style_option(argc, argv, i, "--music-style", &g_opt_music_style, apply); if (u) return u; }
+    { int u = style_option(argc, argv, i, "--sfx-style", &g_opt_sfx_style, apply); if (u) return u; }
     return 0;
 }
 
