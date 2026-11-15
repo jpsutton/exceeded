@@ -47,6 +47,7 @@ dist: engine
 install: engine
 	install -Dm755 engine $(DESTDIR)$(PREFIX)/bin/exceeded
 	install -Dm644 soundfont/GeneralUser-GS.sf2 $(DESTDIR)$(PREFIX)/share/exceeded/soundfont/GeneralUser-GS.sf2
+	install -Dm644 LICENSE $(DESTDIR)$(PREFIX)/share/licenses/exceeded/LICENSE
 	install -Dm644 soundfont/LICENSE.txt $(DESTDIR)$(PREFIX)/share/licenses/exceeded/GeneralUser-GS-LICENSE.txt
 	install -Dm644 packaging/linux/exceeded.desktop $(DESTDIR)$(PREFIX)/share/applications/exceeded.desktop
 

@@ -6,8 +6,8 @@ pkgrel=1
 pkgdesc="Clean-room engine that plays Super Solvers: OutNumbered! from your own copy of the game"
 arch=(x86_64 aarch64)
 url="https://github.com/jpsutton/exceeded"
-# No license has been chosen for the project yet; the bundled SoundFont is under its own (see licenses/).
-license=(custom)
+# The bundled SoundFont is under its own license (see /usr/share/licenses/exceeded/).
+license=(GPL-3.0-only)
 depends=(sdl2 fluidsynth zlib)
 makedepends=(gcc make pkgconf)
 options=(!debug)

@@ -17,6 +17,7 @@ rm -rf out
 mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources" "$app/Contents/Frameworks"
 cp engine "$app/Contents/MacOS/exceeded"
 cp -R soundfont "$app/Contents/Resources/"
+cp LICENSE "$app/Contents/Resources/"
 cat > "$app/Contents/Info.plist" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">

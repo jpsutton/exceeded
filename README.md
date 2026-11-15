@@ -107,6 +107,10 @@ Music is played through FluidSynth using the free [GeneralUser GS](https://www.s
 which is included in the `soundfont/` folder (its license is in `soundfont/LICENSE.txt`). If you prefer another SoundFont, start with
 `--soundfont /path/to/file.sf2`.
 
+## License
+
+Exceeded is free software under the [GNU General Public License, version 3](LICENSE). The bundled SoundFont has its own license (`soundfont/LICENSE.txt`). The game's own files are not part of this project and are not covered by it.
+
 ## Good to know
 
 * Exceeded is an independent project. It is not made by, or connected to, the original publisher or developers.
