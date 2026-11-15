@@ -17,12 +17,13 @@ jobs:
           msystem: UCRT64
           update: false
           install: >-
-            make zip python
+            make zip
             mingw-w64-ucrt-x86_64-gcc
             mingw-w64-ucrt-x86_64-pkgconf
             mingw-w64-ucrt-x86_64-SDL2
             mingw-w64-ucrt-x86_64-fluidsynth
             mingw-w64-ucrt-x86_64-zlib
+            mingw-w64-ucrt-x86_64-python
       - name: Build the .zip
         run: scripts/ci/build-windows.sh
       - name: Conformance fixtures
