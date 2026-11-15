@@ -4,7 +4,7 @@ logic can be smoke-tested without the original game files. Usage: tests/mkdata.p
 import struct, sys, os, re
 
 here = os.path.dirname(os.path.abspath(__file__))
-spec = os.path.join(here, '..', '..', 'spec')
+spec = next(p for p in (os.path.join(here, '..', 'spec'), os.path.join(here, '..', '..', 'spec')) if os.path.isdir(p))   # repo root, or the engine folder beside spec/
 
 def ne_file(resources, shift=9):
     """resources: list of (type_id_with_bit15, id, bytes). Returns file bytes."""

@@ -1,0 +1,394 @@
+{
+ "format": 2,
+ "engine": "fixture",
+ "installed_utc": "2026-11-14T12:00:00Z",
+ "game": {
+  "source": "fixture:containers/folder_data",
+  "source_kind": "folder",
+  "folder": "SSOWINCD",
+  "files": [
+   {
+    "path": "game/MIDI/B00.MID",
+    "size": 35,
+    "crc32": "42e62ded"
+   },
+   {
+    "path": "game/MIDI/B01.MID",
+    "size": 35,
+    "crc32": "48342188"
+   },
+   {
+    "path": "game/MIDI/B02.MID",
+    "size": 35,
+    "crc32": "068a2b2a"
+   },
+   {
+    "path": "game/MIDI/B03.MID",
+    "size": 35,
+    "crc32": "0c58274f"
+   },
+   {
+    "path": "game/MIDI/B04.MID",
+    "size": 35,
+    "crc32": "132e33e0"
+   },
+   {
+    "path": "game/MIDI/B05.MID",
+    "size": 35,
+    "crc32": "19fc3f85"
+   },
+   {
+    "path": "game/MIDI/B06.MID",
+    "size": 35,
+    "crc32": "2dc21abe"
+   },
+   {
+    "path": "game/MIDI/B07.MID",
+    "size": 35,
+    "crc32": "271016db"
+   },
+   {
+    "path": "game/MIDI/B08.MID",
+    "size": 35,
+    "crc32": "38660274"
+   },
+   {
+    "path": "game/MIDI/B09.MID",
+    "size": 35,
+    "crc32": "32b40e11"
+   },
+   {
+    "path": "game/MIDI/B10.MID",
+    "size": 35,
+    "crc32": "501a4802"
+   },
+   {
+    "path": "game/MIDI/B11.MID",
+    "size": 35,
+    "crc32": "5ac84467"
+   },
+   {
+    "path": "game/MIDI/B12.MID",
+    "size": 35,
+    "crc32": "45be50c8"
+   },
+   {
+    "path": "game/MIDI/B13.MID",
+    "size": 35,
+    "crc32": "4f6c5cad"
+   },
+   {
+    "path": "game/MIDI/B14.MID",
+    "size": 35,
+    "crc32": "7b527996"
+   },
+   {
+    "path": "game/MIDI/B15.MID",
+    "size": 35,
+    "crc32": "718075f3"
+   },
+   {
+    "path": "game/MIDI/B16.MID",
+    "size": 35,
+    "crc32": "6ef6615c"
+   },
+   {
+    "path": "game/MIDI/B17.MID",
+    "size": 35,
+    "crc32": "64246d39"
+   },
+   {
+    "path": "game/MIDI/B18.MID",
+    "size": 35,
+    "crc32": "abaaed7a"
+   },
+   {
+    "path": "game/MIDI/B19.MID",
+    "size": 35,
+    "crc32": "a178e11f"
+   },
+   {
+    "path": "game/MIDI/B20.MID",
+    "size": 35,
+    "crc32": "be0ef5b0"
+   },
+   {
+    "path": "game/MIDI/B21.MID",
+    "size": 35,
+    "crc32": "b4dcf9d5"
+   },
+   {
+    "path": "game/MIDI/B22.MID",
+    "size": 35,
+    "crc32": "80e2dcee"
+   },
+   {
+    "path": "game/MIDI/B23.MID",
+    "size": 35,
+    "crc32": "8a30d08b"
+   },
+   {
+    "path": "game/MIDI/B24.MID",
+    "size": 35,
+    "crc32": "9546c424"
+   },
+   {
+    "path": "game/MIDI/B25.MID",
+    "size": 35,
+    "crc32": "9f94c841"
+   },
+   {
+    "path": "game/MIDI/B26.MID",
+    "size": 35,
+    "crc32": "fd3a8e52"
+   },
+   {
+    "path": "game/MIDI/B27.MID",
+    "size": 35,
+    "crc32": "f7e88237"
+   },
+   {
+    "path": "game/MIDI/B28.MID",
+    "size": 35,
+    "crc32": "e89e9698"
+   },
+   {
+    "path": "game/MIDI/B29.MID",
+    "size": 35,
+    "crc32": "e24c9afd"
+   },
+   {
+    "path": "game/MIDI/B30.MID",
+    "size": 35,
+    "crc32": "d672bfc6"
+   },
+   {
+    "path": "game/MIDI/B31.MID",
+    "size": 35,
+    "crc32": "dca0b3a3"
+   },
+   {
+    "path": "game/MIDI/E00.MID",
+    "size": 35,
+    "crc32": "d672bfc6"
+   },
+   {
+    "path": "game/MIDI/E01.MID",
+    "size": 35,
+    "crc32": "dca0b3a3"
+   },
+   {
+    "path": "game/MIDI/E02.MID",
+    "size": 35,
+    "crc32": "c3d6a70c"
+   },
+   {
+    "path": "game/MIDI/E03.MID",
+    "size": 35,
+    "crc32": "c904ab69"
+   },
+   {
+    "path": "game/MIDI/E04.MID",
+    "size": 35,
+    "crc32": "5eaab248"
+   },
+   {
+    "path": "game/MIDI/E05.MID",
+    "size": 35,
+    "crc32": "5478be2d"
+   },
+   {
+    "path": "game/MIDI/E06.MID",
+    "size": 35,
+    "crc32": "4b0eaa82"
+   },
+   {
+    "path": "game/MIDI/E07.MID",
+    "size": 35,
+    "crc32": "41dca6e7"
+   },
+   {
+    "path": "game/MIDI/E08.MID",
+    "size": 35,
+    "crc32": "75e283dc"
+   },
+   {
+    "path": "game/MIDI/E09.MID",
+    "size": 35,
+    "crc32": "7f308fb9"
+   },
+   {
+    "path": "game/MIDI/E10.MID",
+    "size": 35,
+    "crc32": "60469b16"
+   },
+   {
+    "path": "game/MIDI/E11.MID",
+    "size": 35,
+    "crc32": "6a949773"
+   },
+   {
+    "path": "game/MIDI/E12.MID",
+    "size": 35,
+    "crc32": "083ad160"
+   },
+   {
+    "path": "game/MIDI/E13.MID",
+    "size": 35,
+    "crc32": "02e8dd05"
+   },
+   {
+    "path": "game/MIDI/E14.MID",
+    "size": 35,
+    "crc32": "1d9ec9aa"
+   },
+   {
+    "path": "game/MIDI/E15.MID",
+    "size": 35,
+    "crc32": "174cc5cf"
+   },
+   {
+    "path": "game/MIDI/E16.MID",
+    "size": 35,
+    "crc32": "2372e0f4"
+   },
+   {
+    "path": "game/MIDI/E17.MID",
+    "size": 35,
+    "crc32": "29a0ec91"
+   },
+   {
+    "path": "game/MIDI/E18.MID",
+    "size": 35,
+    "crc32": "36d6f83e"
+   },
+   {
+    "path": "game/MIDI/E19.MID",
+    "size": 35,
+    "crc32": "3c04f45b"
+   },
+   {
+    "path": "game/MIDI/E20.MID",
+    "size": 35,
+    "crc32": "f38a7418"
+   },
+   {
+    "path": "game/MIDI/E21.MID",
+    "size": 35,
+    "crc32": "f958787d"
+   },
+   {
+    "path": "game/MIDI/E22.MID",
+    "size": 35,
+    "crc32": "e62e6cd2"
+   },
+   {
+    "path": "game/MIDI/E23.MID",
+    "size": 35,
+    "crc32": "ecfc60b7"
+   },
+   {
+    "path": "game/MIDI/E24.MID",
+    "size": 35,
+    "crc32": "d8c2458c"
+   },
+   {
+    "path": "game/MIDI/E25.MID",
+    "size": 35,
+    "crc32": "d21049e9"
+   },
+   {
+    "path": "game/MIDI/E26.MID",
+    "size": 35,
+    "crc32": "cd665d46"
+   },
+   {
+    "path": "game/MIDI/E27.MID",
+    "size": 35,
+    "crc32": "c7b45123"
+   },
+   {
+    "path": "game/MIDI/E28.MID",
+    "size": 35,
+    "crc32": "a51a1730"
+   },
+   {
+    "path": "game/MIDI/E29.MID",
+    "size": 35,
+    "crc32": "afc81b55"
+   },
+   {
+    "path": "game/MIDI/E30.MID",
+    "size": 35,
+    "crc32": "b0be0ffa"
+   },
+   {
+    "path": "game/MIDI/E31.MID",
+    "size": 35,
+    "crc32": "ba6c039f"
+   },
+   {
+    "path": "game/SND.DAT",
+    "size": 32,
+    "crc32": "da249f2e"
+   },
+   {
+    "path": "game/SPEECH.DAT",
+    "size": 6000,
+    "crc32": "8ec07fcb"
+   },
+   {
+    "path": "game/SSO.FON",
+    "size": 32,
+    "crc32": "b433eddb"
+   },
+   {
+    "path": "game/SSO1.DAT",
+    "size": 3552,
+    "crc32": "fc7bc5e1"
+   },
+   {
+    "path": "game/SSO2.DAT",
+    "size": 33,
+    "crc32": "6424e710"
+   },
+   {
+    "path": "game/SSO3.DAT",
+    "size": 33,
+    "crc32": "c253eca4"
+   },
+   {
+    "path": "game/SSOWINCD.DAT",
+    "size": 18140,
+    "crc32": "1bc15c83"
+   },
+   {
+    "path": "game/SSOWINCD.EXE",
+    "size": 54,
+    "crc32": "71bb7627"
+   },
+   {
+    "path": "game/SSOWINCD.INI",
+    "size": 41,
+    "crc32": "ad9053e7"
+   }
+  ]
+ },
+ "dos": {
+  "source": "fixture:dos/game",
+  "source_kind": "folder",
+  "folder": "",
+  "files": [
+   {
+    "path": "dos/MOCKET.DAT",
+    "size": 1097,
+    "crc32": "0729666c"
+   },
+   {
+    "path": "dos/SSO.EXE",
+    "size": 1474,
+    "crc32": "d02f4d0d"
+   }
+  ]
+ }
+}

@@ -7,7 +7,10 @@
 #include <strings.h>
 #include <unistd.h>
 #include <stdint.h>
-#ifdef __APPLE__
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#elif defined(__APPLE__)
 #include <mach-o/dyld.h>
 #include <limits.h>
 #endif
@@ -17,7 +20,13 @@ static int file_ok(const char *p) { return p && *p && access(p, R_OK) == 0; }
 /* the folder of the running program ("" when unknown) */
 static int exe_dir(char *out, size_t n) {
     char exe[1024];
-#ifdef __APPLE__
+#ifdef _WIN32
+    wchar_t wexe[1024];
+    DWORD wl = GetModuleFileNameW(NULL, wexe, 1024);
+    if (wl == 0 || wl >= 1024) return 0;
+    if (WideCharToMultiByte(CP_UTF8, 0, wexe, -1, exe, (int)sizeof exe, NULL, NULL) <= 0) return 0;
+    for (char *c = exe; *c; c++) if (*c == '\\') *c = '/';
+#elif defined(__APPLE__)
     uint32_t sz = sizeof exe;
     char raw[1024];
     if (_NSGetExecutablePath(raw, &sz) != 0 || !realpath(raw, exe)) return 0;

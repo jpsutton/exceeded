@@ -1,6 +1,12 @@
 CC ?= gcc
 PREFIX ?= /usr/local
 CFLAGS ?= -O2 -g -Wall -Wextra -Wno-unused-parameter
+# Windows (MSYS2 UCRT64; WIN=1 selects it when cross-compiling): the POSIX calls and headers come from src/compat*
+ifneq ($(filter Windows_NT,$(OS))$(WIN),)
+EXE := .exe
+CFLAGS += -Isrc/compat -include src/compat.h
+endif
+
 SRC := $(wildcard src/*.c)
 OBJ := $(SRC:src/%.c=build/%.o)
 
@@ -24,7 +30,7 @@ LIBS += $(FS_LIBS)
 endif
 endif
 
-engine: $(OBJ)
+engine$(EXE): $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $(OBJ) $(LIBS) $(ZLIB_LIBS) -lpthread -lm
 
 build/%.o: src/%.c $(wildcard src/*.h) | build
@@ -34,17 +40,17 @@ build:
 	mkdir -p build
 
 clean:
-	rm -rf build engine dist
+	rm -rf build engine engine.exe dist
 
 # distribution folder: the program with the bundled SoundFont next to it (soundfont/GeneralUser-GS.sf2 + LICENSE.txt)
-dist: engine
+dist: engine$(EXE)
 	mkdir -p dist/soundfont
-	cp engine dist/engine
+	cp engine$(EXE) dist/
 	cp soundfont/* dist/soundfont/
 	cp README.md dist/
 
 # system install (packages use DESTDIR and PREFIX=/usr): the program is `exceeded`, its SoundFont is found at ../share/exceeded/soundfont
-install: engine
+install: engine$(EXE)
 	install -Dm755 engine $(DESTDIR)$(PREFIX)/bin/exceeded
 	install -Dm644 soundfont/GeneralUser-GS.sf2 $(DESTDIR)$(PREFIX)/share/exceeded/soundfont/GeneralUser-GS.sf2
 	install -Dm644 LICENSE $(DESTDIR)$(PREFIX)/share/licenses/exceeded/LICENSE

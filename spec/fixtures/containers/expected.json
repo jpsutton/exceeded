@@ -1,0 +1,2914 @@
+{
+ "note": "expected --conform list-files output per case; \"message\" texts are free and omitted; compare error codes only",
+ "cases": [
+  {
+   "case": "iso_plain",
+   "path": "data_plain.iso",
+   "role": "data",
+   "note": "primary volume only; game folder SSOWINCD; MIDI directory spans 2 sectors; README.;1",
+   "expected": {
+    "ok": true,
+    "role": "data",
+    "source": "iso2048",
+    "folder": "SSOWINCD",
+    "folders_found": 1,
+    "files": [
+     {
+      "name": "MIDI/B00.MID",
+      "size": 35,
+      "crc32": "42e62ded"
+     },
+     {
+      "name": "MIDI/B01.MID",
+      "size": 35,
+      "crc32": "48342188"
+     },
+     {
+      "name": "MIDI/B02.MID",
+      "size": 35,
+      "crc32": "068a2b2a"
+     },
+     {
+      "name": "MIDI/B03.MID",
+      "size": 35,
+      "crc32": "0c58274f"
+     },
+     {
+      "name": "MIDI/B04.MID",
+      "size": 35,
+      "crc32": "132e33e0"
+     },
+     {
+      "name": "MIDI/B05.MID",
+      "size": 35,
+      "crc32": "19fc3f85"
+     },
+     {
+      "name": "MIDI/B06.MID",
+      "size": 35,
+      "crc32": "2dc21abe"
+     },
+     {
+      "name": "MIDI/B07.MID",
+      "size": 35,
+      "crc32": "271016db"
+     },
+     {
+      "name": "MIDI/B08.MID",
+      "size": 35,
+      "crc32": "38660274"
+     },
+     {
+      "name": "MIDI/B09.MID",
+      "size": 35,
+      "crc32": "32b40e11"
+     },
+     {
+      "name": "MIDI/B10.MID",
+      "size": 35,
+      "crc32": "501a4802"
+     },
+     {
+      "name": "MIDI/B11.MID",
+      "size": 35,
+      "crc32": "5ac84467"
+     },
+     {
+      "name": "MIDI/B12.MID",
+      "size": 35,
+      "crc32": "45be50c8"
+     },
+     {
+      "name": "MIDI/B13.MID",
+      "size": 35,
+      "crc32": "4f6c5cad"
+     },
+     {
+      "name": "MIDI/B14.MID",
+      "size": 35,
+      "crc32": "7b527996"
+     },
+     {
+      "name": "MIDI/B15.MID",
+      "size": 35,
+      "crc32": "718075f3"
+     },
+     {
+      "name": "MIDI/B16.MID",
+      "size": 35,
+      "crc32": "6ef6615c"
+     },
+     {
+      "name": "MIDI/B17.MID",
+      "size": 35,
+      "crc32": "64246d39"
+     },
+     {
+      "name": "MIDI/B18.MID",
+      "size": 35,
+      "crc32": "abaaed7a"
+     },
+     {
+      "name": "MIDI/B19.MID",
+      "size": 35,
+      "crc32": "a178e11f"
+     },
+     {
+      "name": "MIDI/B20.MID",
+      "size": 35,
+      "crc32": "be0ef5b0"
+     },
+     {
+      "name": "MIDI/B21.MID",
+      "size": 35,
+      "crc32": "b4dcf9d5"
+     },
+     {
+      "name": "MIDI/B22.MID",
+      "size": 35,
+      "crc32": "80e2dcee"
+     },
+     {
+      "name": "MIDI/B23.MID",
+      "size": 35,
+      "crc32": "8a30d08b"
+     },
+     {
+      "name": "MIDI/B24.MID",
+      "size": 35,
+      "crc32": "9546c424"
+     },
+     {
+      "name": "MIDI/B25.MID",
+      "size": 35,
+      "crc32": "9f94c841"
+     },
+     {
+      "name": "MIDI/B26.MID",
+      "size": 35,
+      "crc32": "fd3a8e52"
+     },
+     {
+      "name": "MIDI/B27.MID",
+      "size": 35,
+      "crc32": "f7e88237"
+     },
+     {
+      "name": "MIDI/B28.MID",
+      "size": 35,
+      "crc32": "e89e9698"
+     },
+     {
+      "name": "MIDI/B29.MID",
+      "size": 35,
+      "crc32": "e24c9afd"
+     },
+     {
+      "name": "MIDI/B30.MID",
+      "size": 35,
+      "crc32": "d672bfc6"
+     },
+     {
+      "name": "MIDI/B31.MID",
+      "size": 35,
+      "crc32": "dca0b3a3"
+     },
+     {
+      "name": "MIDI/E00.MID",
+      "size": 35,
+      "crc32": "d672bfc6"
+     },
+     {
+      "name": "MIDI/E01.MID",
+      "size": 35,
+      "crc32": "dca0b3a3"
+     },
+     {
+      "name": "MIDI/E02.MID",
+      "size": 35,
+      "crc32": "c3d6a70c"
+     },
+     {
+      "name": "MIDI/E03.MID",
+      "size": 35,
+      "crc32": "c904ab69"
+     },
+     {
+      "name": "MIDI/E04.MID",
+      "size": 35,
+      "crc32": "5eaab248"
+     },
+     {
+      "name": "MIDI/E05.MID",
+      "size": 35,
+      "crc32": "5478be2d"
+     },
+     {
+      "name": "MIDI/E06.MID",
+      "size": 35,
+      "crc32": "4b0eaa82"
+     },
+     {
+      "name": "MIDI/E07.MID",
+      "size": 35,
+      "crc32": "41dca6e7"
+     },
+     {
+      "name": "MIDI/E08.MID",
+      "size": 35,
+      "crc32": "75e283dc"
+     },
+     {
+      "name": "MIDI/E09.MID",
+      "size": 35,
+      "crc32": "7f308fb9"
+     },
+     {
+      "name": "MIDI/E10.MID",
+      "size": 35,
+      "crc32": "60469b16"
+     },
+     {
+      "name": "MIDI/E11.MID",
+      "size": 35,
+      "crc32": "6a949773"
+     },
+     {
+      "name": "MIDI/E12.MID",
+      "size": 35,
+      "crc32": "083ad160"
+     },
+     {
+      "name": "MIDI/E13.MID",
+      "size": 35,
+      "crc32": "02e8dd05"
+     },
+     {
+      "name": "MIDI/E14.MID",
+      "size": 35,
+      "crc32": "1d9ec9aa"
+     },
+     {
+      "name": "MIDI/E15.MID",
+      "size": 35,
+      "crc32": "174cc5cf"
+     },
+     {
+      "name": "MIDI/E16.MID",
+      "size": 35,
+      "crc32": "2372e0f4"
+     },
+     {
+      "name": "MIDI/E17.MID",
+      "size": 35,
+      "crc32": "29a0ec91"
+     },
+     {
+      "name": "MIDI/E18.MID",
+      "size": 35,
+      "crc32": "36d6f83e"
+     },
+     {
+      "name": "MIDI/E19.MID",
+      "size": 35,
+      "crc32": "3c04f45b"
+     },
+     {
+      "name": "MIDI/E20.MID",
+      "size": 35,
+      "crc32": "f38a7418"
+     },
+     {
+      "name": "MIDI/E21.MID",
+      "size": 35,
+      "crc32": "f958787d"
+     },
+     {
+      "name": "MIDI/E22.MID",
+      "size": 35,
+      "crc32": "e62e6cd2"
+     },
+     {
+      "name": "MIDI/E23.MID",
+      "size": 35,
+      "crc32": "ecfc60b7"
+     },
+     {
+      "name": "MIDI/E24.MID",
+      "size": 35,
+      "crc32": "d8c2458c"
+     },
+     {
+      "name": "MIDI/E25.MID",
+      "size": 35,
+      "crc32": "d21049e9"
+     },
+     {
+      "name": "MIDI/E26.MID",
+      "size": 35,
+      "crc32": "cd665d46"
+     },
+     {
+      "name": "MIDI/E27.MID",
+      "size": 35,
+      "crc32": "c7b45123"
+     },
+     {
+      "name": "MIDI/E28.MID",
+      "size": 35,
+      "crc32": "a51a1730"
+     },
+     {
+      "name": "MIDI/E29.MID",
+      "size": 35,
+      "crc32": "afc81b55"
+     },
+     {
+      "name": "MIDI/E30.MID",
+      "size": 35,
+      "crc32": "b0be0ffa"
+     },
+     {
+      "name": "MIDI/E31.MID",
+      "size": 35,
+      "crc32": "ba6c039f"
+     },
+     {
+      "name": "README",
+      "size": 62,
+      "crc32": "d641dd32"
+     },
+     {
+      "name": "SND.DAT",
+      "size": 32,
+      "crc32": "da249f2e"
+     },
+     {
+      "name": "SPEECH.DAT",
+      "size": 6000,
+      "crc32": "8ec07fcb"
+     },
+     {
+      "name": "SSO.FON",
+      "size": 32,
+      "crc32": "b433eddb"
+     },
+     {
+      "name": "SSO1.DAT",
+      "size": 3552,
+      "crc32": "fc7bc5e1"
+     },
+     {
+      "name": "SSO2.DAT",
+      "size": 33,
+      "crc32": "6424e710"
+     },
+     {
+      "name": "SSO3.DAT",
+      "size": 33,
+      "crc32": "c253eca4"
+     },
+     {
+      "name": "SSOWINCD.DAT",
+      "size": 18140,
+      "crc32": "1bc15c83"
+     },
+     {
+      "name": "SSOWINCD.EXE",
+      "size": 54,
+      "crc32": "71bb7627"
+     },
+     {
+      "name": "SSOWINCD.INI",
+      "size": 41,
+      "crc32": "ad9053e7"
+     }
+    ]
+   }
+  },
+  {
+   "case": "iso_joliet",
+   "path": "data_joliet.iso",
+   "role": "data",
+   "note": "primary + Joliet + Rock Ridge; mixed-case source names; same result via primary or Joliet",
+   "expected": {
+    "ok": true,
+    "role": "data",
+    "source": "iso2048",
+    "folder": "SSOWINCD",
+    "folders_found": 1,
+    "files": [
+     {
+      "name": "MIDI/B00.MID",
+      "size": 35,
+      "crc32": "42e62ded"
+     },
+     {
+      "name": "MIDI/B01.MID",
+      "size": 35,
+      "crc32": "48342188"
+     },
+     {
+      "name": "MIDI/B02.MID",
+      "size": 35,
+      "crc32": "068a2b2a"
+     },
+     {
+      "name": "MIDI/B03.MID",
+      "size": 35,
+      "crc32": "0c58274f"
+     },
+     {
+      "name": "MIDI/B04.MID",
+      "size": 35,
+      "crc32": "132e33e0"
+     },
+     {
+      "name": "MIDI/B05.MID",
+      "size": 35,
+      "crc32": "19fc3f85"
+     },
+     {
+      "name": "MIDI/B06.MID",
+      "size": 35,
+      "crc32": "2dc21abe"
+     },
+     {
+      "name": "MIDI/B07.MID",
+      "size": 35,
+      "crc32": "271016db"
+     },
+     {
+      "name": "MIDI/B08.MID",
+      "size": 35,
+      "crc32": "38660274"
+     },
+     {
+      "name": "MIDI/B09.MID",
+      "size": 35,
+      "crc32": "32b40e11"
+     },
+     {
+      "name": "MIDI/B10.MID",
+      "size": 35,
+      "crc32": "501a4802"
+     },
+     {
+      "name": "MIDI/B11.MID",
+      "size": 35,
+      "crc32": "5ac84467"
+     },
+     {
+      "name": "MIDI/B12.MID",
+      "size": 35,
+      "crc32": "45be50c8"
+     },
+     {
+      "name": "MIDI/B13.MID",
+      "size": 35,
+      "crc32": "4f6c5cad"
+     },
+     {
+      "name": "MIDI/B14.MID",
+      "size": 35,
+      "crc32": "7b527996"
+     },
+     {
+      "name": "MIDI/B15.MID",
+      "size": 35,
+      "crc32": "718075f3"
+     },
+     {
+      "name": "MIDI/B16.MID",
+      "size": 35,
+      "crc32": "6ef6615c"
+     },
+     {
+      "name": "MIDI/B17.MID",
+      "size": 35,
+      "crc32": "64246d39"
+     },
+     {
+      "name": "MIDI/B18.MID",
+      "size": 35,
+      "crc32": "abaaed7a"
+     },
+     {
+      "name": "MIDI/B19.MID",
+      "size": 35,
+      "crc32": "a178e11f"
+     },
+     {
+      "name": "MIDI/B20.MID",
+      "size": 35,
+      "crc32": "be0ef5b0"
+     },
+     {
+      "name": "MIDI/B21.MID",
+      "size": 35,
+      "crc32": "b4dcf9d5"
+     },
+     {
+      "name": "MIDI/B22.MID",
+      "size": 35,
+      "crc32": "80e2dcee"
+     },
+     {
+      "name": "MIDI/B23.MID",
+      "size": 35,
+      "crc32": "8a30d08b"
+     },
+     {
+      "name": "MIDI/B24.MID",
+      "size": 35,
+      "crc32": "9546c424"
+     },
+     {
+      "name": "MIDI/B25.MID",
+      "size": 35,
+      "crc32": "9f94c841"
+     },
+     {
+      "name": "MIDI/B26.MID",
+      "size": 35,
+      "crc32": "fd3a8e52"
+     },
+     {
+      "name": "MIDI/B27.MID",
+      "size": 35,
+      "crc32": "f7e88237"
+     },
+     {
+      "name": "MIDI/B28.MID",
+      "size": 35,
+      "crc32": "e89e9698"
+     },
+     {
+      "name": "MIDI/B29.MID",
+      "size": 35,
+      "crc32": "e24c9afd"
+     },
+     {
+      "name": "MIDI/B30.MID",
+      "size": 35,
+      "crc32": "d672bfc6"
+     },
+     {
+      "name": "MIDI/B31.MID",
+      "size": 35,
+      "crc32": "dca0b3a3"
+     },
+     {
+      "name": "MIDI/E00.MID",
+      "size": 35,
+      "crc32": "d672bfc6"
+     },
+     {
+      "name": "MIDI/E01.MID",
+      "size": 35,
+      "crc32": "dca0b3a3"
+     },
+     {
+      "name": "MIDI/E02.MID",
+      "size": 35,
+      "crc32": "c3d6a70c"
+     },
+     {
+      "name": "MIDI/E03.MID",
+      "size": 35,
+      "crc32": "c904ab69"
+     },
+     {
+      "name": "MIDI/E04.MID",
+      "size": 35,
+      "crc32": "5eaab248"
+     },
+     {
+      "name": "MIDI/E05.MID",
+      "size": 35,
+      "crc32": "5478be2d"
+     },
+     {
+      "name": "MIDI/E06.MID",
+      "size": 35,
+      "crc32": "4b0eaa82"
+     },
+     {
+      "name": "MIDI/E07.MID",
+      "size": 35,
+      "crc32": "41dca6e7"
+     },
+     {
+      "name": "MIDI/E08.MID",
+      "size": 35,
+      "crc32": "75e283dc"
+     },
+     {
+      "name": "MIDI/E09.MID",
+      "size": 35,
+      "crc32": "7f308fb9"
+     },
+     {
+      "name": "MIDI/E10.MID",
+      "size": 35,
+      "crc32": "60469b16"
+     },
+     {
+      "name": "MIDI/E11.MID",
+      "size": 35,
+      "crc32": "6a949773"
+     },
+     {
+      "name": "MIDI/E12.MID",
+      "size": 35,
+      "crc32": "083ad160"
+     },
+     {
+      "name": "MIDI/E13.MID",
+      "size": 35,
+      "crc32": "02e8dd05"
+     },
+     {
+      "name": "MIDI/E14.MID",
+      "size": 35,
+      "crc32": "1d9ec9aa"
+     },
+     {
+      "name": "MIDI/E15.MID",
+      "size": 35,
+      "crc32": "174cc5cf"
+     },
+     {
+      "name": "MIDI/E16.MID",
+      "size": 35,
+      "crc32": "2372e0f4"
+     },
+     {
+      "name": "MIDI/E17.MID",
+      "size": 35,
+      "crc32": "29a0ec91"
+     },
+     {
+      "name": "MIDI/E18.MID",
+      "size": 35,
+      "crc32": "36d6f83e"
+     },
+     {
+      "name": "MIDI/E19.MID",
+      "size": 35,
+      "crc32": "3c04f45b"
+     },
+     {
+      "name": "MIDI/E20.MID",
+      "size": 35,
+      "crc32": "f38a7418"
+     },
+     {
+      "name": "MIDI/E21.MID",
+      "size": 35,
+      "crc32": "f958787d"
+     },
+     {
+      "name": "MIDI/E22.MID",
+      "size": 35,
+      "crc32": "e62e6cd2"
+     },
+     {
+      "name": "MIDI/E23.MID",
+      "size": 35,
+      "crc32": "ecfc60b7"
+     },
+     {
+      "name": "MIDI/E24.MID",
+      "size": 35,
+      "crc32": "d8c2458c"
+     },
+     {
+      "name": "MIDI/E25.MID",
+      "size": 35,
+      "crc32": "d21049e9"
+     },
+     {
+      "name": "MIDI/E26.MID",
+      "size": 35,
+      "crc32": "cd665d46"
+     },
+     {
+      "name": "MIDI/E27.MID",
+      "size": 35,
+      "crc32": "c7b45123"
+     },
+     {
+      "name": "MIDI/E28.MID",
+      "size": 35,
+      "crc32": "a51a1730"
+     },
+     {
+      "name": "MIDI/E29.MID",
+      "size": 35,
+      "crc32": "afc81b55"
+     },
+     {
+      "name": "MIDI/E30.MID",
+      "size": 35,
+      "crc32": "b0be0ffa"
+     },
+     {
+      "name": "MIDI/E31.MID",
+      "size": 35,
+      "crc32": "ba6c039f"
+     },
+     {
+      "name": "README",
+      "size": 62,
+      "crc32": "d641dd32"
+     },
+     {
+      "name": "SND.DAT",
+      "size": 32,
+      "crc32": "da249f2e"
+     },
+     {
+      "name": "SPEECH.DAT",
+      "size": 6000,
+      "crc32": "8ec07fcb"
+     },
+     {
+      "name": "SSO.FON",
+      "size": 32,
+      "crc32": "b433eddb"
+     },
+     {
+      "name": "SSO1.DAT",
+      "size": 3552,
+      "crc32": "fc7bc5e1"
+     },
+     {
+      "name": "SSO2.DAT",
+      "size": 33,
+      "crc32": "6424e710"
+     },
+     {
+      "name": "SSO3.DAT",
+      "size": 33,
+      "crc32": "c253eca4"
+     },
+     {
+      "name": "SSOWINCD.DAT",
+      "size": 18140,
+      "crc32": "1bc15c83"
+     },
+     {
+      "name": "SSOWINCD.EXE",
+      "size": 54,
+      "crc32": "71bb7627"
+     },
+     {
+      "name": "SSOWINCD.INI",
+      "size": 41,
+      "crc32": "ad9053e7"
+     }
+    ]
+   }
+  },
+  {
+   "case": "raw_mode1",
+   "path": "data_raw_mode1.bin",
+   "role": "data",
+   "note": "2352-byte MODE1 sectors, EDC/ECC zero",
+   "expected": {
+    "ok": true,
+    "role": "data",
+    "source": "raw2352",
+    "folder": "SSOWINCD",
+    "folders_found": 1,
+    "files": [
+     {
+      "name": "MIDI/B00.MID",
+      "size": 35,
+      "crc32": "42e62ded"
+     },
+     {
+      "name": "MIDI/B01.MID",
+      "size": 35,
+      "crc32": "48342188"
+     },
+     {
+      "name": "MIDI/B02.MID",
+      "size": 35,
+      "crc32": "068a2b2a"
+     },
+     {
+      "name": "MIDI/B03.MID",
+      "size": 35,
+      "crc32": "0c58274f"
+     },
+     {
+      "name": "MIDI/B04.MID",
+      "size": 35,
+      "crc32": "132e33e0"
+     },
+     {
+      "name": "MIDI/B05.MID",
+      "size": 35,
+      "crc32": "19fc3f85"
+     },
+     {
+      "name": "MIDI/B06.MID",
+      "size": 35,
+      "crc32": "2dc21abe"
+     },
+     {
+      "name": "MIDI/B07.MID",
+      "size": 35,
+      "crc32": "271016db"
+     },
+     {
+      "name": "MIDI/B08.MID",
+      "size": 35,
+      "crc32": "38660274"
+     },
+     {
+      "name": "MIDI/B09.MID",
+      "size": 35,
+      "crc32": "32b40e11"
+     },
+     {
+      "name": "MIDI/B10.MID",
+      "size": 35,
+      "crc32": "501a4802"
+     },
+     {
+      "name": "MIDI/B11.MID",
+      "size": 35,
+      "crc32": "5ac84467"
+     },
+     {
+      "name": "MIDI/B12.MID",
+      "size": 35,
+      "crc32": "45be50c8"
+     },
+     {
+      "name": "MIDI/B13.MID",
+      "size": 35,
+      "crc32": "4f6c5cad"
+     },
+     {
+      "name": "MIDI/B14.MID",
+      "size": 35,
+      "crc32": "7b527996"
+     },
+     {
+      "name": "MIDI/B15.MID",
+      "size": 35,
+      "crc32": "718075f3"
+     },
+     {
+      "name": "MIDI/B16.MID",
+      "size": 35,
+      "crc32": "6ef6615c"
+     },
+     {
+      "name": "MIDI/B17.MID",
+      "size": 35,
+      "crc32": "64246d39"
+     },
+     {
+      "name": "MIDI/B18.MID",
+      "size": 35,
+      "crc32": "abaaed7a"
+     },
+     {
+      "name": "MIDI/B19.MID",
+      "size": 35,
+      "crc32": "a178e11f"
+     },
+     {
+      "name": "MIDI/B20.MID",
+      "size": 35,
+      "crc32": "be0ef5b0"
+     },
+     {
+      "name": "MIDI/B21.MID",
+      "size": 35,
+      "crc32": "b4dcf9d5"
+     },
+     {
+      "name": "MIDI/B22.MID",
+      "size": 35,
+      "crc32": "80e2dcee"
+     },
+     {
+      "name": "MIDI/B23.MID",
+      "size": 35,
+      "crc32": "8a30d08b"
+     },
+     {
+      "name": "MIDI/B24.MID",
+      "size": 35,
+      "crc32": "9546c424"
+     },
+     {
+      "name": "MIDI/B25.MID",
+      "size": 35,
+      "crc32": "9f94c841"
+     },
+     {
+      "name": "MIDI/B26.MID",
+      "size": 35,
+      "crc32": "fd3a8e52"
+     },
+     {
+      "name": "MIDI/B27.MID",
+      "size": 35,
+      "crc32": "f7e88237"
+     },
+     {
+      "name": "MIDI/B28.MID",
+      "size": 35,
+      "crc32": "e89e9698"
+     },
+     {
+      "name": "MIDI/B29.MID",
+      "size": 35,
+      "crc32": "e24c9afd"
+     },
+     {
+      "name": "MIDI/B30.MID",
+      "size": 35,
+      "crc32": "d672bfc6"
+     },
+     {
+      "name": "MIDI/B31.MID",
+      "size": 35,
+      "crc32": "dca0b3a3"
+     },
+     {
+      "name": "MIDI/E00.MID",
+      "size": 35,
+      "crc32": "d672bfc6"
+     },
+     {
+      "name": "MIDI/E01.MID",
+      "size": 35,
+      "crc32": "dca0b3a3"
+     },
+     {
+      "name": "MIDI/E02.MID",
+      "size": 35,
+      "crc32": "c3d6a70c"
+     },
+     {
+      "name": "MIDI/E03.MID",
+      "size": 35,
+      "crc32": "c904ab69"
+     },
+     {
+      "name": "MIDI/E04.MID",
+      "size": 35,
+      "crc32": "5eaab248"
+     },
+     {
+      "name": "MIDI/E05.MID",
+      "size": 35,
+      "crc32": "5478be2d"
+     },
+     {
+      "name": "MIDI/E06.MID",
+      "size": 35,
+      "crc32": "4b0eaa82"
+     },
+     {
+      "name": "MIDI/E07.MID",
+      "size": 35,
+      "crc32": "41dca6e7"
+     },
+     {
+      "name": "MIDI/E08.MID",
+      "size": 35,
+      "crc32": "75e283dc"
+     },
+     {
+      "name": "MIDI/E09.MID",
+      "size": 35,
+      "crc32": "7f308fb9"
+     },
+     {
+      "name": "MIDI/E10.MID",
+      "size": 35,
+      "crc32": "60469b16"
+     },
+     {
+      "name": "MIDI/E11.MID",
+      "size": 35,
+      "crc32": "6a949773"
+     },
+     {
+      "name": "MIDI/E12.MID",
+      "size": 35,
+      "crc32": "083ad160"
+     },
+     {
+      "name": "MIDI/E13.MID",
+      "size": 35,
+      "crc32": "02e8dd05"
+     },
+     {
+      "name": "MIDI/E14.MID",
+      "size": 35,
+      "crc32": "1d9ec9aa"
+     },
+     {
+      "name": "MIDI/E15.MID",
+      "size": 35,
+      "crc32": "174cc5cf"
+     },
+     {
+      "name": "MIDI/E16.MID",
+      "size": 35,
+      "crc32": "2372e0f4"
+     },
+     {
+      "name": "MIDI/E17.MID",
+      "size": 35,
+      "crc32": "29a0ec91"
+     },
+     {
+      "name": "MIDI/E18.MID",
+      "size": 35,
+      "crc32": "36d6f83e"
+     },
+     {
+      "name": "MIDI/E19.MID",
+      "size": 35,
+      "crc32": "3c04f45b"
+     },
+     {
+      "name": "MIDI/E20.MID",
+      "size": 35,
+      "crc32": "f38a7418"
+     },
+     {
+      "name": "MIDI/E21.MID",
+      "size": 35,
+      "crc32": "f958787d"
+     },
+     {
+      "name": "MIDI/E22.MID",
+      "size": 35,
+      "crc32": "e62e6cd2"
+     },
+     {
+      "name": "MIDI/E23.MID",
+      "size": 35,
+      "crc32": "ecfc60b7"
+     },
+     {
+      "name": "MIDI/E24.MID",
+      "size": 35,
+      "crc32": "d8c2458c"
+     },
+     {
+      "name": "MIDI/E25.MID",
+      "size": 35,
+      "crc32": "d21049e9"
+     },
+     {
+      "name": "MIDI/E26.MID",
+      "size": 35,
+      "crc32": "cd665d46"
+     },
+     {
+      "name": "MIDI/E27.MID",
+      "size": 35,
+      "crc32": "c7b45123"
+     },
+     {
+      "name": "MIDI/E28.MID",
+      "size": 35,
+      "crc32": "a51a1730"
+     },
+     {
+      "name": "MIDI/E29.MID",
+      "size": 35,
+      "crc32": "afc81b55"
+     },
+     {
+      "name": "MIDI/E30.MID",
+      "size": 35,
+      "crc32": "b0be0ffa"
+     },
+     {
+      "name": "MIDI/E31.MID",
+      "size": 35,
+      "crc32": "ba6c039f"
+     },
+     {
+      "name": "README",
+      "size": 62,
+      "crc32": "d641dd32"
+     },
+     {
+      "name": "SND.DAT",
+      "size": 32,
+      "crc32": "da249f2e"
+     },
+     {
+      "name": "SPEECH.DAT",
+      "size": 6000,
+      "crc32": "8ec07fcb"
+     },
+     {
+      "name": "SSO.FON",
+      "size": 32,
+      "crc32": "b433eddb"
+     },
+     {
+      "name": "SSO1.DAT",
+      "size": 3552,
+      "crc32": "fc7bc5e1"
+     },
+     {
+      "name": "SSO2.DAT",
+      "size": 33,
+      "crc32": "6424e710"
+     },
+     {
+      "name": "SSO3.DAT",
+      "size": 33,
+      "crc32": "c253eca4"
+     },
+     {
+      "name": "SSOWINCD.DAT",
+      "size": 18140,
+      "crc32": "1bc15c83"
+     },
+     {
+      "name": "SSOWINCD.EXE",
+      "size": 54,
+      "crc32": "71bb7627"
+     },
+     {
+      "name": "SSOWINCD.INI",
+      "size": 41,
+      "crc32": "ad9053e7"
+     }
+    ]
+   }
+  },
+  {
+   "case": "raw_mode2",
+   "path": "data_raw_mode2.bin",
+   "role": "data",
+   "note": "2352-byte MODE2 form-1 sectors, EDC/ECC zero",
+   "expected": {
+    "ok": true,
+    "role": "data",
+    "source": "raw2352",
+    "folder": "SSOWINCD",
+    "folders_found": 1,
+    "files": [
+     {
+      "name": "MIDI/B00.MID",
+      "size": 35,
+      "crc32": "42e62ded"
+     },
+     {
+      "name": "MIDI/B01.MID",
+      "size": 35,
+      "crc32": "48342188"
+     },
+     {
+      "name": "MIDI/B02.MID",
+      "size": 35,
+      "crc32": "068a2b2a"
+     },
+     {
+      "name": "MIDI/B03.MID",
+      "size": 35,
+      "crc32": "0c58274f"
+     },
+     {
+      "name": "MIDI/B04.MID",
+      "size": 35,
+      "crc32": "132e33e0"
+     },
+     {
+      "name": "MIDI/B05.MID",
+      "size": 35,
+      "crc32": "19fc3f85"
+     },
+     {
+      "name": "MIDI/B06.MID",
+      "size": 35,
+      "crc32": "2dc21abe"
+     },
+     {
+      "name": "MIDI/B07.MID",
+      "size": 35,
+      "crc32": "271016db"
+     },
+     {
+      "name": "MIDI/B08.MID",
+      "size": 35,
+      "crc32": "38660274"
+     },
+     {
+      "name": "MIDI/B09.MID",
+      "size": 35,
+      "crc32": "32b40e11"
+     },
+     {
+      "name": "MIDI/B10.MID",
+      "size": 35,
+      "crc32": "501a4802"
+     },
+     {
+      "name": "MIDI/B11.MID",
+      "size": 35,
+      "crc32": "5ac84467"
+     },
+     {
+      "name": "MIDI/B12.MID",
+      "size": 35,
+      "crc32": "45be50c8"
+     },
+     {
+      "name": "MIDI/B13.MID",
+      "size": 35,
+      "crc32": "4f6c5cad"
+     },
+     {
+      "name": "MIDI/B14.MID",
+      "size": 35,
+      "crc32": "7b527996"
+     },
+     {
+      "name": "MIDI/B15.MID",
+      "size": 35,
+      "crc32": "718075f3"
+     },
+     {
+      "name": "MIDI/B16.MID",
+      "size": 35,
+      "crc32": "6ef6615c"
+     },
+     {
+      "name": "MIDI/B17.MID",
+      "size": 35,
+      "crc32": "64246d39"
+     },
+     {
+      "name": "MIDI/B18.MID",
+      "size": 35,
+      "crc32": "abaaed7a"
+     },
+     {
+      "name": "MIDI/B19.MID",
+      "size": 35,
+      "crc32": "a178e11f"
+     },
+     {
+      "name": "MIDI/B20.MID",
+      "size": 35,
+      "crc32": "be0ef5b0"
+     },
+     {
+      "name": "MIDI/B21.MID",
+      "size": 35,
+      "crc32": "b4dcf9d5"
+     },
+     {
+      "name": "MIDI/B22.MID",
+      "size": 35,
+      "crc32": "80e2dcee"
+     },
+     {
+      "name": "MIDI/B23.MID",
+      "size": 35,
+      "crc32": "8a30d08b"
+     },
+     {
+      "name": "MIDI/B24.MID",
+      "size": 35,
+      "crc32": "9546c424"
+     },
+     {
+      "name": "MIDI/B25.MID",
+      "size": 35,
+      "crc32": "9f94c841"
+     },
+     {
+      "name": "MIDI/B26.MID",
+      "size": 35,
+      "crc32": "fd3a8e52"
+     },
+     {
+      "name": "MIDI/B27.MID",
+      "size": 35,
+      "crc32": "f7e88237"
+     },
+     {
+      "name": "MIDI/B28.MID",
+      "size": 35,
+      "crc32": "e89e9698"
+     },
+     {
+      "name": "MIDI/B29.MID",
+      "size": 35,
+      "crc32": "e24c9afd"
+     },
+     {
+      "name": "MIDI/B30.MID",
+      "size": 35,
+      "crc32": "d672bfc6"
+     },
+     {
+      "name": "MIDI/B31.MID",
+      "size": 35,
+      "crc32": "dca0b3a3"
+     },
+     {
+      "name": "MIDI/E00.MID",
+      "size": 35,
+      "crc32": "d672bfc6"
+     },
+     {
+      "name": "MIDI/E01.MID",
+      "size": 35,
+      "crc32": "dca0b3a3"
+     },
+     {
+      "name": "MIDI/E02.MID",
+      "size": 35,
+      "crc32": "c3d6a70c"
+     },
+     {
+      "name": "MIDI/E03.MID",
+      "size": 35,
+      "crc32": "c904ab69"
+     },
+     {
+      "name": "MIDI/E04.MID",
+      "size": 35,
+      "crc32": "5eaab248"
+     },
+     {
+      "name": "MIDI/E05.MID",
+      "size": 35,
+      "crc32": "5478be2d"
+     },
+     {
+      "name": "MIDI/E06.MID",
+      "size": 35,
+      "crc32": "4b0eaa82"
+     },
+     {
+      "name": "MIDI/E07.MID",
+      "size": 35,
+      "crc32": "41dca6e7"
+     },
+     {
+      "name": "MIDI/E08.MID",
+      "size": 35,
+      "crc32": "75e283dc"
+     },
+     {
+      "name": "MIDI/E09.MID",
+      "size": 35,
+      "crc32": "7f308fb9"
+     },
+     {
+      "name": "MIDI/E10.MID",
+      "size": 35,
+      "crc32": "60469b16"
+     },
+     {
+      "name": "MIDI/E11.MID",
+      "size": 35,
+      "crc32": "6a949773"
+     },
+     {
+      "name": "MIDI/E12.MID",
+      "size": 35,
+      "crc32": "083ad160"
+     },
+     {
+      "name": "MIDI/E13.MID",
+      "size": 35,
+      "crc32": "02e8dd05"
+     },
+     {
+      "name": "MIDI/E14.MID",
+      "size": 35,
+      "crc32": "1d9ec9aa"
+     },
+     {
+      "name": "MIDI/E15.MID",
+      "size": 35,
+      "crc32": "174cc5cf"
+     },
+     {
+      "name": "MIDI/E16.MID",
+      "size": 35,
+      "crc32": "2372e0f4"
+     },
+     {
+      "name": "MIDI/E17.MID",
+      "size": 35,
+      "crc32": "29a0ec91"
+     },
+     {
+      "name": "MIDI/E18.MID",
+      "size": 35,
+      "crc32": "36d6f83e"
+     },
+     {
+      "name": "MIDI/E19.MID",
+      "size": 35,
+      "crc32": "3c04f45b"
+     },
+     {
+      "name": "MIDI/E20.MID",
+      "size": 35,
+      "crc32": "f38a7418"
+     },
+     {
+      "name": "MIDI/E21.MID",
+      "size": 35,
+      "crc32": "f958787d"
+     },
+     {
+      "name": "MIDI/E22.MID",
+      "size": 35,
+      "crc32": "e62e6cd2"
+     },
+     {
+      "name": "MIDI/E23.MID",
+      "size": 35,
+      "crc32": "ecfc60b7"
+     },
+     {
+      "name": "MIDI/E24.MID",
+      "size": 35,
+      "crc32": "d8c2458c"
+     },
+     {
+      "name": "MIDI/E25.MID",
+      "size": 35,
+      "crc32": "d21049e9"
+     },
+     {
+      "name": "MIDI/E26.MID",
+      "size": 35,
+      "crc32": "cd665d46"
+     },
+     {
+      "name": "MIDI/E27.MID",
+      "size": 35,
+      "crc32": "c7b45123"
+     },
+     {
+      "name": "MIDI/E28.MID",
+      "size": 35,
+      "crc32": "a51a1730"
+     },
+     {
+      "name": "MIDI/E29.MID",
+      "size": 35,
+      "crc32": "afc81b55"
+     },
+     {
+      "name": "MIDI/E30.MID",
+      "size": 35,
+      "crc32": "b0be0ffa"
+     },
+     {
+      "name": "MIDI/E31.MID",
+      "size": 35,
+      "crc32": "ba6c039f"
+     },
+     {
+      "name": "README",
+      "size": 62,
+      "crc32": "d641dd32"
+     },
+     {
+      "name": "SND.DAT",
+      "size": 32,
+      "crc32": "da249f2e"
+     },
+     {
+      "name": "SPEECH.DAT",
+      "size": 6000,
+      "crc32": "8ec07fcb"
+     },
+     {
+      "name": "SSO.FON",
+      "size": 32,
+      "crc32": "b433eddb"
+     },
+     {
+      "name": "SSO1.DAT",
+      "size": 3552,
+      "crc32": "fc7bc5e1"
+     },
+     {
+      "name": "SSO2.DAT",
+      "size": 33,
+      "crc32": "6424e710"
+     },
+     {
+      "name": "SSO3.DAT",
+      "size": 33,
+      "crc32": "c253eca4"
+     },
+     {
+      "name": "SSOWINCD.DAT",
+      "size": 18140,
+      "crc32": "1bc15c83"
+     },
+     {
+      "name": "SSOWINCD.EXE",
+      "size": 54,
+      "crc32": "71bb7627"
+     },
+     {
+      "name": "SSOWINCD.INI",
+      "size": 41,
+      "crc32": "ad9053e7"
+     }
+    ]
+   }
+  },
+  {
+   "case": "cue",
+   "path": "data_raw_mode1.cue",
+   "role": "data",
+   "note": "optional: cue sheet naming the .bin in other letter case",
+   "expected": {
+    "ok": true,
+    "role": "data",
+    "source": "cue+raw2352",
+    "folder": "SSOWINCD",
+    "folders_found": 1,
+    "files": [
+     {
+      "name": "MIDI/B00.MID",
+      "size": 35,
+      "crc32": "42e62ded"
+     },
+     {
+      "name": "MIDI/B01.MID",
+      "size": 35,
+      "crc32": "48342188"
+     },
+     {
+      "name": "MIDI/B02.MID",
+      "size": 35,
+      "crc32": "068a2b2a"
+     },
+     {
+      "name": "MIDI/B03.MID",
+      "size": 35,
+      "crc32": "0c58274f"
+     },
+     {
+      "name": "MIDI/B04.MID",
+      "size": 35,
+      "crc32": "132e33e0"
+     },
+     {
+      "name": "MIDI/B05.MID",
+      "size": 35,
+      "crc32": "19fc3f85"
+     },
+     {
+      "name": "MIDI/B06.MID",
+      "size": 35,
+      "crc32": "2dc21abe"
+     },
+     {
+      "name": "MIDI/B07.MID",
+      "size": 35,
+      "crc32": "271016db"
+     },
+     {
+      "name": "MIDI/B08.MID",
+      "size": 35,
+      "crc32": "38660274"
+     },
+     {
+      "name": "MIDI/B09.MID",
+      "size": 35,
+      "crc32": "32b40e11"
+     },
+     {
+      "name": "MIDI/B10.MID",
+      "size": 35,
+      "crc32": "501a4802"
+     },
+     {
+      "name": "MIDI/B11.MID",
+      "size": 35,
+      "crc32": "5ac84467"
+     },
+     {
+      "name": "MIDI/B12.MID",
+      "size": 35,
+      "crc32": "45be50c8"
+     },
+     {
+      "name": "MIDI/B13.MID",
+      "size": 35,
+      "crc32": "4f6c5cad"
+     },
+     {
+      "name": "MIDI/B14.MID",
+      "size": 35,
+      "crc32": "7b527996"
+     },
+     {
+      "name": "MIDI/B15.MID",
+      "size": 35,
+      "crc32": "718075f3"
+     },
+     {
+      "name": "MIDI/B16.MID",
+      "size": 35,
+      "crc32": "6ef6615c"
+     },
+     {
+      "name": "MIDI/B17.MID",
+      "size": 35,
+      "crc32": "64246d39"
+     },
+     {
+      "name": "MIDI/B18.MID",
+      "size": 35,
+      "crc32": "abaaed7a"
+     },
+     {
+      "name": "MIDI/B19.MID",
+      "size": 35,
+      "crc32": "a178e11f"
+     },
+     {
+      "name": "MIDI/B20.MID",
+      "size": 35,
+      "crc32": "be0ef5b0"
+     },
+     {
+      "name": "MIDI/B21.MID",
+      "size": 35,
+      "crc32": "b4dcf9d5"
+     },
+     {
+      "name": "MIDI/B22.MID",
+      "size": 35,
+      "crc32": "80e2dcee"
+     },
+     {
+      "name": "MIDI/B23.MID",
+      "size": 35,
+      "crc32": "8a30d08b"
+     },
+     {
+      "name": "MIDI/B24.MID",
+      "size": 35,
+      "crc32": "9546c424"
+     },
+     {
+      "name": "MIDI/B25.MID",
+      "size": 35,
+      "crc32": "9f94c841"
+     },
+     {
+      "name": "MIDI/B26.MID",
+      "size": 35,
+      "crc32": "fd3a8e52"
+     },
+     {
+      "name": "MIDI/B27.MID",
+      "size": 35,
+      "crc32": "f7e88237"
+     },
+     {
+      "name": "MIDI/B28.MID",
+      "size": 35,
+      "crc32": "e89e9698"
+     },
+     {
+      "name": "MIDI/B29.MID",
+      "size": 35,
+      "crc32": "e24c9afd"
+     },
+     {
+      "name": "MIDI/B30.MID",
+      "size": 35,
+      "crc32": "d672bfc6"
+     },
+     {
+      "name": "MIDI/B31.MID",
+      "size": 35,
+      "crc32": "dca0b3a3"
+     },
+     {
+      "name": "MIDI/E00.MID",
+      "size": 35,
+      "crc32": "d672bfc6"
+     },
+     {
+      "name": "MIDI/E01.MID",
+      "size": 35,
+      "crc32": "dca0b3a3"
+     },
+     {
+      "name": "MIDI/E02.MID",
+      "size": 35,
+      "crc32": "c3d6a70c"
+     },
+     {
+      "name": "MIDI/E03.MID",
+      "size": 35,
+      "crc32": "c904ab69"
+     },
+     {
+      "name": "MIDI/E04.MID",
+      "size": 35,
+      "crc32": "5eaab248"
+     },
+     {
+      "name": "MIDI/E05.MID",
+      "size": 35,
+      "crc32": "5478be2d"
+     },
+     {
+      "name": "MIDI/E06.MID",
+      "size": 35,
+      "crc32": "4b0eaa82"
+     },
+     {
+      "name": "MIDI/E07.MID",
+      "size": 35,
+      "crc32": "41dca6e7"
+     },
+     {
+      "name": "MIDI/E08.MID",
+      "size": 35,
+      "crc32": "75e283dc"
+     },
+     {
+      "name": "MIDI/E09.MID",
+      "size": 35,
+      "crc32": "7f308fb9"
+     },
+     {
+      "name": "MIDI/E10.MID",
+      "size": 35,
+      "crc32": "60469b16"
+     },
+     {
+      "name": "MIDI/E11.MID",
+      "size": 35,
+      "crc32": "6a949773"
+     },
+     {
+      "name": "MIDI/E12.MID",
+      "size": 35,
+      "crc32": "083ad160"
+     },
+     {
+      "name": "MIDI/E13.MID",
+      "size": 35,
+      "crc32": "02e8dd05"
+     },
+     {
+      "name": "MIDI/E14.MID",
+      "size": 35,
+      "crc32": "1d9ec9aa"
+     },
+     {
+      "name": "MIDI/E15.MID",
+      "size": 35,
+      "crc32": "174cc5cf"
+     },
+     {
+      "name": "MIDI/E16.MID",
+      "size": 35,
+      "crc32": "2372e0f4"
+     },
+     {
+      "name": "MIDI/E17.MID",
+      "size": 35,
+      "crc32": "29a0ec91"
+     },
+     {
+      "name": "MIDI/E18.MID",
+      "size": 35,
+      "crc32": "36d6f83e"
+     },
+     {
+      "name": "MIDI/E19.MID",
+      "size": 35,
+      "crc32": "3c04f45b"
+     },
+     {
+      "name": "MIDI/E20.MID",
+      "size": 35,
+      "crc32": "f38a7418"
+     },
+     {
+      "name": "MIDI/E21.MID",
+      "size": 35,
+      "crc32": "f958787d"
+     },
+     {
+      "name": "MIDI/E22.MID",
+      "size": 35,
+      "crc32": "e62e6cd2"
+     },
+     {
+      "name": "MIDI/E23.MID",
+      "size": 35,
+      "crc32": "ecfc60b7"
+     },
+     {
+      "name": "MIDI/E24.MID",
+      "size": 35,
+      "crc32": "d8c2458c"
+     },
+     {
+      "name": "MIDI/E25.MID",
+      "size": 35,
+      "crc32": "d21049e9"
+     },
+     {
+      "name": "MIDI/E26.MID",
+      "size": 35,
+      "crc32": "cd665d46"
+     },
+     {
+      "name": "MIDI/E27.MID",
+      "size": 35,
+      "crc32": "c7b45123"
+     },
+     {
+      "name": "MIDI/E28.MID",
+      "size": 35,
+      "crc32": "a51a1730"
+     },
+     {
+      "name": "MIDI/E29.MID",
+      "size": 35,
+      "crc32": "afc81b55"
+     },
+     {
+      "name": "MIDI/E30.MID",
+      "size": 35,
+      "crc32": "b0be0ffa"
+     },
+     {
+      "name": "MIDI/E31.MID",
+      "size": 35,
+      "crc32": "ba6c039f"
+     },
+     {
+      "name": "README",
+      "size": 62,
+      "crc32": "d641dd32"
+     },
+     {
+      "name": "SND.DAT",
+      "size": 32,
+      "crc32": "da249f2e"
+     },
+     {
+      "name": "SPEECH.DAT",
+      "size": 6000,
+      "crc32": "8ec07fcb"
+     },
+     {
+      "name": "SSO.FON",
+      "size": 32,
+      "crc32": "b433eddb"
+     },
+     {
+      "name": "SSO1.DAT",
+      "size": 3552,
+      "crc32": "fc7bc5e1"
+     },
+     {
+      "name": "SSO2.DAT",
+      "size": 33,
+      "crc32": "6424e710"
+     },
+     {
+      "name": "SSO3.DAT",
+      "size": 33,
+      "crc32": "c253eca4"
+     },
+     {
+      "name": "SSOWINCD.DAT",
+      "size": 18140,
+      "crc32": "1bc15c83"
+     },
+     {
+      "name": "SSOWINCD.EXE",
+      "size": 54,
+      "crc32": "71bb7627"
+     },
+     {
+      "name": "SSOWINCD.INI",
+      "size": 41,
+      "crc32": "ad9053e7"
+     }
+    ]
+   }
+  },
+  {
+   "case": "iso_root",
+   "path": "data_root.iso",
+   "role": "data",
+   "note": "game files in the image root; a first-level decoy is ignored",
+   "expected": {
+    "ok": true,
+    "role": "data",
+    "source": "iso2048",
+    "folder": "",
+    "folders_found": 1,
+    "files": [
+     {
+      "name": "BACKUP/SSOWINCD.EXE",
+      "size": 22,
+      "crc32": "5dc167cd"
+     },
+     {
+      "name": "MIDI/B00.MID",
+      "size": 35,
+      "crc32": "42e62ded"
+     },
+     {
+      "name": "MIDI/B01.MID",
+      "size": 35,
+      "crc32": "48342188"
+     },
+     {
+      "name": "MIDI/B02.MID",
+      "size": 35,
+      "crc32": "068a2b2a"
+     },
+     {
+      "name": "MIDI/B03.MID",
+      "size": 35,
+      "crc32": "0c58274f"
+     },
+     {
+      "name": "MIDI/B04.MID",
+      "size": 35,
+      "crc32": "132e33e0"
+     },
+     {
+      "name": "MIDI/B05.MID",
+      "size": 35,
+      "crc32": "19fc3f85"
+     },
+     {
+      "name": "MIDI/B06.MID",
+      "size": 35,
+      "crc32": "2dc21abe"
+     },
+     {
+      "name": "MIDI/B07.MID",
+      "size": 35,
+      "crc32": "271016db"
+     },
+     {
+      "name": "MIDI/B08.MID",
+      "size": 35,
+      "crc32": "38660274"
+     },
+     {
+      "name": "MIDI/B09.MID",
+      "size": 35,
+      "crc32": "32b40e11"
+     },
+     {
+      "name": "MIDI/B10.MID",
+      "size": 35,
+      "crc32": "501a4802"
+     },
+     {
+      "name": "MIDI/B11.MID",
+      "size": 35,
+      "crc32": "5ac84467"
+     },
+     {
+      "name": "MIDI/B12.MID",
+      "size": 35,
+      "crc32": "45be50c8"
+     },
+     {
+      "name": "MIDI/B13.MID",
+      "size": 35,
+      "crc32": "4f6c5cad"
+     },
+     {
+      "name": "MIDI/B14.MID",
+      "size": 35,
+      "crc32": "7b527996"
+     },
+     {
+      "name": "MIDI/B15.MID",
+      "size": 35,
+      "crc32": "718075f3"
+     },
+     {
+      "name": "MIDI/B16.MID",
+      "size": 35,
+      "crc32": "6ef6615c"
+     },
+     {
+      "name": "MIDI/B17.MID",
+      "size": 35,
+      "crc32": "64246d39"
+     },
+     {
+      "name": "MIDI/B18.MID",
+      "size": 35,
+      "crc32": "abaaed7a"
+     },
+     {
+      "name": "MIDI/B19.MID",
+      "size": 35,
+      "crc32": "a178e11f"
+     },
+     {
+      "name": "MIDI/B20.MID",
+      "size": 35,
+      "crc32": "be0ef5b0"
+     },
+     {
+      "name": "MIDI/B21.MID",
+      "size": 35,
+      "crc32": "b4dcf9d5"
+     },
+     {
+      "name": "MIDI/B22.MID",
+      "size": 35,
+      "crc32": "80e2dcee"
+     },
+     {
+      "name": "MIDI/B23.MID",
+      "size": 35,
+      "crc32": "8a30d08b"
+     },
+     {
+      "name": "MIDI/B24.MID",
+      "size": 35,
+      "crc32": "9546c424"
+     },
+     {
+      "name": "MIDI/B25.MID",
+      "size": 35,
+      "crc32": "9f94c841"
+     },
+     {
+      "name": "MIDI/B26.MID",
+      "size": 35,
+      "crc32": "fd3a8e52"
+     },
+     {
+      "name": "MIDI/B27.MID",
+      "size": 35,
+      "crc32": "f7e88237"
+     },
+     {
+      "name": "MIDI/B28.MID",
+      "size": 35,
+      "crc32": "e89e9698"
+     },
+     {
+      "name": "MIDI/B29.MID",
+      "size": 35,
+      "crc32": "e24c9afd"
+     },
+     {
+      "name": "MIDI/B30.MID",
+      "size": 35,
+      "crc32": "d672bfc6"
+     },
+     {
+      "name": "MIDI/B31.MID",
+      "size": 35,
+      "crc32": "dca0b3a3"
+     },
+     {
+      "name": "MIDI/E00.MID",
+      "size": 35,
+      "crc32": "d672bfc6"
+     },
+     {
+      "name": "MIDI/E01.MID",
+      "size": 35,
+      "crc32": "dca0b3a3"
+     },
+     {
+      "name": "MIDI/E02.MID",
+      "size": 35,
+      "crc32": "c3d6a70c"
+     },
+     {
+      "name": "MIDI/E03.MID",
+      "size": 35,
+      "crc32": "c904ab69"
+     },
+     {
+      "name": "MIDI/E04.MID",
+      "size": 35,
+      "crc32": "5eaab248"
+     },
+     {
+      "name": "MIDI/E05.MID",
+      "size": 35,
+      "crc32": "5478be2d"
+     },
+     {
+      "name": "MIDI/E06.MID",
+      "size": 35,
+      "crc32": "4b0eaa82"
+     },
+     {
+      "name": "MIDI/E07.MID",
+      "size": 35,
+      "crc32": "41dca6e7"
+     },
+     {
+      "name": "MIDI/E08.MID",
+      "size": 35,
+      "crc32": "75e283dc"
+     },
+     {
+      "name": "MIDI/E09.MID",
+      "size": 35,
+      "crc32": "7f308fb9"
+     },
+     {
+      "name": "MIDI/E10.MID",
+      "size": 35,
+      "crc32": "60469b16"
+     },
+     {
+      "name": "MIDI/E11.MID",
+      "size": 35,
+      "crc32": "6a949773"
+     },
+     {
+      "name": "MIDI/E12.MID",
+      "size": 35,
+      "crc32": "083ad160"
+     },
+     {
+      "name": "MIDI/E13.MID",
+      "size": 35,
+      "crc32": "02e8dd05"
+     },
+     {
+      "name": "MIDI/E14.MID",
+      "size": 35,
+      "crc32": "1d9ec9aa"
+     },
+     {
+      "name": "MIDI/E15.MID",
+      "size": 35,
+      "crc32": "174cc5cf"
+     },
+     {
+      "name": "MIDI/E16.MID",
+      "size": 35,
+      "crc32": "2372e0f4"
+     },
+     {
+      "name": "MIDI/E17.MID",
+      "size": 35,
+      "crc32": "29a0ec91"
+     },
+     {
+      "name": "MIDI/E18.MID",
+      "size": 35,
+      "crc32": "36d6f83e"
+     },
+     {
+      "name": "MIDI/E19.MID",
+      "size": 35,
+      "crc32": "3c04f45b"
+     },
+     {
+      "name": "MIDI/E20.MID",
+      "size": 35,
+      "crc32": "f38a7418"
+     },
+     {
+      "name": "MIDI/E21.MID",
+      "size": 35,
+      "crc32": "f958787d"
+     },
+     {
+      "name": "MIDI/E22.MID",
+      "size": 35,
+      "crc32": "e62e6cd2"
+     },
+     {
+      "name": "MIDI/E23.MID",
+      "size": 35,
+      "crc32": "ecfc60b7"
+     },
+     {
+      "name": "MIDI/E24.MID",
+      "size": 35,
+      "crc32": "d8c2458c"
+     },
+     {
+      "name": "MIDI/E25.MID",
+      "size": 35,
+      "crc32": "d21049e9"
+     },
+     {
+      "name": "MIDI/E26.MID",
+      "size": 35,
+      "crc32": "cd665d46"
+     },
+     {
+      "name": "MIDI/E27.MID",
+      "size": 35,
+      "crc32": "c7b45123"
+     },
+     {
+      "name": "MIDI/E28.MID",
+      "size": 35,
+      "crc32": "a51a1730"
+     },
+     {
+      "name": "MIDI/E29.MID",
+      "size": 35,
+      "crc32": "afc81b55"
+     },
+     {
+      "name": "MIDI/E30.MID",
+      "size": 35,
+      "crc32": "b0be0ffa"
+     },
+     {
+      "name": "MIDI/E31.MID",
+      "size": 35,
+      "crc32": "ba6c039f"
+     },
+     {
+      "name": "README",
+      "size": 62,
+      "crc32": "d641dd32"
+     },
+     {
+      "name": "SND.DAT",
+      "size": 32,
+      "crc32": "da249f2e"
+     },
+     {
+      "name": "SPEECH.DAT",
+      "size": 6000,
+      "crc32": "8ec07fcb"
+     },
+     {
+      "name": "SSO.FON",
+      "size": 32,
+      "crc32": "b433eddb"
+     },
+     {
+      "name": "SSO1.DAT",
+      "size": 3552,
+      "crc32": "fc7bc5e1"
+     },
+     {
+      "name": "SSO2.DAT",
+      "size": 33,
+      "crc32": "6424e710"
+     },
+     {
+      "name": "SSO3.DAT",
+      "size": 33,
+      "crc32": "c253eca4"
+     },
+     {
+      "name": "SSOWINCD.DAT",
+      "size": 18140,
+      "crc32": "1bc15c83"
+     },
+     {
+      "name": "SSOWINCD.EXE",
+      "size": 54,
+      "crc32": "71bb7627"
+     },
+     {
+      "name": "SSOWINCD.INI",
+      "size": 41,
+      "crc32": "ad9053e7"
+     }
+    ]
+   }
+  },
+  {
+   "case": "iso_two_folders",
+   "path": "data_two_folders.iso",
+   "role": "data",
+   "note": "two first-level game folders: ALPHA is used, warning",
+   "expected": {
+    "ok": true,
+    "role": "data",
+    "source": "iso2048",
+    "folder": "ALPHA",
+    "folders_found": 2,
+    "files": [
+     {
+      "name": "SSO1.DAT",
+      "size": 3552,
+      "crc32": "fc7bc5e1"
+     },
+     {
+      "name": "SSOWINCD.EXE",
+      "size": 33,
+      "crc32": "b5ef831b"
+     }
+    ]
+   }
+  },
+  {
+   "case": "iso_no_game",
+   "path": "data_no_game.iso",
+   "role": "data",
+   "note": "SSOWINCD.EXE only at depth 2 -> no_game_folder",
+   "expected": {
+    "ok": false,
+    "role": "data",
+    "error": "no_game_folder",
+    "message": "no SSOWINCD.EXE in the root or a first-level folder"
+   }
+  },
+  {
+   "case": "iso_truncated",
+   "path": "data_truncated.iso",
+   "role": "data",
+   "note": "image cut inside SSOWINCD/SPEECH.DAT -> truncated",
+   "expected": {
+    "ok": false,
+    "role": "data",
+    "error": "truncated",
+    "message": "sector 113 is past the end of the image"
+   }
+  },
+  {
+   "case": "not_image",
+   "path": "data_not_image.iso",
+   "role": "data",
+   "note": "unrecognised",
+   "expected": {
+    "ok": false,
+    "role": "data",
+    "error": "unrecognised",
+    "message": "not a folder, ISO 9660 image, raw CD image or cue sheet"
+   }
+  },
+  {
+   "case": "folder",
+   "path": "folder_data",
+   "role": "data",
+   "note": "same files as data_plain.iso, as a folder",
+   "expected": {
+    "ok": true,
+    "role": "data",
+    "source": "folder",
+    "folder": "SSOWINCD",
+    "folders_found": 1,
+    "files": [
+     {
+      "name": "MIDI/B00.MID",
+      "size": 35,
+      "crc32": "42e62ded"
+     },
+     {
+      "name": "MIDI/B01.MID",
+      "size": 35,
+      "crc32": "48342188"
+     },
+     {
+      "name": "MIDI/B02.MID",
+      "size": 35,
+      "crc32": "068a2b2a"
+     },
+     {
+      "name": "MIDI/B03.MID",
+      "size": 35,
+      "crc32": "0c58274f"
+     },
+     {
+      "name": "MIDI/B04.MID",
+      "size": 35,
+      "crc32": "132e33e0"
+     },
+     {
+      "name": "MIDI/B05.MID",
+      "size": 35,
+      "crc32": "19fc3f85"
+     },
+     {
+      "name": "MIDI/B06.MID",
+      "size": 35,
+      "crc32": "2dc21abe"
+     },
+     {
+      "name": "MIDI/B07.MID",
+      "size": 35,
+      "crc32": "271016db"
+     },
+     {
+      "name": "MIDI/B08.MID",
+      "size": 35,
+      "crc32": "38660274"
+     },
+     {
+      "name": "MIDI/B09.MID",
+      "size": 35,
+      "crc32": "32b40e11"
+     },
+     {
+      "name": "MIDI/B10.MID",
+      "size": 35,
+      "crc32": "501a4802"
+     },
+     {
+      "name": "MIDI/B11.MID",
+      "size": 35,
+      "crc32": "5ac84467"
+     },
+     {
+      "name": "MIDI/B12.MID",
+      "size": 35,
+      "crc32": "45be50c8"
+     },
+     {
+      "name": "MIDI/B13.MID",
+      "size": 35,
+      "crc32": "4f6c5cad"
+     },
+     {
+      "name": "MIDI/B14.MID",
+      "size": 35,
+      "crc32": "7b527996"
+     },
+     {
+      "name": "MIDI/B15.MID",
+      "size": 35,
+      "crc32": "718075f3"
+     },
+     {
+      "name": "MIDI/B16.MID",
+      "size": 35,
+      "crc32": "6ef6615c"
+     },
+     {
+      "name": "MIDI/B17.MID",
+      "size": 35,
+      "crc32": "64246d39"
+     },
+     {
+      "name": "MIDI/B18.MID",
+      "size": 35,
+      "crc32": "abaaed7a"
+     },
+     {
+      "name": "MIDI/B19.MID",
+      "size": 35,
+      "crc32": "a178e11f"
+     },
+     {
+      "name": "MIDI/B20.MID",
+      "size": 35,
+      "crc32": "be0ef5b0"
+     },
+     {
+      "name": "MIDI/B21.MID",
+      "size": 35,
+      "crc32": "b4dcf9d5"
+     },
+     {
+      "name": "MIDI/B22.MID",
+      "size": 35,
+      "crc32": "80e2dcee"
+     },
+     {
+      "name": "MIDI/B23.MID",
+      "size": 35,
+      "crc32": "8a30d08b"
+     },
+     {
+      "name": "MIDI/B24.MID",
+      "size": 35,
+      "crc32": "9546c424"
+     },
+     {
+      "name": "MIDI/B25.MID",
+      "size": 35,
+      "crc32": "9f94c841"
+     },
+     {
+      "name": "MIDI/B26.MID",
+      "size": 35,
+      "crc32": "fd3a8e52"
+     },
+     {
+      "name": "MIDI/B27.MID",
+      "size": 35,
+      "crc32": "f7e88237"
+     },
+     {
+      "name": "MIDI/B28.MID",
+      "size": 35,
+      "crc32": "e89e9698"
+     },
+     {
+      "name": "MIDI/B29.MID",
+      "size": 35,
+      "crc32": "e24c9afd"
+     },
+     {
+      "name": "MIDI/B30.MID",
+      "size": 35,
+      "crc32": "d672bfc6"
+     },
+     {
+      "name": "MIDI/B31.MID",
+      "size": 35,
+      "crc32": "dca0b3a3"
+     },
+     {
+      "name": "MIDI/E00.MID",
+      "size": 35,
+      "crc32": "d672bfc6"
+     },
+     {
+      "name": "MIDI/E01.MID",
+      "size": 35,
+      "crc32": "dca0b3a3"
+     },
+     {
+      "name": "MIDI/E02.MID",
+      "size": 35,
+      "crc32": "c3d6a70c"
+     },
+     {
+      "name": "MIDI/E03.MID",
+      "size": 35,
+      "crc32": "c904ab69"
+     },
+     {
+      "name": "MIDI/E04.MID",
+      "size": 35,
+      "crc32": "5eaab248"
+     },
+     {
+      "name": "MIDI/E05.MID",
+      "size": 35,
+      "crc32": "5478be2d"
+     },
+     {
+      "name": "MIDI/E06.MID",
+      "size": 35,
+      "crc32": "4b0eaa82"
+     },
+     {
+      "name": "MIDI/E07.MID",
+      "size": 35,
+      "crc32": "41dca6e7"
+     },
+     {
+      "name": "MIDI/E08.MID",
+      "size": 35,
+      "crc32": "75e283dc"
+     },
+     {
+      "name": "MIDI/E09.MID",
+      "size": 35,
+      "crc32": "7f308fb9"
+     },
+     {
+      "name": "MIDI/E10.MID",
+      "size": 35,
+      "crc32": "60469b16"
+     },
+     {
+      "name": "MIDI/E11.MID",
+      "size": 35,
+      "crc32": "6a949773"
+     },
+     {
+      "name": "MIDI/E12.MID",
+      "size": 35,
+      "crc32": "083ad160"
+     },
+     {
+      "name": "MIDI/E13.MID",
+      "size": 35,
+      "crc32": "02e8dd05"
+     },
+     {
+      "name": "MIDI/E14.MID",
+      "size": 35,
+      "crc32": "1d9ec9aa"
+     },
+     {
+      "name": "MIDI/E15.MID",
+      "size": 35,
+      "crc32": "174cc5cf"
+     },
+     {
+      "name": "MIDI/E16.MID",
+      "size": 35,
+      "crc32": "2372e0f4"
+     },
+     {
+      "name": "MIDI/E17.MID",
+      "size": 35,
+      "crc32": "29a0ec91"
+     },
+     {
+      "name": "MIDI/E18.MID",
+      "size": 35,
+      "crc32": "36d6f83e"
+     },
+     {
+      "name": "MIDI/E19.MID",
+      "size": 35,
+      "crc32": "3c04f45b"
+     },
+     {
+      "name": "MIDI/E20.MID",
+      "size": 35,
+      "crc32": "f38a7418"
+     },
+     {
+      "name": "MIDI/E21.MID",
+      "size": 35,
+      "crc32": "f958787d"
+     },
+     {
+      "name": "MIDI/E22.MID",
+      "size": 35,
+      "crc32": "e62e6cd2"
+     },
+     {
+      "name": "MIDI/E23.MID",
+      "size": 35,
+      "crc32": "ecfc60b7"
+     },
+     {
+      "name": "MIDI/E24.MID",
+      "size": 35,
+      "crc32": "d8c2458c"
+     },
+     {
+      "name": "MIDI/E25.MID",
+      "size": 35,
+      "crc32": "d21049e9"
+     },
+     {
+      "name": "MIDI/E26.MID",
+      "size": 35,
+      "crc32": "cd665d46"
+     },
+     {
+      "name": "MIDI/E27.MID",
+      "size": 35,
+      "crc32": "c7b45123"
+     },
+     {
+      "name": "MIDI/E28.MID",
+      "size": 35,
+      "crc32": "a51a1730"
+     },
+     {
+      "name": "MIDI/E29.MID",
+      "size": 35,
+      "crc32": "afc81b55"
+     },
+     {
+      "name": "MIDI/E30.MID",
+      "size": 35,
+      "crc32": "b0be0ffa"
+     },
+     {
+      "name": "MIDI/E31.MID",
+      "size": 35,
+      "crc32": "ba6c039f"
+     },
+     {
+      "name": "README",
+      "size": 62,
+      "crc32": "d641dd32"
+     },
+     {
+      "name": "SND.DAT",
+      "size": 32,
+      "crc32": "da249f2e"
+     },
+     {
+      "name": "SPEECH.DAT",
+      "size": 6000,
+      "crc32": "8ec07fcb"
+     },
+     {
+      "name": "SSO.FON",
+      "size": 32,
+      "crc32": "b433eddb"
+     },
+     {
+      "name": "SSO1.DAT",
+      "size": 3552,
+      "crc32": "fc7bc5e1"
+     },
+     {
+      "name": "SSO2.DAT",
+      "size": 33,
+      "crc32": "6424e710"
+     },
+     {
+      "name": "SSO3.DAT",
+      "size": 33,
+      "crc32": "c253eca4"
+     },
+     {
+      "name": "SSOWINCD.DAT",
+      "size": 18140,
+      "crc32": "1bc15c83"
+     },
+     {
+      "name": "SSOWINCD.EXE",
+      "size": 54,
+      "crc32": "71bb7627"
+     },
+     {
+      "name": "SSOWINCD.INI",
+      "size": 41,
+      "crc32": "ad9053e7"
+     }
+    ]
+   }
+  },
+  {
+   "case": "zip_deflate",
+   "path": "dos_deflate.zip",
+   "role": "dos",
+   "note": "deflate, directory entry, archive comment",
+   "expected": {
+    "ok": true,
+    "role": "dos",
+    "source": "zip",
+    "folder": "SSOUTN",
+    "folders_found": 1,
+    "files": [
+     {
+      "name": "MOCKET.DAT",
+      "size": 1097,
+      "crc32": "0729666c"
+     },
+     {
+      "name": "SSO.EXE",
+      "size": 1474,
+      "crc32": "d02f4d0d"
+     }
+    ]
+   }
+  },
+  {
+   "case": "zip_stored",
+   "path": "dos_stored.zip",
+   "role": "dos",
+   "note": "stored, lower-case names",
+   "expected": {
+    "ok": true,
+    "role": "dos",
+    "source": "zip",
+    "folder": "SSOUTN",
+    "folders_found": 1,
+    "files": [
+     {
+      "name": "MOCKET.DAT",
+      "size": 1097,
+      "crc32": "0729666c"
+     },
+     {
+      "name": "SSO.EXE",
+      "size": 1474,
+      "crc32": "d02f4d0d"
+     }
+    ]
+   }
+  },
+  {
+   "case": "zip_nested",
+   "path": "dos_nested.zip",
+   "role": "dos",
+   "note": "shallowest folder holding both files wins",
+   "expected": {
+    "ok": true,
+    "role": "dos",
+    "source": "zip",
+    "folder": "OUTNUMBERED/SSOUTN",
+    "folders_found": 1,
+    "files": [
+     {
+      "name": "MOCKET.DAT",
+      "size": 1097,
+      "crc32": "0729666c"
+     },
+     {
+      "name": "SSO.EXE",
+      "size": 1474,
+      "crc32": "d02f4d0d"
+     }
+    ]
+   }
+  },
+  {
+   "case": "zip_no_files",
+   "path": "dos_no_files.zip",
+   "role": "dos",
+   "note": "dos_files_not_found",
+   "expected": {
+    "ok": false,
+    "role": "dos",
+    "error": "dos_files_not_found",
+    "message": "no folder with SSO.EXE and MOCKET.DAT in the archive"
+   }
+  },
+  {
+   "case": "zip_bad_crc",
+   "path": "dos_bad_crc.zip",
+   "role": "dos",
+   "note": "one stored byte of MOCKET.DAT changed -> bad_crc",
+   "expected": {
+    "ok": false,
+    "role": "dos",
+    "error": "bad_crc",
+    "message": "CRC error in SSOUTN/MOCKET.DAT"
+   }
+  },
+  {
+   "case": "zip_method",
+   "path": "dos_bzip2.zip",
+   "role": "dos",
+   "note": "method 12 -> unsupported_method",
+   "expected": {
+    "ok": false,
+    "role": "dos",
+    "error": "unsupported_method",
+    "message": "SSOUTN/SSO.EXE uses compression method 12"
+   }
+  },
+  {
+   "case": "zip_truncated",
+   "path": "dos_truncated.zip",
+   "role": "dos",
+   "note": "first half of dos_deflate.zip (starts with a local header, no EOCD) -> truncated",
+   "expected": {
+    "ok": false,
+    "role": "dos",
+    "error": "truncated",
+    "message": "incomplete zip archive (no end-of-central-directory record)"
+   }
+  },
+  {
+   "case": "dos_folder_depth2",
+   "path": "dos_folder",
+   "role": "dos",
+   "note": "folder: files at depth 2",
+   "expected": {
+    "ok": true,
+    "role": "dos",
+    "source": "folder",
+    "folder": "GAMES/SSOUTN",
+    "folders_found": 1,
+    "files": [
+     {
+      "name": "MOCKET.DAT",
+      "size": 1097,
+      "crc32": "0729666c"
+     },
+     {
+      "name": "SSO.EXE",
+      "size": 1474,
+      "crc32": "d02f4d0d"
+     }
+    ]
+   }
+  }
+ ]
+}

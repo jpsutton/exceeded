@@ -1,0 +1,257 @@
+{
+ "file": "save_SSOWINCD.DAT",
+ "size": 18140,
+ "player_count": 3,
+ "header_list": [
+  {
+   "name": "ALICE",
+   "lifetime": 31000,
+   "slot": 2
+  },
+  {
+   "name": "BOB",
+   "lifetime": 0,
+   "slot": 0
+  },
+  {
+   "name": "ZED",
+   "lifetime": 500123,
+   "slot": 1
+  }
+ ],
+ "rank_names": {
+  "ALICE": "Senior",
+  "BOB": "Trainee",
+  "ZED": "Champion"
+ },
+ "BOB": {
+  "slot": 0,
+  "game_customisation": "1d0c1c04040404000400040000",
+  "drill_customisation": "1f1c1c14040404040404040404",
+  "customised_flags": 3,
+  "saved_game_present": 1,
+  "state": {
+   "seed": 4242,
+   "game_score": 1350,
+   "clock": 1047,
+   "level": 1,
+   "energy": 9,
+   "pending_energy": 2,
+   "object_state": [
+    1,
+    0,
+    2,
+    0,
+    0,
+    3,
+    0,
+    1,
+    1,
+    0
+   ],
+   "object_op": [
+    0,
+    2,
+    3,
+    1,
+    0,
+    0,
+    2,
+    0,
+    1,
+    3
+   ],
+   "object_question": [
+    3,
+    0,
+    1,
+    2,
+    0,
+    0,
+    1,
+    0,
+    2,
+    3
+   ],
+   "object_wrong": [
+    0,
+    0,
+    1,
+    0,
+    0,
+    3,
+    0,
+    0,
+    0,
+    0
+   ],
+   "room_clues": [
+    [
+     {
+      "pic": 5,
+      "revealed": true
+     },
+     {
+      "pic": 6,
+      "revealed": true
+     },
+     {
+      "pic": 7,
+      "revealed": true
+     },
+     {
+      "pic": 8,
+      "revealed": true
+     }
+    ],
+    [
+     {
+      "pic": 9,
+      "revealed": false
+     },
+     {
+      "pic": 10,
+      "revealed": false
+     },
+     {
+      "pic": 11,
+      "revealed": false
+     },
+     {
+      "pic": 12,
+      "revealed": false
+     }
+    ],
+    [
+     {
+      "pic": 0,
+      "revealed": false
+     },
+     {
+      "pic": 1,
+      "revealed": false
+     },
+     {
+      "pic": 2,
+      "revealed": false
+     },
+     {
+      "pic": 3,
+      "revealed": false
+     }
+    ],
+    [
+     {
+      "pic": 4,
+      "revealed": false
+     },
+     {
+      "pic": 5,
+      "revealed": false
+     },
+     {
+      "pic": 6,
+      "revealed": false
+     },
+     {
+      "pic": 7,
+      "revealed": false
+     }
+    ],
+    [
+     {
+      "pic": 8,
+      "revealed": false
+     },
+     {
+      "pic": 9,
+      "revealed": false
+     },
+     {
+      "pic": 10,
+      "revealed": false
+     },
+     {
+      "pic": 11,
+      "revealed": false
+     }
+    ]
+   ],
+   "code": [
+    {
+     "pic": 1,
+     "captured": true
+    },
+    {
+     "pic": 2,
+     "captured": false
+    },
+    {
+     "pic": 3,
+     "captured": false
+    },
+    {
+     "pic": 4,
+     "captured": false
+    }
+   ],
+   "code_pieces": 1,
+   "match_rule": 0,
+   "hint_flags": [
+    255,
+    0,
+    0,
+    255,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "hideout": 3
+  },
+  "object_seeds": [
+   3,
+   7,
+   1,
+   10,
+   4,
+   4,
+   9,
+   2,
+   6,
+   5
+  ],
+  "sfx": 1,
+  "music": 0,
+  "voice": 1,
+  "rank_intro_stage": 2,
+  "options": {
+   "calculator": true,
+   "hints": false,
+   "clock": true
+  }
+ },
+ "ALICE": {
+  "slot": 2,
+  "saved_game_present": 0,
+  "options_byte": 7
+ },
+ "untouched_record_example": {
+  "slot": 50,
+  "flags": 1,
+  "sfx": 1,
+  "music": 1,
+  "voice": 1,
+  "options_byte": 7
+ }
+}

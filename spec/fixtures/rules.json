@@ -1,0 +1,1054 @@
+{
+ "default_deck_sizes": {
+  "0": 240,
+  "1": 306,
+  "2": 647,
+  "3": 663
+ },
+ "drill_sets": {
+  "note": "Deck built in canonical order from the customisation (05 \u00a72.2), then srand(S), then for each question: draw (scaled(remaining)) followed by format choice (repeat scaled(3) until enabled). Formats: 0 hides C, 1 hides A, 2 hides B.",
+  "sets": [
+   {
+    "tier": 0,
+    "srand": 100,
+    "customisation": "1c041404040400000000000000",
+    "questions": [
+     {
+      "fact": [
+       0,
+       0,
+       7
+      ],
+      "format": 0,
+      "display": "7 + 0 = ?",
+      "answer": 7
+     },
+     {
+      "fact": [
+       0,
+       6,
+       1
+      ],
+      "format": 0,
+      "display": "1 + 6 = ?",
+      "answer": 7
+     },
+     {
+      "fact": [
+       0,
+       12,
+       5
+      ],
+      "format": 0,
+      "display": "5 + 12 = ?",
+      "answer": 17
+     },
+     {
+      "fact": [
+       0,
+       9,
+       4
+      ],
+      "format": 0,
+      "display": "4 + 9 = ?",
+      "answer": 13
+     },
+     {
+      "fact": [
+       2,
+       4,
+       8
+      ],
+      "format": 0,
+      "display": "12 - 4 = ?",
+      "answer": 8
+     },
+     {
+      "fact": [
+       0,
+       3,
+       5
+      ],
+      "format": 0,
+      "display": "5 + 3 = ?",
+      "answer": 8
+     },
+     {
+      "fact": [
+       0,
+       4,
+       8
+      ],
+      "format": 0,
+      "display": "8 + 4 = ?",
+      "answer": 12
+     },
+     {
+      "fact": [
+       2,
+       4,
+       3
+      ],
+      "format": 0,
+      "display": "7 - 4 = ?",
+      "answer": 3
+     },
+     {
+      "fact": [
+       0,
+       2,
+       0
+      ],
+      "format": 0,
+      "display": "0 + 2 = ?",
+      "answer": 2
+     },
+     {
+      "fact": [
+       2,
+       3,
+       1
+      ],
+      "format": 0,
+      "display": "4 - 3 = ?",
+      "answer": 1
+     },
+     {
+      "fact": [
+       2,
+       1,
+       8
+      ],
+      "format": 0,
+      "display": "9 - 1 = ?",
+      "answer": 8
+     },
+     {
+      "fact": [
+       0,
+       6,
+       5
+      ],
+      "format": 0,
+      "display": "5 + 6 = ?",
+      "answer": 11
+     }
+    ]
+   },
+   {
+    "tier": 1,
+    "srand": 200,
+    "customisation": "1d0c1c04040404000400040000",
+    "questions": [
+     {
+      "fact": [
+       0,
+       1,
+       6
+      ],
+      "format": 2,
+      "display": "6 + ? = 7",
+      "answer": 1
+     },
+     {
+      "fact": [
+       0,
+       3,
+       5
+      ],
+      "format": 2,
+      "display": "5 + ? = 8",
+      "answer": 3
+     },
+     {
+      "fact": [
+       2,
+       0,
+       3
+      ],
+      "format": 1,
+      "display": "? - 0 = 3",
+      "answer": 3
+     },
+     {
+      "fact": [
+       0,
+       2,
+       4
+      ],
+      "format": 0,
+      "display": "4 + 2 = ?",
+      "answer": 6
+     },
+     {
+      "fact": [
+       0,
+       1,
+       5
+      ],
+      "format": 1,
+      "display": "? + 1 = 6",
+      "answer": 5
+     },
+     {
+      "fact": [
+       2,
+       9,
+       6
+      ],
+      "format": 0,
+      "display": "15 - 9 = ?",
+      "answer": 6
+     },
+     {
+      "fact": [
+       0,
+       5,
+       10
+      ],
+      "format": 2,
+      "display": "10 + ? = 15",
+      "answer": 5
+     },
+     {
+      "fact": [
+       2,
+       7,
+       6
+      ],
+      "format": 0,
+      "display": "13 - 7 = ?",
+      "answer": 6
+     },
+     {
+      "fact": [
+       2,
+       3,
+       7
+      ],
+      "format": 0,
+      "display": "10 - 3 = ?",
+      "answer": 7
+     },
+     {
+      "fact": [
+       2,
+       6,
+       4
+      ],
+      "format": 1,
+      "display": "? - 6 = 4",
+      "answer": 10
+     },
+     {
+      "fact": [
+       0,
+       7,
+       6
+      ],
+      "format": 0,
+      "display": "6 + 7 = ?",
+      "answer": 13
+     },
+     {
+      "fact": [
+       2,
+       8,
+       6
+      ],
+      "format": 2,
+      "display": "14 - ? = 6",
+      "answer": 8
+     }
+    ]
+   },
+   {
+    "tier": 2,
+    "srand": 300,
+    "customisation": "1e141414040404040404040000",
+    "questions": [
+     {
+      "fact": [
+       0,
+       5,
+       8
+      ],
+      "format": 0,
+      "display": "8 + 5 = ?",
+      "answer": 13
+     },
+     {
+      "fact": [
+       1,
+       10,
+       2
+      ],
+      "format": 0,
+      "display": "2 x 10 = ?",
+      "answer": 20
+     },
+     {
+      "fact": [
+       0,
+       10,
+       5
+      ],
+      "format": 0,
+      "display": "5 + 10 = ?",
+      "answer": 15
+     },
+     {
+      "fact": [
+       3,
+       11,
+       2
+      ],
+      "format": 0,
+      "display": "22 / 11 = ?",
+      "answer": 2
+     },
+     {
+      "fact": [
+       0,
+       10,
+       11
+      ],
+      "format": 0,
+      "display": "11 + 10 = ?",
+      "answer": 21
+     },
+     {
+      "fact": [
+       0,
+       0,
+       10
+      ],
+      "format": 0,
+      "display": "10 + 0 = ?",
+      "answer": 10
+     },
+     {
+      "fact": [
+       3,
+       10,
+       11
+      ],
+      "format": 0,
+      "display": "110 / 10 = ?",
+      "answer": 11
+     },
+     {
+      "fact": [
+       1,
+       10,
+       5
+      ],
+      "format": 0,
+      "display": "5 x 10 = ?",
+      "answer": 50
+     },
+     {
+      "fact": [
+       2,
+       10,
+       12
+      ],
+      "format": 0,
+      "display": "22 - 10 = ?",
+      "answer": 12
+     },
+     {
+      "fact": [
+       3,
+       5,
+       11
+      ],
+      "format": 0,
+      "display": "55 / 5 = ?",
+      "answer": 11
+     },
+     {
+      "fact": [
+       2,
+       2,
+       0
+      ],
+      "format": 0,
+      "display": "2 - 2 = ?",
+      "answer": 0
+     },
+     {
+      "fact": [
+       1,
+       3,
+       1
+      ],
+      "format": 0,
+      "display": "1 x 3 = ?",
+      "answer": 3
+     }
+    ]
+   },
+   {
+    "tier": 3,
+    "srand": 400,
+    "customisation": "1f1c1c14040404040404040404",
+    "questions": [
+     {
+      "fact": [
+       0,
+       11,
+       8
+      ],
+      "format": 1,
+      "display": "? + 11 = 19",
+      "answer": 8
+     },
+     {
+      "fact": [
+       1,
+       8,
+       8
+      ],
+      "format": 1,
+      "display": "? x 8 = 64",
+      "answer": 8
+     },
+     {
+      "fact": [
+       0,
+       3,
+       0
+      ],
+      "format": 2,
+      "display": "0 + ? = 3",
+      "answer": 3
+     },
+     {
+      "fact": [
+       0,
+       3,
+       9
+      ],
+      "format": 0,
+      "display": "9 + 3 = ?",
+      "answer": 12
+     },
+     {
+      "fact": [
+       0,
+       6,
+       0
+      ],
+      "format": 1,
+      "display": "? + 6 = 6",
+      "answer": 0
+     },
+     {
+      "fact": [
+       3,
+       4,
+       12
+      ],
+      "format": 0,
+      "display": "48 / 4 = ?",
+      "answer": 12
+     },
+     {
+      "fact": [
+       1,
+       9,
+       1
+      ],
+      "format": 2,
+      "display": "1 x ? = 9",
+      "answer": 9
+     },
+     {
+      "fact": [
+       0,
+       6,
+       4
+      ],
+      "format": 1,
+      "display": "? + 6 = 10",
+      "answer": 4
+     },
+     {
+      "fact": [
+       1,
+       12,
+       9
+      ],
+      "format": 0,
+      "display": "9 x 12 = ?",
+      "answer": 108
+     },
+     {
+      "fact": [
+       3,
+       5,
+       2
+      ],
+      "format": 0,
+      "display": "10 / 5 = ?",
+      "answer": 2
+     },
+     {
+      "fact": [
+       0,
+       8,
+       1
+      ],
+      "format": 1,
+      "display": "? + 8 = 9",
+      "answer": 1
+     },
+     {
+      "fact": [
+       3,
+       6,
+       5
+      ],
+      "format": 0,
+      "display": "30 / 6 = ?",
+      "answer": 5
+     }
+    ]
+   }
+  ]
+ },
+ "puzzles": {
+  "note": "Program start (pool = 0..19, patterns = initial table, candidate rows zero) and a fresh sign-in (game state, incl. the secret code, zeroed); srand(S); then 3 consecutive games via \"play again\" (no sign-in between, so the code array carries over) with no other RNG calls in between (05 \u00a73.2, steps 1, 2 and 4). Rooms are listed in room order NEWS..SOUND; picture ids 0..19.",
+  "sets": [
+   {
+    "tier": 0,
+    "srand": 1000,
+    "games": [
+     {
+      "code": [
+       7,
+       3,
+       8,
+       11
+      ],
+      "rooms": [
+       [
+        7,
+        3,
+        8,
+        11
+       ],
+       [
+        12,
+        3,
+        8,
+        18
+       ],
+       [
+        9,
+        3,
+        8,
+        11
+       ],
+       [
+        10,
+        14,
+        9,
+        11
+       ],
+       [
+        7,
+        3,
+        18,
+        15
+       ]
+      ],
+      "hideout": 0,
+      "rule": 0
+     },
+     {
+      "code": [
+       8,
+       18,
+       9,
+       7
+      ],
+      "rooms": [
+       [
+        10,
+        18,
+        6,
+        7
+       ],
+       [
+        8,
+        18,
+        9,
+        14
+       ],
+       [
+        19,
+        17,
+        9,
+        17
+       ],
+       [
+        11,
+        18,
+        9,
+        3
+       ],
+       [
+        8,
+        18,
+        9,
+        7
+       ]
+      ],
+      "hideout": 4,
+      "rule": 0
+     },
+     {
+      "code": [
+       5,
+       8,
+       9,
+       17
+      ],
+      "rooms": [
+       [
+        12,
+        2,
+        9,
+        17
+       ],
+       [
+        5,
+        1,
+        11,
+        3
+       ],
+       [
+        4,
+        15,
+        9,
+        17
+       ],
+       [
+        5,
+        8,
+        9,
+        17
+       ],
+       [
+        5,
+        8,
+        16,
+        17
+       ]
+      ],
+      "hideout": 3,
+      "rule": 0
+     }
+    ]
+   },
+   {
+    "tier": 1,
+    "srand": 1001,
+    "games": [
+     {
+      "code": [
+       11,
+       9,
+       2,
+       8
+      ],
+      "rooms": [
+       [
+        11,
+        8,
+        2,
+        9
+       ],
+       [
+        11,
+        2,
+        9,
+        8
+       ],
+       [
+        11,
+        2,
+        8,
+        9
+       ],
+       [
+        11,
+        9,
+        8,
+        2
+       ],
+       [
+        11,
+        9,
+        2,
+        8
+       ]
+      ],
+      "hideout": 4,
+      "rule": 0
+     },
+     {
+      "code": [
+       5,
+       3,
+       13,
+       1
+      ],
+      "rooms": [
+       [
+        5,
+        1,
+        13,
+        3
+       ],
+       [
+        5,
+        13,
+        1,
+        3
+       ],
+       [
+        5,
+        13,
+        3,
+        1
+       ],
+       [
+        5,
+        3,
+        1,
+        13
+       ],
+       [
+        5,
+        3,
+        13,
+        1
+       ]
+      ],
+      "hideout": 4,
+      "rule": 0
+     },
+     {
+      "code": [
+       2,
+       3,
+       4,
+       1
+      ],
+      "rooms": [
+       [
+        2,
+        4,
+        3,
+        1
+       ],
+       [
+        2,
+        3,
+        4,
+        1
+       ],
+       [
+        3,
+        1,
+        4,
+        2
+       ],
+       [
+        3,
+        1,
+        2,
+        4
+       ],
+       [
+        2,
+        3,
+        1,
+        4
+       ]
+      ],
+      "hideout": 1,
+      "rule": 0
+     }
+    ]
+   },
+   {
+    "tier": 2,
+    "srand": 1002,
+    "games": [
+     {
+      "code": [
+       12,
+       9,
+       13,
+       16
+      ],
+      "rooms": [
+       [
+        8,
+        16,
+        13,
+        9
+       ],
+       [
+        9,
+        16,
+        13,
+        12
+       ],
+       [
+        8,
+        4,
+        16,
+        12
+       ],
+       [
+        4,
+        9,
+        13,
+        12
+       ],
+       [
+        16,
+        13,
+        8,
+        1
+       ]
+      ],
+      "hideout": 1,
+      "rule": 1
+     },
+     {
+      "code": [
+       14,
+       6,
+       4,
+       0
+      ],
+      "rooms": [
+       [
+        14,
+        4,
+        6,
+        1
+       ],
+       [
+        0,
+        14,
+        1,
+        3
+       ],
+       [
+        8,
+        3,
+        4,
+        0
+       ],
+       [
+        3,
+        6,
+        0,
+        4
+       ],
+       [
+        6,
+        4,
+        14,
+        0
+       ]
+      ],
+      "hideout": 4,
+      "rule": 1
+     },
+     {
+      "code": [
+       15,
+       17,
+       19,
+       7
+      ],
+      "rooms": [
+       [
+        19,
+        7,
+        17,
+        2
+       ],
+       [
+        7,
+        19,
+        15,
+        17
+       ],
+       [
+        17,
+        15,
+        16,
+        19
+       ],
+       [
+        16,
+        15,
+        2,
+        7
+       ],
+       [
+        19,
+        7,
+        10,
+        2
+       ]
+      ],
+      "hideout": 1,
+      "rule": 1
+     }
+    ]
+   },
+   {
+    "tier": 3,
+    "srand": 1003,
+    "games": [
+     {
+      "code": [
+       15,
+       15,
+       4,
+       14
+      ],
+      "rooms": [
+       [
+        17,
+        9,
+        9,
+        17
+       ],
+       [
+        13,
+        12,
+        12,
+        4
+       ],
+       [
+        18,
+        18,
+        0,
+        6
+       ],
+       [
+        6,
+        17,
+        7,
+        0
+       ],
+       [
+        7,
+        4,
+        13,
+        0
+       ]
+      ],
+      "hideout": 2,
+      "rule": 2
+     },
+     {
+      "code": [
+       19,
+       9,
+       16,
+       14
+      ],
+      "rooms": [
+       [
+        17,
+        3,
+        3,
+        16
+       ],
+       [
+        13,
+        11,
+        5,
+        6
+       ],
+       [
+        16,
+        13,
+        4,
+        13
+       ],
+       [
+        8,
+        1,
+        8,
+        9
+       ],
+       [
+        1,
+        1,
+        8,
+        6
+       ]
+      ],
+      "hideout": 1,
+      "rule": 2
+     },
+     {
+      "code": [
+       3,
+       15,
+       9,
+       15
+      ],
+      "rooms": [
+       [
+        0,
+        0,
+        13,
+        11
+       ],
+       [
+        18,
+        10,
+        10,
+        12
+       ],
+       [
+        17,
+        12,
+        18,
+        12
+       ],
+       [
+        7,
+        5,
+        5,
+        19
+       ],
+       [
+        2,
+        3,
+        2,
+        3
+       ]
+      ],
+      "hideout": 2,
+      "rule": 2
+     }
+    ]
+   }
+  ]
+ }
+}

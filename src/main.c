@@ -3,6 +3,9 @@
 #include "setup.h"
 #include "game.h"
 #include "util.h"
+#if defined(_WIN32) && !defined(NO_SDL)
+#include <SDL.h>   /* SDL_main: the arguments arrive as UTF-8 */
+#endif
 
 const char *g_opt_dos_game, *g_opt_dos_audio, *g_opt_music_style, *g_opt_sfx_style;
 int g_opt_vol[3] = {-1, -1, -1}, g_opt_even = -1;
@@ -30,6 +33,9 @@ static int audio_option(int argc, char **argv, int i, int apply) {
 }
 
 int main(int argc, char **argv) {
+#ifdef _WIN32
+    for (int i = 1; i < argc; i++) for (char *c = argv[i]; *c; c++) if (*c == '\\') *c = '/';      /* the engine keeps '/' separators */
+#endif
     const char *data = NULL, *save = NULL, *out = NULL;
     int conform_at = -1;
     for (int i = 1; i < argc; i++) { int u = audio_option(argc, argv, i, 1); if (u) i += u - 1; }

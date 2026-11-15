@@ -1,0 +1,23 @@
+# 14 §10.3 setup screen walk-through. Run with: --home <fresh temp dir> --conform play THIS --out DIR2
+# Paths are relative to this script's folder.
+setup
+state s0_initial
+drop ../../containers/data_not_image.iso
+state s1_unknown
+drop ../../containers/data_plain.iso ../../containers/dos_deflate.zip
+state s2_both_ok
+press TAB
+press ENTER
+wait 3
+state s3_installing
+press ESC
+state s4_cancelled
+click 100 202
+type ../../containers/data_root.iso
+press ENTER
+state s5_typed
+press ENTER
+wait 100
+state s6_complete
+wait 150
+state s7_load_failed

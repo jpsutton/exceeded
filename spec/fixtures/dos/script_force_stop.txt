@@ -1,0 +1,7 @@
+0 play 1
+20 force 7      # stop + play: priority ignored
+25 force 7      # restart cuts the previous copy
+60 stop
+61 play 8       # noise effect
+75 stop
+80 end

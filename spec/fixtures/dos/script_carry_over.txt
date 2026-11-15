@@ -1,0 +1,4 @@
+0 play 1        # tempo base, envelope selections and sustain survive into the next song
+100 play 9
+150 play 12     # no D4: uses the tempo base left by song 9
+400 end
