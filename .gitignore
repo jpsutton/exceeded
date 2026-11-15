@@ -1,0 +1,6 @@
+build/
+dist/
+/engine
+__pycache__/
+HANDOFF.md
+*.o
