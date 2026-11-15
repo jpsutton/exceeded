@@ -65,7 +65,8 @@ static struct {
     int realtime, rate;
     void (*lock)(void), (*unlock)(void);
     int keep_sfx;
-    int award;                          /* the DOS award timeline is running (spec 12 section 5.5) */
+    int tl;                             /* the running DOS ending timeline (TL_*, spec 12 section 5.5), 0 = none */
+    int tl_final;                       /* its last song: the timeline is finished when its last request is made and this song is no longer current */
     char installed_dos[1024];           /* <base>/dos when installed (spec 14): used when DosGameDir is empty */
     int inited;
     /* test sample */
@@ -610,14 +611,14 @@ int dosint_current_song(void) {
 static int sfx_song(int id, int ctx, int flags) {
     (void)flags;
     switch (id) {
-    case 1700: return 10; case 1727: return 11; case 1706: return 12; case 1750: return 13;
+    case 1700: return 10; case 1727: return ctx == SC_SCORE ? 14 : 11; case 1706: return 12; case 1750: return 13;
     case 1701: case 1736: return 27; case 1702: return 26; case 1703: case 1747: return 37; case 1704: return 51; case 1705: return 24;
-    case 1707: return 35; case 1708: return 36; case 1709: case 1769: return 48; case 1711: return 9; case 1712: return 25;
+    case 1707: return 35; case 1708: return 36; case 1709: return 48; case 1711: return 9; case 1712: return 25;
     case 1718: return 34; case 1720: case 1723: return 20; case 1722: return 33; case 1726: return 38; case 1730: return 29; case 1731: return 18;
-    case 1732: return 19; case 1734: return 28; case 1737: return 45; case 1738: return 10; case 1739: case 1753: return 50; case 1740: case 1752: return 23;
+    case 1732: return 19; case 1734: return 28; case 1737: return 45; case 1739: return ctx == SC_SCORE ? 7 : -1; case 1753: return 50; case 1740: case 1752: return 23;
     case 1742: return 31; case 1743: return 7; case 1744: return 6; case 1748: return 46; case 1749: return 47; case 1754: return 17; case 1755: return 26;
-    case 1758: return 32; case 1759: return 39; case 1760: return ctx == SC_WRONGDEC ? 17 : 9; case 1761: return 8; case 1762: return 11; case 1763: return 42;
-    case 1764: return ctx == SC_AWARD ? -1 : ctx == SC_SCORE ? 16 : 14; case 1765: return 15; case 1768: return 43;
+    case 1758: return 32; case 1759: return 39; case 1760: return ctx == SC_WRONGDEC ? -1 : 9; case 1761: return 8; case 1763: return 42;
+    case 1764: return ctx == SC_AWARD ? -1 : ctx == SC_SCORE ? 16 : 14; case 1765: return 15;
     }
     return -1;
 }
@@ -635,7 +636,6 @@ int dosint_sfx(int id, int flags, int ctx) {
     int64_t t = now_cs();
     int handled = 1;
     g_owner = id;
-    if (D.award && (id == 1764 || id == 1738 || id == 1739)) { UNLOCK(); return 1; }   /* the DOS award timeline replaces these cues */
 #define PLAY(s) req(b, OP_PLAY, (s), KD_SFX, id, 0, t)
 #define PLAYS(s) req(b, OP_PLAY, (s), KD_SFX, id, STOPYES, t)
 #define FORCE(s) req(b, OP_FORCE, (s), KD_SFX, id, 0, t)
@@ -648,6 +648,7 @@ int dosint_sfx(int id, int flags, int ctx) {
     case 1700: case 1727: case 1706: case 1750: {
         int song = id == 1700 ? 10 : id == 1727 ? 11 : id == 1706 ? 12 : 13;
         if (id == 1727 && ctx == SC_INTRO) { req(b, OP_FORCE, 11, KD_SFX, id, STOPYES, t); break; }
+        if (id == 1727 && ctx == SC_SCORE) { FORCE(14); break; }                      /* the score-screen Champion extra */
         if (flags & SND_LOOP) {
             dosint_flag(id, 1);
             PLAY(song);
@@ -683,19 +684,16 @@ int dosint_sfx(int id, int flags, int ctx) {
         if (!flag_get(DF_SPIN_PLAYED)) { dosint_flag(DF_SPIN_PLAYED, 1); PLAY(30); }
         break;
     case 1737: FORCE(45); break;
-    case 1738:                                              /* Champion branch (the award itself never gets here) */
-        FORCE(10);
-        sched_add(b, b->k + 60, OP_FORCE, 10, 0, 0, 0, 0);
-        sched_add(b, b->k + 120, OP_FORCE, 10, 0, 0, 0, 0);
-        break;
-    case 1739: FORCE(50); break;
+    case 1738: break;                                       /* MoM zapped: the award and Champion endings play the DOS timelines (12 section 5.5) */
+    case 1739: if (ctx == SC_SCORE) FORCE(7); break;        /* score-screen Champion extra; the endings' own cues are ignored */
     case 1740: PLAY(23); break;
-    case 1752:
-        if (PLAY(23) == DOS_ACCEPTED) {          /* requested on every frame: only a start schedules the cut-off */
-            sched_cancel_tag(1752);
-            sched_add(b, b->k + 160, OP_STOP_IF, 23, 0, 0, 0, 1752);
-        }
+    case 1752: {
+        int pending = 0;                         /* the 160-tick cut-off counts from the first request of the static, even an ignored one (12 section 5.3) */
+        for (int i = 0; i < MAXSCHED; i++) if (D.sched[i].used && D.sched[i].tag == 1752) pending = 1;
+        if (!pending) sched_add(b, b->k + 160, OP_STOP_IF, 23, 0, 0, 0, 1752);
+        PLAY(23);
         break;
+    }
     case 1742: PLAY(31); break;
     case 1743: PLAY(7); break;
     case 1744: PLAY(6); break;
@@ -712,11 +710,11 @@ int dosint_sfx(int id, int flags, int ctx) {
         FORCE(39);
         sched_add(b, b->k + 30, OP_FORCE, 39, 30, 18, 1759, 0);
         break;
-    case 1760: if (ctx == SC_WRONGDEC) FORCE(17); else PLAY(9); break;
+    case 1760: if (ctx != SC_WRONGDEC) PLAY(9); break;       /* lose ending: ignored, the DOS lose timeline plays instead */
     case 1761: PLAY(8); break;
-    case 1762: FORCE(11); break;
+    case 1762: break;                                        /* lose ending lightning: part of the DOS lose timeline */
     case 1763:
-        PLAY(42);
+        FORCE(42);
         dosint_flag(DF_TELLY_FLASH, 1);
         sched_add(b, b->k + 24, OP_PLAY, 17, 24, -1, DF_TELLY_FLASH, 0);
         break;
@@ -726,8 +724,7 @@ int dosint_sfx(int id, int flags, int ctx) {
         else if (PLAY(14) == DOS_ACCEPTED) STOPLATER(14, 60);
         break;
     case 1765: if (PLAY(15) == DOS_ACCEPTED) STOPLATER(15, 60); break;
-    case 1768: FORCE(43); break;
-    case 1769: FORCE(48); break;
+    case 1768: case 1769: break;                             /* Champion ending: part of the DOS Champion timeline */
     default: handled = 0; break;
     }
 #undef PLAY
@@ -777,7 +774,7 @@ static void stop_effects(int keep_ride) {
     if (b->d.loop_flag) req(b, OP_LOOP, 0, 0, 0, 0, t);
     for (int i = 0; i < MAXFLAG; i++) D.flags[i] = 0;
     for (int i = 0; i < MAXSCHED; i++) if (D.sched[i].used && D.sched[i].b == b) D.sched[i].used = 0;
-    D.award = 0;
+    D.tl = 0;
     UNLOCK();
 }
 
@@ -797,32 +794,70 @@ int dosint_sfx_playing(int id) {
     return r;
 }
 
-/* ---------------------------------------------------------------- award timeline (spec 12 section 5.5) */
-#define TAG_AWARD 9001
-void dosint_award_begin(void) {
-    Bus *b = D.bus_sfx;
-    if (!b) return;
+/* ---------------------------------------------------------------- ending timelines (spec 12 section 5.5) */
+#define TAG_TL 9001
+typedef struct TlEnt { int tick, op, song; } TlEnt;
+#define TLF(t, s) {t, OP_FORCE, s}
+#define TLP(t, s) {t, OP_PLAY, s}
+static const TlEnt TL_AWARD_T[] = {TLF(90, 16), TLF(300, 10), TLF(360, 10), TLF(420, 10), TLF(510, 50), TLF(540, 50), TLF(570, 50)};
+static const TlEnt TL_CHAMP_T[] = {TLF(60, 43), TLF(500, 22), TLF(820, 13), TLF(880, 13), TLF(940, 13), TLF(1000, 13), TLF(1060, 13), TLF(1120, 13), TLF(1450, 14), TLF(1750, 48)};
+static const TlEnt TL_LOSE_T[] = {TLP(0, 17), TLF(60, 11), TLF(180, 20), TLF(300, 49)};      /* the +330 play(49) is always ignored: omitted */
+static const TlEnt TL_MID_T[] = {TLP(0, 49), TLP(100, 49), TLP(200, 49), TLP(300, 49), TLP(400, 49), TLP(500, 49), TLP(600, 49), TLP(700, 49), TLP(800, 49), TLP(900, 49)};
+
+/* Start a DOS ending timeline at the current driver time: the effect (or shared) driver, except the midnight flashes, which are the
+ * music slot's MIDNITE and use the music driver. Returns 0 when that driver is not DOS (the Windows cues play as before). */
+int dosint_timeline_begin(int kind) {
+    const TlEnt *t = NULL;
+    int n = 0, fin = 0;
+    Bus *b = kind == TL_MIDNIGHT ? D.bus_music : D.bus_sfx;
+    if (!b) return 0;
+    switch (kind) {
+    case TL_AWARD: t = TL_AWARD_T; n = (int)(sizeof TL_AWARD_T / sizeof *TL_AWARD_T); fin = 50; break;
+    case TL_CHAMPION: t = TL_CHAMP_T; n = (int)(sizeof TL_CHAMP_T / sizeof *TL_CHAMP_T); fin = 48; break;
+    case TL_LOSE: t = TL_LOSE_T; n = (int)(sizeof TL_LOSE_T / sizeof *TL_LOSE_T); fin = 49; break;
+    case TL_MIDNIGHT: t = TL_MID_T; n = (int)(sizeof TL_MID_T / sizeof *TL_MID_T); fin = 49; break;
+    default: return 0;
+    }
+    for (int i = 0; i < n; i++) levels_dos_ensure(&D.game, b->variant, t[i].song);
     LOCK();
     sync_virtual();
-    static const struct { int tick, song; } tl[] = {{90, 16}, {300, 10}, {360, 10}, {420, 10}, {510, 50}, {540, 50}, {570, 50}};
-    D.award = 1;
+    D.tl = kind;
+    D.tl_final = fin;
     g_owner = 0;
-    for (int i = 0; i < 7; i++) sched_add(b, b->k + tl[i].tick, OP_FORCE, tl[i].song, 0, 0, 0, TAG_AWARD);
+    int64_t now = now_cs();
+    for (int i = 0; i < n; i++) {
+        if (t[i].tick == 0) req(b, t[i].op, t[i].song, kind == TL_MIDNIGHT ? KD_MUSIC : KD_SFX, 0, 0, now);
+        else sched_add(b, b->k + t[i].tick, t[i].op, t[i].song, 0, 0, 0, TAG_TL);
+    }
     UNLOCK();
+    return 1;
 }
 
-/* 1 while the award timeline is not finished: the +570 request is made and song 50 no longer current */
-int dosint_award_active(void) {
-    Bus *b = D.bus_sfx;
-    if (!b || !D.award) return 0;
+/* 1 while the timeline is not finished: its last request is made and its last song is no longer current */
+int dosint_timeline_active(void) {
+    if (!D.tl) return 0;
+    Bus *b = D.tl == TL_MIDNIGHT ? D.bus_music : D.bus_sfx;
+    if (!b) { D.tl = 0; return 0; }
     LOCK();
     sync_virtual();
     int active = 0;
-    for (int i = 0; i < MAXSCHED; i++) if (D.sched[i].used && D.sched[i].tag == TAG_AWARD) active = 1;
-    if (!active && b->d.current == 50) active = 1;
-    if (!active) D.award = 0;
+    for (int i = 0; i < MAXSCHED; i++) if (D.sched[i].used && D.sched[i].tag == TAG_TL) active = 1;
+    if (!active && b->d.current == D.tl_final) active = 1;
+    if (!active) D.tl = 0;
     UNLOCK();
     return active;
+}
+
+/* the zap that hits a lit Telly: the big zap song after the Windows stop-all (12 section 5.3) */
+void dosint_zap_lit_telly(void) {
+    Bus *b = D.bus_sfx;
+    if (!b) return;
+    levels_dos_ensure(&D.game, b->variant, 16);
+    LOCK();
+    sync_virtual();
+    g_owner = 0;
+    req(b, OP_FORCE, 16, KD_SFX, 0, 0, now_cs());
+    UNLOCK();
 }
 
 /* ---------------------------------------------------------------- state */

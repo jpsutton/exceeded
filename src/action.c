@@ -749,6 +749,7 @@ static void zap(void) {
 static void do_zap_target_hit(void) {
     if (ag.telly_lit && ag.telly_state != TELLY_THROW) {
         stop_everything();                   /* music stops (remembered), all sounds stop, then the drill questions */
+        snd_zap_lit_telly();                 /* DOS: the big zap song, after the stop-all (12 section 5.3) */
         clock_reset_deadline();
         int got = drill_run_telly();
         if (got) hint_show(3, 0);          /* over the still-visible drill screen */
@@ -916,7 +917,7 @@ static void apply_input(void) {
 
 static void frame_tail(int collide) {
     plat_hold_present(1);
-    dosint_action_loop(1);                  /* DOS mode: the hall/room song is re-requested while the frame loop runs */
+    dosint_action_loop(ag.pstate <= 2);     /* DOS mode: the hall/room song is re-requested while the frame loop runs and the player stands or walks (12 section 5.2) */
     plat_wait_until(frame_deadline);
     dosint_action_loop(0);
     plat_hold_present(0);
@@ -937,6 +938,8 @@ void action_frame(int key) {
         clock_resume();
         return;
     }
+    if (key == 0x5001 || key == 0x5002) { ending_decide(key == 0x5001 ? (int)gs.hideout : ((int)gs.hideout + 1) % 5); return; }   /* script hooks: `decide win|lose` */
+    if (key == 0x5003) { out_of_time(); return; }                                        /* script hook: `midnight` */
     if (key == K_CTRL_S) { menu_toggle_all_sound(); return; }
     if (key == K_TAB) {
         clock_pause();

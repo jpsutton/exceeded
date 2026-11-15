@@ -39,10 +39,14 @@ Two independent **audio styles** can be chosen, one for music and one for sound 
 ### 1.2 Command line
 | option | effect |
 |---|---|
-| `--dos-audio=tandy\|speaker` | sets both styles |
+| `--dos-audio=windows\|tandy\|speaker` | sets both styles |
 | `--music-style=windows\|tandy\|speaker` | music style only (overrides `--dos-audio` for music) |
 | `--sfx-style=windows\|tandy\|speaker` | effects style only |
 | `--dos-game DIR` | folder of the user's DOS installation (holds `SSO.EXE` and `MOCKET.DAT`) |
+
+Every option takes its value in either form, `--name=value` or `--name value`. Style values are
+case-insensitive. An unknown style value, or an option given without a value, is an error: print
+a message to stderr and exit with status 1.
 
 Precedence for each setting: **command line > `outnumbered.ini` (§6.5) > default** (`windows`,
 `windows`, no folder). File names inside DIR are matched case-insensitively. If DIR itself does not
@@ -487,17 +491,22 @@ The driver produces register states that change only on tick boundaries. Tick *k
 | ROOM1 1745 | 4 | looped background (rooms of floor 1) |
 | ROOM2 1746 | 5 | looped background (rooms of floor 2) |
 | ENTER 1717 | 3 | once, waited (room entry, Decide door, floor start) |
-| MIDNITE 1735 | 49 | once, waited |
+| MIDNITE 1735 | 49 | depends on why midnight came (§5.5): **clock ran out in play**: the DOS clock-flash timeline (10 plain requests); **after a wrong decision**: **no request** (song 49 already came from the lose timeline). Waited, see §5.5 |
 | VICTORY 1757 | 40 | once, waited (MoM caught; Telly drill set) |
 
 * **Looped background (LEVEL/ROOM):** while the action game runs its frame loop and the slot is
-  current, `play(song)` once per action frame. Equivalently, play it every 24 driver ticks
-  (ticks with k mod 24 = 0) and once when the slot becomes current. Use the 24-tick form so the
-  result does not depend on the engine's frame rate. Outside the action-game loop (challenges,
-  drills, decoder, scripted sequences) the current song is **not** re-requested. It plays to its end
-  once, as in DOS, where these screens do not run the per-frame music call (M).
-* **Waited jingles:** `force(song)` (the Windows logic stops everything before them; DOS used a plain
-  play, M). The Windows wait ends at the **earlier** of two moments:
+  current, `play(song)` once per action frame, **but only on frames where the player's movement
+  state (04 §5.2) is 0, 1 or 2 (standing or walking)**. During a jump or flip (8), a fall (9),
+  shoved / knocked down / getting up (26–28) and every other state above 2, no request is made, so
+  music that an effect interrupted comes back only once the player stands or walks again (H).
+  Use the 24-tick form: request every 24 driver ticks (ticks with k mod 24 = 0) while the
+  condition holds, and once when the slot becomes current, so the result does not depend on the
+  engine's frame rate. Outside the action-game loop (challenges, drills, decoder, scripted
+  sequences) the current song is **not** re-requested. It plays to its end once, as in DOS, where
+  these screens do not run the per-frame music call (M).
+* **Waited jingles** (ENTER, VICTORY; MIDNITE follows §5.5 instead): `force(song)` (the Windows
+  logic stops everything before them; DOS used a plain play, M). The Windows wait ends at the
+  **earlier** of two moments:
   * the driver no longer plays that song (end, stop or replacement);
   * the song's length in ticks (from a fresh trace of that song on the active device) has passed in
     **game time** since the request.
@@ -523,7 +532,7 @@ Kinds:
 
 | id | Windows event | DOS song | DOS mode action |
 |---|---|---|---|
-| 1700 / 1727 / 1706 / 1750 | trick 22 / 23 / 24 / 25 launch + flight | 10 / 11 / 12 / 13 | `play` at launch, then every 72 ticks while the Windows trick sound is active; the Windows stop at hit/removal is **not** passed on (DOS lets the song finish) (H/M) |
+| 1700 / 1727 / 1706 / 1750 | trick 22 / 23 / 24 / 25 launch + flight | 10 / 11 / 12 / 13 | `play` at launch, then every 72 ticks while the Windows trick sound is active; the Windows stop at hit/removal is **not** passed on (DOS lets the song finish) (H/M). The 72-tick repeats are ignored while the trick song is still playing (equal priority), so each song is normally heard once per 220–300 ticks. The rapid "re-starts" one hears in song 10 are its own 44-tick sweep, repeated five times, not new requests |
 | 1701 | bar graph grows | 27 | once |
 | 1702 | knock light (ending ESEQ list[0]); invalid-key beep | 26 | ending knock: `force` per cue (§5.5); elsewhere: once |
 | 1703, 1747 | tally tick; score change | 37 | once |
@@ -540,7 +549,7 @@ Kinds:
 | 1720, 1723 | bump/thud; splat | 20 | once |
 | 1722 | Great Eight | 33 | once |
 | 1726 | landing | 38 | once |
-| 1727 | see tricks; **intro beam** (intro ASEQ 1700 cue −500) | 11 | intro: `force`; the intro's −501 stop: stop: yes |
+| 1727 | see tricks; **intro beam** (intro ASEQ 1700 cue −500); **score-screen Champion extra** (07 Part B §3.3 step 9) | 11; 11; **14** | intro: `force(11)`; the intro's −501 stop: stop: yes. Score-screen Champion extra: `force(14)` (H). Note: the DOS script plays 14 at +210 and 7 at +390 ticks from the start of step 9; the per-cue remapping (this row and 1739) matches that to within one 30-tick picture frame. A timeline from the step-9 start (cues ignored) would match it exactly |
 | 1730 | line graph segment | 29 | once |
 | 1731 | LiveWire crackle | 18 | once per request (Windows requests it every frame, like DOS) |
 | 1732 | LiveWire shock | 19 | once |
@@ -548,28 +557,29 @@ Kinds:
 | 1736 | **Volume display** (one slider knob moving; 06 §8) | **27** | once per moving slider (DOS plays its slider sound, the bar-graph song, per slider) |
 | 1751 | **Spinner display** pointer tick (06 §8) | **30** | the **first** 1751 of a spin: once song 30 (the DOS spinner tune). Every later 1751 of the same spin, and every Windows stop of 1751: nothing. A new spin begins with the next display of the Spinner object |
 | 1737 | ending: sparks | 45 | `force` per cue |
-| 1738 | MoM zapped | 10 | **< 500,000 award:** ignored, the DOS award timeline plays instead (§5.5). **Champion branch:** `force` at +0, +60, +120 ticks after the request |
-| 1739 | MoM electrified | 50 | **< 500,000 award:** ignored, the DOS award timeline plays instead (§5.5). **Champion branch and score-screen Champion script:** `force` per cue |
+| 1738 | MoM zapped | — | ignored: the award and Champion endings use the DOS timelines (§5.5) |
+| 1739 | MoM electrified | — / **7** | award and Champion ending: ignored (DOS timelines, §5.5). **Score-screen Champion extra** (07 Part B §3.3 step 9): `force(7)` (H) |
 | 1740, 1752 | monitor display static; drill TV static | 23 | once. 1752 only: `stop` 160 ticks later, or earlier at the next 1705, 1711 or 1709 request, if 23 is still the current song |
 | 1742 | prize board | 31 | once |
 | 1743 | math challenge correct | 7 | once |
 | 1744 | drill answer right | 6 | once |
 | 1748 / 1749 | bonus panel in / out | 46 / 47 | `play` every 5 ticks for 295 ticks from the request (59 steps); the song repeats whenever it is free |
-| 1753 | Telly materialises | 50 | once (it has the lowest priority: the hum of the next frame replaces it, and hall music blocks it) |
-| 1754 | Telly hum | 17 | once per request; also see 1763 |
+| 1753 | Telly materialises | 50 | once (lowest priority: hall music blocks it, and the hum requested on the next frame replaces it). DOS also requests 50 on every materialise and dematerialise frame, but always after that frame's hum request, so those requests are always ignored. The engine makes none of them, and nothing is requested at dematerialise |
+| 1754 | Telly hum | 17 | once per request (Windows requests it every Telly update frame, like DOS). Song 17 is two short chirp bursts (about 0.17 s each, starting 0.36 s apart) and lasts 124 ticks (Tandy); requested every frame, it restarts within 24 ticks of ending. This repeating chirp is the DOS Telly sound. Also see 1763 |
 | 1755 | score-screen rank marker | 26 | once; stop: yes |
 | 1758 | VCR tape | 32 | once |
 | 1759 | ending: MoM whirlwind (Windows loops it) | 39 | `force` at the request and every 30 ticks while Windows keeps 1759 playing, at most 20 times |
-| 1760 | math challenge wrong; **wrong-decision (lose) ending** | 9; 17 | challenge: once; lose ending: `force(17)` (H: DOS plays it from its ending animation script, whose songs are forced restarts; a plain play would be ignored while the higher-priority lightning song 11 still plays) |
+| 1760 | math challenge wrong; wrong-decision (lose) ending | 9; — | challenge: once. Lose ending: **ignored**, the DOS lose timeline plays instead (§5.5) |
 | 1761 | drill answer wrong | 8 | once |
-| 1762 | lose ending: lightning | 11 | `force` |
-| 1763 | zap hits an unlit Telly | 42, then 17 | `play(42)`; then `play(17)` every 24 ticks while Telly is flashing (DOS requests the hum in every Telly state, flashing included, so the hum wins at once) (H) |
+| 1762 | lose ending: lightning | — | **ignored**, the DOS lose timeline plays instead (§5.5) |
+| 1763 | zap hits an unlit Telly | 42, then 17 | `force(42)` (DOS stops the zap song before the hit sound); then `play(17)` every 24 ticks while Telly is flashing (DOS requests the hum in every Telly state, flashing included, so the hum takes over at once) (H) |
+| — (no SFX id) | **zap hits a lit Telly** (04 §14.3 "Zap hit, Telly lit": Windows stops all sounds and the music and starts the drill) | **16** | at the zap result (after the bolt steps), **after** the Windows stop-all: `force(16)` (the big zap). The drill's first static requests (1752 → 23) are then ignored until song 16 ends (84 ticks), as in DOS. The 1752 stop (160 ticks) is counted from the **first** 1752 request of the static, even if that request was ignored (H) |
 | 1764 | **hall zap** (energy left) | 14 | `play`; `stop` 60 ticks later if 14 is still current (6 bolt steps × 10 ticks) (H) |
 | 1764 | **award zap** (ending ESEQ 1002 seq 3, cue −503 → hall list[0]) | **16** | ignored; song 16 comes from the DOS award timeline (§5.5) (H) |
 | 1764 | **score screen, before the statue beam** (07 score step 5) | **16** | once (H) |
 | 1765 | zap, empty | 15 | `play`; `stop` 60 ticks later if still current |
-| 1768 | Champion ending: explosion | 43 | `force` |
-| 1769 | Champion ending: TV set beamed away | 48 | `force` |
+| 1768 | Champion ending: explosion | — | ignored (Champion timeline, §5.5) |
+| 1769 | Champion ending: TV set beamed away | — | ignored (Champion timeline, §5.5) |
 | 1741, 1766, 1767 | not played by the game | — | keep |
 
 Contexts in **bold** use a different song than the same Windows id elsewhere. The engine's DOS mode
@@ -579,8 +589,9 @@ enough. This is where the live mode is more faithful than replacement WAVE files
 
 Confidence: hall, drill, decoder, bonus and ending ids are matched by identical triggers and
 behaviour (H). The math-display ids are matched by display type (H for map / Great Eight / spinner /
-volume (sliders) / equipment / prize / bar; M for monitor / VCR / line). The award and Champion ending ids (1738, 1739,
-1768, 1769) are matched by the order of the cues (M).
+volume (sliders) / equipment / prize / bar; M for monitor / VCR / line). The award, Champion and lose endings use the
+DOS timelines of §5.5, whose songs and tick offsets come from the DOS animation scripts (H). Only
+their start points are matched to the Windows animation (M).
 
 ### 5.4 Requests that repeat
 "Every N ticks while X" means: a request at the start, then one at each later multiple of N ticks
@@ -599,10 +610,9 @@ play; priority ignored). One script time unit there is 30 ticks. The DOS timelin
 
 The Windows ending requests the same events from its ESEQ cues at its own times (knock cues about
 20 cs apart, electric cues 10–30 cs apart). DOS mode maps **each Windows cue** to the DOS action in
-§5.3 (`force` for 1702 / 1737 / 1762 / 1768 / 1769, for 1739 outside the award, and for the
-lose-ending 1760 (song 17); the 1738 triple outside the award; the 1759 repeat; the 1748/1749 span). The DOS timbre and the forced-restart cut-offs are therefore exact,
+§5.3 (`force` for 1702 / 1737; the 1759 repeat; the 1748/1749 span). The DOS timbre and the forced-restart cut-offs are therefore exact,
 and the timing follows the Windows animation. The number of electric blips follows the Windows cues
-(6), not the DOS script (3) (M; acceptable). **Exception: the award (below).**
+(6), not the DOS script (3) (M; acceptable). **Exceptions: the award, the Champion branch and the lose ending (below), which play the DOS timelines.** (DOS also requests song 17 at the start of the correct-decision ending; the first forced knock replaces it in the same tick, so it is never heard and the engine makes no request.)
 
 **Award (lifetime < 500,000; 07 Part B §2.2 step 8, first branch): the DOS timeline instead of the
 Windows cues.**
@@ -634,10 +644,61 @@ Windows cues.**
 The award's DOS timeline is known from the DOS award animation script (H for the songs and the tick
 offsets). The start point T0 = "the player's zap begins" is the match between the two animations (M).
 
-**Champion (lifetime ≥ 500,000) keeps the cue mapping.** Of the DOS Champion script only the explosion
-(song 43) and the TV-set beam-away (song 48) are known, not their times or the other sounds. The
-Champion branch therefore stays on the per-cue mapping of §5.3: 1738 triple, 1739 / 1768 / 1769 forced.
-Open point: decode the DOS Champion script and give it a timeline like the award's.
+**Champion (lifetime ≥ 500,000; 07 Part B §2.2 step 8, second branch): the DOS timeline instead of
+the Windows cues.**
+1. **Start (T0)** = when the engine starts ESEQ 1002 seq 1 (the player aims). The DOS Champion
+   animation is two scripts run back to back; ticks after T0, all requests forced:
+
+   | tick after T0 | request |
+   |---|---|
+   | +60 | `force(43)` (explosion / big zap) |
+   | +500 | `force(22)` |
+   | +820, +880, +940, +1000, +1060, +1120 | `force(13)` (six times, 60 ticks apart) |
+   | +1450 | `force(14)` (zap) |
+   | +1750 | `force(48)` (TV set beamed away) |
+
+2. **Ignored cues.** In the Champion branch the Windows cues 1738, 1739, 1768 and 1769 make no
+   DOS request.
+3. **Finished** = the +1750 request has been made and song 48 is no longer current (+2070 ticks
+   ≈ 8.7 s on both devices).
+4. **Victory hold, interruptions, other requests:** as for the award (items 4–6).
+
+The songs and tick offsets come from the DOS Champion animation scripts (H). T0 is matched to the
+Windows aim clip, which shows the same aim cels (M).
+
+**MoM wins (wrong decision; 07 Part B §2.3): the DOS timeline instead of the Windows cues.**
+1. **Start (T0)** = the start of 07 §2.3 step 2 (lightning clip and player drop). Requests on the
+   effect (or shared) driver, ticks after T0:
+
+   | tick after T0 | request |
+   |---|---|
+   | +0 | `play(17)` |
+   | +60 | `force(11)` (lightning) |
+   | +180 | `force(20)` (thud: the player lands in the trap) |
+   | +300 | `force(49)` (the midnight jingle) |
+   | +330 | `play(49)`: always ignored, because 49 is still playing; may be omitted |
+
+2. **Ignored cues.** During this sequence the Windows cues 1762 and 1760 make no DOS request, and
+   the MIDNITE of the following midnight sequence (07 §4.1) makes none either.
+3. **Finished** = the +300 request has been made and song 49 is no longer current: +647 ticks
+   (≈ 2.7 s) on Tandy, +577 on the speaker.
+4. **Waits.** Windows waits for SND 1760 in step 4 ("Voice on: wait for 1760 to finish"). That wait,
+   which precedes the gloat speech, now ends when the timeline is finished, as the award's victory
+   hold does. The step-4 wait of the midnight sequence ("wait until midnite.mid has finished") ends
+   at once, because MIDNITE made no request.
+5. Interruptions and other requests: as for the award (items 5–6).
+
+**Midnight when the clock runs out in play (07 §4.1, normal play): the DOS clock-flash timeline.**
+1. **Start (T0)** = 07 §4.1 step 2 (where `midnite.mid` starts). Requests: `play(49)` at +0, +100,
+   +200, …, +900 ticks (10 plain requests). Song 49 lasts 347 ticks on Tandy, so the requests at
+   +0, +400 and +800 are accepted: **3 starts, 1.69 s apart**. On the speaker (277 ticks) the
+   accepted ones are +0, +300, +600 and +900: **4 starts, 1.27 s apart**.
+2. **Wait (step 4).** It ends when the +900 request has been made and song 49 is no longer
+   current, at the latest at T0 + 900 + the song's length. The Windows flashes (10 × 200 units
+   ≈ 8.4 s) last longer than this timeline (≤ 1247 ticks ≈ 5.3 s), so in practice the wait ends
+   as soon as the flashes end.
+3. The flash pictures and their timing stay as in 07 §4.1. Only the sound follows DOS.
+4. No other sound follows in DOS (no "MoM wins" sequence after a timeout).
 
 ### 5.6 Windows stops, speech, dialogs, pause
 * `StopSFX(id)`: passed on (`stop()`) only for ids with "stop: yes" in §5.3, and only if the
@@ -920,8 +981,8 @@ tie case, gate case, E branch, noise control, zero-length event, empty song) and
 | A2 | Hanging notes of channels an effect does not use (§3.14) | **keep** (DOS behaviour). Not yet confirmed by ear on real hardware |
 | A3 | Re-requesting room music during challenges (§5.2): DOS does not run its per-frame music call there (M) | **no re-request outside the action-game loop** |
 | A4 | Waited jingles use `force` (DOS used a plain play where nothing higher was playing) | **force** |
-| A5 | Ending cue counts follow the Windows ESEQ (e.g. 6 electric blips instead of DOS's 3) | accept for knocks, sparks and the Champion branch; the < 500,000 award uses the DOS timeline (§5.5, decided) |
+| A5 | Ending cue counts follow the Windows ESEQ (e.g. 6 electric blips instead of DOS's 3) | decided: knocks, sparks and whirlwind follow the Windows cues; the award, the Champion branch and the lose ending play the DOS timelines (§5.5) |
 | A6 | VICTORY after a failed Telly drill set: DOS plays song 9 ("No Code", via 1711) and its success tune only after a perfect set; the Windows rule for victory.mid is kept | keep Windows rule (M) |
-| A7 | Lose ending: DOS also plays song 20 between the lightning and the midnight jingle; there is no Windows cue to attach it to | omit |
+| A7 | Lose ending: DOS also plays song 20 between the lightning and the midnight jingle; there is no Windows cue to attach it to | resolved: song 20 is part of the lose timeline (§5.5, +180) |
 | A8 | Noise generator: the reference renderer resets the generator only when the control value changes; §4.1 (reset on every write) is the chip behaviour | follow §4.1; renders are compared with tolerance |
 | A9 | DOS file version: only one DOS build has been seen | the table scan of §2.3 covers moved data segments |

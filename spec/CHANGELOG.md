@@ -332,3 +332,30 @@ First findings from running the original DOS game in DOSBox (Tandy mode, audio c
 * Checked against the recordings, with no spec change: driver tempo is exact; the Tandy and speaker
   title songs match the reference model; the v1.32 elevator ride (one ride song after the departure
   close, none at the arrival close) matches the original.
+
+## v1.34 — 2026-11-15
+Remaining gaps between DOS mode and the original DOS game (from the DOS sound-request survey).
+* 12 §1.2: `--dos-audio` also accepts `windows`. Every style option takes `--name=value` or
+  `--name value`. An unknown or missing value is an error (exit status 1).
+* 12 §5.3:
+  * new row: zap hits a **lit** Telly → `force(16)` after the Windows stop-all (no Windows SFX id).
+    The drill static's 160-tick stop counts from its first request.
+  * 1763 (unlit) → `force(42)` (was `play`).
+* 12 §5.5, lose ending (MoM wins after a wrong decision): the DOS timeline from the lightning step
+  (17 at +0, forced 11 / 20 / 49 at +60 / +180 / +300). The cues 1762 and 1760 and the following
+  MIDNITE make no request. The wait before the gloat speech ends when the timeline is finished.
+  A7 is resolved (song 20 included).
+* 12 §5.2 / §5.5, midnight when the clock runs out in play: 10 plain requests of song 49, 100 ticks
+  apart (3 audible starts on Tandy, 4 on the speaker). The MIDNITE wait ends when they are done.
+  After a wrong decision MIDNITE makes no request.
+* 12 §5.5, Champion branch: the decoded DOS timeline from the aim clip: forced 43 +60, 22 +500,
+  13 ×6 from +820 every 60, 14 +1450, 48 +1750. Cues 1738 / 1739 / 1768 / 1769 are ignored there,
+  and the victory step waits for the timeline. The open point is closed; A5 updated.
+* 12 §5.3, score-screen Champion extra: 1727 → `force(14)`, 1739 → `force(7)`. A note gives the
+  exact-timeline alternative (+210 / +390).
+* 12 §5.2: hall/room music is re-requested only while the player is standing or walking (04 §5.2
+  state 0–2).
+* 12 §5.3: clearer rows for the Telly hum (song 17 = two chirps, restarted every frame),
+  materialise (the per-frame song 50 requests of DOS are always ignored) and the trick-song repeats.
+* 12 §5.3 confidence note and §5.5 introduction updated: the award, Champion and lose endings use
+  DOS timelines; song 17 at the start of the correct ending is never heard.

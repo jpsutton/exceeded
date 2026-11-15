@@ -51,8 +51,10 @@ void dosint_elevator_ride(int up);                       /* the ride song: 22 up
 void dosint_effects_off(void);                        /* Sound Effects switched off */                       /* stop all sounds / speech / dialog */
 int dosint_sfx_playing(int id);
 void dosint_flag(int key, int on);
-void dosint_award_begin(void);                        /* start of the player's award zap: DOS award timeline (< 500,000 branch) */
-int dosint_award_active(void);                        /* timeline not finished yet */
+enum { TL_NONE = 0, TL_AWARD, TL_CHAMPION, TL_LOSE, TL_MIDNIGHT };
+int dosint_timeline_begin(int kind);                  /* a DOS ending timeline starts now (12 section 5.5); 0 if that driver is not DOS */
+int dosint_timeline_active(void);                     /* the timeline is not finished yet */
+void dosint_zap_lit_telly(void);                      /* the zap that hits a lit Telly: force(16) after the Windows stop-all */
 /* music slots */
 void dosint_music_play(int text_id, int loop);
 void dosint_music_stop(void);

@@ -122,6 +122,13 @@ void snd_stop_all_keep_ride(void) {
     sp.id = 0;
     if (g_audio_hw) g_audio_hw->speech_stop();
 }
+/* DOS ending timelines (spec 12 section 5.5): only with the matching Windows switch on (Sound Effects; Music for the midnight flashes) */
+int snd_timeline_begin(int kind) {
+    if (kind == TL_MIDNIGHT ? !sw_music : !sw_sfx) return 0;
+    return dosint_timeline_begin(kind);
+}
+int snd_timeline_active(void) { return dosint_timeline_active(); }
+void snd_zap_lit_telly(void) { if (sw_sfx && dosint_sfx_dos()) dosint_zap_lit_telly(); }
 /* the ride song in DOS effect style (the Windows doors-close WAVE is played by snd_play as before) */
 void snd_elevator_ride(int up) {
     if (sw_sfx && dosint_sfx_dos()) dosint_elevator_ride(up);
