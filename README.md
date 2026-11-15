@@ -4,7 +4,7 @@ Exceeded is a **clean-room reimplementation of a game engine**: a new program, w
 edutainment game *Super Solvers: OutNumbered!* on modern computers.
 
 "Clean room" means the engine was written from a written description of how the original behaves, by people who never saw the original
-program's code. Nothing from the original program was copied.
+program's code. Nothing from the original program was copied. The description, [`spec/`](spec/), is part of this repository.
 
 Exceeded does **not** include the game. It reads the game's data from your own copy, so you need that copy to play.
 
@@ -120,6 +120,11 @@ Exceeded is free software under the [GNU General Public License, version 3](LICE
 ## For developers
 
 * `make` builds the `engine` program. `make dist` puts it next to the SoundFont and this README in `dist/`.
-* Work goes into `staging`. Merging `staging` into `release` builds the packages and publishes a release; the version comes from `ENGINE_VERSION` in `src/setup.h`, which must also match `pkgver` in `packaging/arch/PKGBUILD`.
-* The source is in `src/` (plain C). `tests/mkdata.py` builds a small stand-in data set so the engine can be exercised without the real game.
-* `third_party/font8x8` is a public-domain bitmap font used on the setup screen.
+* The source is in `src/` (plain C). `third_party/font8x8` is a public-domain bitmap font used on the setup screen.
+* [`spec/`](spec/) is the written specification the engine was built from: data formats, behavior, constants and algorithms. Start with
+  [`spec/README.md`](spec/README.md), which also explains the two-team clean-room process. Its `fixtures/` are small test files made from
+  scratch; none comes from the original game.
+* `python3 tests/run_fixtures.py` checks the engine against those fixtures. `tests/mkdata.py` builds a small stand-in data set, so the
+  engine can run without the real game.
+* Work goes into `staging`. Merging `staging` into `release` builds the packages and publishes a release; the version comes from
+  `ENGINE_VERSION` in `src/setup.h`, which must also match `pkgver` in `packaging/arch/PKGBUILD`.

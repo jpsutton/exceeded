@@ -1,0 +1,86 @@
+{
+ "file": "FIXTURE.DAT",
+ "align_shift": 4,
+ "type_names": {
+  "0x7F01": "ASEQ",
+  "0x7F02": "RRGB",
+  "0x7F03": "TEXT",
+  "0x7F04": "WAVE",
+  "0x7F05": "MTHT",
+  "0x7F06": "INTS",
+  "0x7F07": "NFNT"
+ },
+ "resources": [
+  {
+   "type": 15,
+   "id": 1,
+   "length_in_table": 96,
+   "payload_length": 86,
+   "payload_sha256": "6bf26d29b562f8455b641dd5c7dada858feafbfa3d52be745b4520b29ccc6333"
+  },
+  {
+   "type": "ASEQ",
+   "id": 100,
+   "length_in_table": 256,
+   "payload_length": 246,
+   "payload_sha256": "1f888979e4031c71da790fa8af260928ce9af74983a85cfec2648c00adb2f5f0"
+  },
+  {
+   "type": "RRGB",
+   "id": 128,
+   "length_in_table": 1536,
+   "payload_length": 1536,
+   "payload_sha256": "bd379d04a833426ad9f1fbd668ae5eaa5444d29762e0e51b406135e4eac24b6b"
+  },
+  {
+   "type": "TEXT",
+   "id": 500,
+   "length_in_table": 32,
+   "payload_length": 19,
+   "payload_sha256": "20dd59dcef44100107001d45453b7ffcd05e430025a8c72892bbe3ae3d1ac1e7"
+  },
+  {
+   "type": "WAVE",
+   "id": 1700,
+   "length_in_table": 112,
+   "payload_length": 108,
+   "payload_sha256": "8721b2c3afcd048c5addcd9d08cbf80b784a47fc8db71bf174c8737ca023b212"
+  },
+  {
+   "type": "MTHT",
+   "id": 1,
+   "length_in_table": 800,
+   "payload_length": 794,
+   "payload_sha256": "6bd4677daea5076b801c33ca7b21e82aec2aece3aa0afbe727b72cd2835d0f41"
+  },
+  {
+   "type": "INTS",
+   "id": 1700,
+   "length_in_table": 16,
+   "payload_length": 8,
+   "payload_sha256": "9bc7858a94f5de9f8948d73a61cb0ebbfea35a6403e195323c6477767dd13e08"
+  },
+  {
+   "type": "NFNT",
+   "id": 15001,
+   "length_in_table": 64,
+   "payload_length": 56,
+   "payload_sha256": "9564881b032a7bcfe7e152e28d68bf8cab61e8eee4c5236a84f418bc956a11cc"
+  },
+  {
+   "type": "DIALOG",
+   "id": 200,
+   "length_in_table": 192,
+   "payload_length": 185,
+   "payload_sha256": "38af3e224fbe6977798e8645fd969f82bb4a19b597501d7b8534a425da61ec32"
+  },
+  {
+   "type": "MENU",
+   "id": 300,
+   "length_in_table": 80,
+   "payload_length": 73,
+   "payload_sha256": "47c8be5d3c86a98a28a4568e0ef247c660505ec2171d41c9aaa99565b3ee72f3"
+  }
+ ],
+ "note": "payload_sha256 covers payload_length bytes; the stored resource is padded with zeros to length_in_table (a multiple of 16 here, 512 in the game files)."
+}

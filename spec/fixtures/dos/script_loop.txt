@@ -1,0 +1,6 @@
+0 loop 1
+0 play 9        # loops; the driver reports "no song" after the first pass
+200 play 7      # prio 1 accepted because the looping song no longer counts
+260 play 9
+300 loop 0
+700 end

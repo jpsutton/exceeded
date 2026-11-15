@@ -1,0 +1,11 @@
+0 musicoff 1
+0 play 1        # songs 0-5 are refused while music is off
+10 play 7       # effects still play
+50 musicoff 0
+60 play 1
+70 soundoff 1
+80 stop
+90 play 6       # refused: sound off
+100 soundoff 0
+110 play 6
+400 end

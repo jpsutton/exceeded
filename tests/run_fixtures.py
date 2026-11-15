@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Compare engine conformance output with ../spec/fixtures. Usage: tests/run_fixtures.py"""
+"""Compare engine conformance output with spec/fixtures. Usage: tests/run_fixtures.py"""
 import json, subprocess, sys, os, tempfile, zlib, struct
 here = os.path.dirname(os.path.abspath(__file__))
 eng = os.path.join(here, '..', 'engine')
-fx = os.path.join(here, '..', '..', 'spec', 'fixtures')
+spec = next(p for p in (os.path.join(here, '..', 'spec'), os.path.join(here, '..', '..', 'spec')) if os.path.isdir(p))   # repo root, or the engine folder beside spec/
+fx = os.path.join(spec, 'fixtures')
 tmp = tempfile.mkdtemp()
 fails = 0
 def run(*a):

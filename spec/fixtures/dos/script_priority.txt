@@ -1,0 +1,9 @@
+0 play 1        # music tune (prio 1), 3 voices
+30 play 7       # prio 1: not higher -> ignored
+40 play 6       # prio 4: replaces; channels 1-2 keep their last state
+45 play 2       # prio 1 < 4: ignored
+200 play 1      # after 6 ended: accepted again
+260 play 3      # prio 3 > 1: replaces
+400 play 51     # song 51 priority = first envelope pointer word (huge)
+420 play 6      # prio 4 < song 51: ignored
+600 end
