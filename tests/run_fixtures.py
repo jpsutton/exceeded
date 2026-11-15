@@ -146,6 +146,18 @@ for var in ('tandy', 'speaker'):
     for i, (x, y) in enumerate(zip(ea, eb)):
         if (y > -40 and abs(x - y) > 1.5) or (y < -60 and x >= -60): bad.append((var, 'env', i, round(x, 1), round(y, 1))); break
 check('dos-render', not bad, str(bad))
+# the Tandy voices are unipolar and AC-coupled (12 section 4.1): the waveform follows the reference and has no DC offset
+o, r = dosrun('dos-render', '0', '--variant', 'tandy', '--rate', '44100', pre=('--dos-game', os.path.join(dx, 'game')))
+corr, mean = 0.0, 1e9
+if o:
+    ra, _ = wav_read(o); rb, _ = wav_read(os.path.join(dx, 'render_tandy_song0.wav'))
+    n = min(len(ra), len(rb))
+    num = sum(ra[i] * rb[i] for i in range(n)); den = (sum(x * x for x in ra[:n]) * sum(x * x for x in rb[:n])) ** 0.5
+    corr = num / den if den else 0.0
+    mean = abs(sum(ra[:n]) / n)
+    peak = max(abs(x) for x in rb[:n]) or 1
+    mean = mean / peak
+check('dos-render Tandy: unipolar voices with AC coupling (waveform correlation with the reference, no DC offset)', corr > 0.94 and mean < 0.01, 'corr %.3f dc %.4f' % (corr, mean))
 
 # ---- DOS audio in play mode (needs the mock data dir, not original files)
 sys.path.insert(0, here)

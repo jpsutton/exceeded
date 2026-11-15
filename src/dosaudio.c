@@ -550,6 +550,7 @@ void dossynth_init(DosSynth *s, int variant, double rate, int voicing) {
     s->dt = 1.0 / (rate * OVS);
     s->a_lp = exp(-2 * M_PI * 5000.0 / rate);
     s->a_hp = exp(-2 * M_PI * 250.0 / rate);
+    s->a_ac = exp(-2 * M_PI * 20.0 / rate);          /* Tandy: AC coupling of the summed voices, a one-pole high-pass at 20 Hz (12 section 4.1) */
     if (!fir_ready) fir_build();
 }
 
@@ -578,7 +579,7 @@ void dossynth_step(DosSynth *s) {
         for (int c = 0; c < 3; c++) {
             s->phase[c] += s->freq[c] * dt;
             s->phase[c] -= floor(s->phase[c]);
-            if (s->amp[c] > 0) v += s->phase[c] < 0.5 ? s->amp[c] : -s->amp[c];
+            if (s->amp[c] > 0 && s->phase[c] < 0.5) v += 2 * s->amp[c];          /* unipolar: 0 or +2*amp (12 section 4.1) */
         }
         s->nphase += s->nfreq * dt;
         while (s->nphase >= 1.0) {
@@ -586,7 +587,7 @@ void dossynth_step(DosSynth *s) {
             unsigned fb = (s->nc & 4) ? ((s->lfsr ^ (s->lfsr >> 1)) & 1) : (s->lfsr & 1);
             s->lfsr = (s->lfsr >> 1) | (fb << 14);
         }
-        if (s->amp[3] > 0) v += (s->lfsr & 1) ? s->amp[3] : -s->amp[3];
+        if (s->amp[3] > 0 && (s->lfsr & 1)) v += 2 * s->amp[3];
     } else {
         /* the PIT counter runs freely; the speaker gate only switches the output */
         s->sp_phase += s->spf * dt;
@@ -601,6 +602,10 @@ void dossynth_step(DosSynth *s) {
 float dossynth_out(DosSynth *s) {
     double acc = 0;
     for (int k = 0; k < FIR_N; k++) acc += fir[k] * s->hist[(s->hpos - k) & (HIST_N - 1)];
+    if (s->variant == DOS_TANDY) {                       /* the AC coupling: x - lowpass(x) */
+        s->hp_lp = (1 - s->a_ac) * acc + s->a_ac * s->hp_lp;
+        acc -= s->hp_lp;
+    }
     if (s->variant == DOS_SPEAKER && s->voicing) {
         s->hp_lp = (1 - s->a_hp) * acc + s->a_hp * s->hp_lp;
         double hp = acc - s->hp_lp;

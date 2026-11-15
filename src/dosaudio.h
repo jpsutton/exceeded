@@ -88,7 +88,7 @@ typedef struct DosSynth {
     double phase[4], sp_phase;           /* oscillator phases (cycles) */
     double nphase;
     unsigned lfsr, serial_seen;
-    double amp[4], freq[3], nfreq, spf, a_lp, a_hp;
+    double amp[4], freq[3], nfreq, spf, a_lp, a_hp, a_ac;
     int nc, spk_on;
     float hist[128];
     int hpos;

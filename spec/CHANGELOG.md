@@ -318,3 +318,17 @@ same sound as the ride between floors.
 * 12 §5.6a (new): the elevator ride's DOS sound, phase by phase, with timing.
 * 12 §1.1: the Music / Effects / Voice reference now points to §5.7 Options.
 * 15 §7.1: `audio-levels` lists DOS song 21 as well (now played).
+
+## v1.33 — 2026-11-15
+First findings from running the original DOS game in DOSBox (Tandy mode, audio captured).
+* 12 §4.1: the Tandy chip's voices are **unipolar**. Each tone or noise voice outputs 0 or
+  +2·amp, never negative; the 4 voices are summed and AC-coupled (one-pole high-pass, 20 Hz
+  recommended). Before, the spec implied a ±amp square. The difference is audible wherever a voice
+  is switched on and off quickly. Most strongly, the elevator ride songs 21/22 sound like a tick-rate
+  buzz rather than a clean sweep, as the real machine does. Short notes gain a click at each start.
+  Sustained tones keep the same level.
+* fixtures/dos/render_tandy_song0.wav regenerated with the unipolar model. Other DOS fixtures are
+  unchanged. The §7.5 tolerances still apply.
+* Checked against the recordings, with no spec change: driver tempo is exact; the Tandy and speaker
+  title songs match the reference model; the v1.32 elevator ride (one ride song after the departure
+  close, none at the arrival close) matches the original.
