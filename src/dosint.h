@@ -46,6 +46,8 @@ void dosint_render(float *acc, int n);                /* called by the audio cal
 int dosint_sfx(int id, int flags, int ctx);
 void dosint_sfx_stop(int id);                         /* Windows StopSFX(id) */
 void dosint_stop_effects(void);
+void dosint_stop_effects_keep_ride(void);                /* ... except an elevator ride song (12 section 5.6a) */
+void dosint_elevator_ride(int up);                       /* the ride song: 22 up, 21 down; once, when the departure doors have closed */
 void dosint_effects_off(void);                        /* Sound Effects switched off */                       /* stop all sounds / speech / dialog */
 int dosint_sfx_playing(int id);
 void dosint_flag(int key, int on);

@@ -31,7 +31,7 @@ Two independent **audio styles** can be chosen, one for music and one for sound 
 * **Speech** (SPEECH.DAT, intro WAVEs in SSO3) is never replaced. It follows the Voice option as
   before. The other WAVEs that are not in the SND.DAT effect table also stay Windows WAVEs.
 * The existing player options **Music / Sound Effects / Voice** (03 §5.1) still switch their
-  categories on and off whatever the style (§5.8).
+  categories on and off whatever the style (§5.7).
 * Style `windows` for both is the default and is byte-for-byte the original engine behaviour.
 * The DOS files are original game files (README §1, rule 1). The clean side develops against
   `fixtures/dos/` only. The dirty side runs the engine on real DOS files.
@@ -522,7 +522,8 @@ Kinds:
 | 1710, 1713, 1719, 1721, 1725, 1733, 1756 | reveal end, doors open, get-up ×2, clock chime, LiveWire zapped, UI click | — | no sound (DOS makes none there) |
 | 1711 | Telly drill failed | 9 | once |
 | 1712 | decoder slot-machine spin | 25 | `set_loop(1)`, `play`; on the Windows stop: `stop()`, `set_loop(0)` |
-| 1714 | elevator doors close (ride) | 22 | once (DOS song 21, "going down", is not used: the Windows events do not tell direction) |
+| 1714 | **elevator, departure** doors close (04 §5.5 step 6) | **22 / 21** | the ride song, `play` once, requested when the departure close animation has **finished** (04 §5.5 step 7 done, before Telly/trick removal is fine). **22** if the departure area is 0 or 4 (going up), **21** if it is 5 or 9 (going down). No stop: it runs through the slide and the arrival to its natural end (§5.6a) (H) |
+| 1714 | **elevator, arrival** doors close (04 §5.5 step 15) | — | **no sound**. DOS makes no sound at any elevator door open or close; the only sound of a ride is the ride song above (H) |
 | 1718 | equipment list; DfS try-again B | 34 | once |
 | 1720, 1723 | bump/thud; splat | 20 | once |
 | 1722 | Great Eight | 33 | once |
@@ -562,7 +563,7 @@ Kinds:
 Contexts in **bold** use a different song than the same Windows id elsewhere. The engine's DOS mode
 must choose the song from the **game event** that requests the sound. The Windows id alone is not
 enough. This is where the live mode is more faithful than replacement WAVE files. Unused DOS songs:
-21 (elevator down), 41, 44.
+41, 44.
 
 Confidence: hall, drill, decoder, bonus and ending ids are matched by identical triggers and
 behaviour (H). The math-display ids are matched by display type (H for map / Great Eight / spinner /
@@ -632,6 +633,8 @@ Open point: decode the DOS Champion script and give it a timeline like the award
   songs finish.
 * "Stop all sounds", starting speech, and opening a dialog (03 §1.2) → `stop()` if the current song
   is an effect song. In separate-driver mode this applies to the effect driver.
+  **Exception:** the elevator's arrival "stop all sounds" (04 §5.5 step 12) does **not** stop the
+  ride song (21 / 22). DOS never stops it; see §5.6a.
 * **Pauses.** A DOS driver pauses only where the Windows engine pauses its MIDI music. These are the
   dialog-open pause of 03 §1.2, the inactive window, and the open menu.
   * The music driver (or the shared driver) stops ticking and outputs silence. Resume → it continues
@@ -643,6 +646,31 @@ Open point: decode the DOS Champion script and give it a timeline like the award
   * Effects requested while the clock is paused must sound and finish normally.
 * Music changes during elevator rides / room entry follow the Windows logic (04 §14). DOS-mode
   requests are generated only from the Windows events.
+
+### 5.6a Elevator ride (H)
+The complete DOS sound of one elevator ride (04 §5.5), in order:
+
+| ride phase (04 §5.5 step) | DOS action |
+|---|---|
+| approach, turn (1–2) | the usual per-frame requests only (hall music, Telly hum) |
+| departure "stop all sounds" (3) | as §5.6 (stops a current effect song) |
+| departure doors open, 1713 (3–4) | none |
+| step in, 1714 (5–6) | none at the request itself |
+| departure doors closed (end of 7) | **`play(22)`** if the departure area is 0 or 4 (up), **`play(21)`** if 5 or 9 (down) |
+| Telly/trick removed, slide (8–10) | none (the slide makes no per-frame requests) |
+| arrival "stop all sounds", doors open 1713 (12–13) | none; the ride song is **not** stopped |
+| step out, arrival close 1714 (14–16) | none |
+| end (17) | music requests resume as usual |
+
+The ride song is a plain play of priority 5. It replaces the hall music (priority 1) and is never cut.
+Hall-music requests that come while it still sounds are ignored by the driver, so the new floor's music
+starts from its beginning at the first request after the ride song ends. Lengths: song 21 is 352 ticks
+on Tandy and 239 on the speaker; song 22 is 360 / 240. The slide plus the arrival door opening take 276
+ticks from the request, so the Tandy ride song still sounds while the arrival doors open and ends around
+the step out; the speaker version ends during the step out.
+
+In separate-driver mode (`DosSharedVoice=0`) the ride song plays on the effect driver; the music driver
+follows the Windows music logic of 04 §5.5 (music off for the ride, the new floor's music after it).
 
 ### 5.7 Options
 * Music option off → no music requests. Effects option off → no effect requests. A song already

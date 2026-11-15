@@ -16,6 +16,8 @@ void snd_play(int id, int prio, int flags);   /* flags bit0: loop; bit1: restart
 #define SND_RESTART 2
 void snd_stop(int id);
 void snd_stop_all(void);                      /* all SFX channels and speech */
+void snd_stop_all_keep_ride(void);            /* ... but the DOS elevator ride song keeps playing (the ride's arrival, 12 section 5.6) */
+void snd_elevator_ride(int up);               /* DOS effect style: the ride song 22 (up) / 21 (down), once, after the departure doors have closed */
 int snd_playing(int id);
 void speech_play(int id);
 void speech_stop(void);

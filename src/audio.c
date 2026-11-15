@@ -115,6 +115,17 @@ void snd_stop_all(void) {
     sp.id = 0;
     if (g_audio_hw) g_audio_hw->speech_stop();
 }
+/* the arrival's "stop all sounds" of an elevator ride: the DOS ride song keeps playing (12 section 5.6) */
+void snd_stop_all_keep_ride(void) {
+    dosint_stop_effects_keep_ride();
+    for (int i = 0; i < 4; i++) { ch[i].id = 0; if (g_audio_hw) g_audio_hw->sfx_stop(i); }
+    sp.id = 0;
+    if (g_audio_hw) g_audio_hw->speech_stop();
+}
+/* the ride song in DOS effect style (the Windows doors-close WAVE is played by snd_play as before) */
+void snd_elevator_ride(int up) {
+    if (sw_sfx && dosint_sfx_dos()) dosint_elevator_ride(up);
+}
 int snd_playing(int id) { expire(); if (dos_id(id)) return dosint_sfx_playing(id); for (int i = 0; i < 4; i++) if (ch[i].id == id) return 1; return 0; }
 
 void speech_play(int id) {

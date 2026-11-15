@@ -412,4 +412,20 @@ except Exception:
     ok = False
 check('close box in a live game: the program ends (no dialog resource) and saves the initialised state', ok)
 shutil.rmtree(d3, ignore_errors=True)
+
+# ---------------------------------------------------------------- DOS elevator ride (spec 12 section 5.6a)
+import re as _re
+t = tempfile.mkdtemp()
+sp = os.path.join(t, 's.txt')
+open(sp, 'w').write('seed time 1\naudio tandy tandy %s\nsignin TEST\nwait 30\nkey down LEFT\nwait 620\nkey up LEFT\nwait 8\nkey down UP\nwait 5\nkey up UP\nwait 420\nkey down UP\nwait 5\nkey up UP\nwait 700\nstate z\n' % os.path.join(dx, 'game'))
+subprocess.run([eng, '--data', mock, '--conform', 'play', sp, '--out', os.path.join(t, 'o')], capture_output=True, text=True, timeout=180)
+evl = open(os.path.join(t, 'o', 'events.log')).read().splitlines() if os.path.exists(os.path.join(t, 'o', 'events.log')) else []
+def ticks(pat): return [int(l.split()[0]) for l in evl if _re.search(pat, l)]
+opens, closes, p22, p21, stops = ticks(r'SFX 1713'), ticks(r'SFX 1714'), ticks(r'DOS PLAY 22 '), ticks(r'DOS PLAY 21 '), ticks(r'DOS STOP')
+ok = len(opens) >= 4 and len(closes) >= 4 and len(p22) == 1 and len(p21) == 1
+if ok:
+    ok = closes[0] < p22[0] < opens[1] and closes[2] < p21[0] < opens[3]                       # once per ride, after the departure close
+    ok = ok and not any(closes[0] <= x <= closes[1] or closes[2] <= x <= closes[3] for x in stops)   # the arrival's stop-all and close do not cut it
+check('DOS elevator ride: ride song once per ride (22 up, 21 down) after the departure close; arrival close silent, nothing stops it', ok, str((opens, closes, p22, p21, stops)))
+shutil.rmtree(t, ignore_errors=True)
 sys.exit(1 if fails else 0)

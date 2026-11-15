@@ -127,7 +127,7 @@ int cmd_audio_levels(int argc, char **argv, const char *out) {
             if (dos_game_load(g_opt_dos_game, &g, err, sizeof err) == 0) {
                 for (int v = 0; v < 2; v++)
                     for (int s = 0; s < DOS_SONGS; s++) {
-                        if (s == 21 || s == 41 || s == 44) continue;
+                        if (s == 41 || s == 44) continue;
                         Loud l;
                         measure_dos_song(&g, s, v, &l);
                         int bi = (s <= 5 || s == 40 || s == 49) ? LB_MUSIC : LB_EFFECTS;
