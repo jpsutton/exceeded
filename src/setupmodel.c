@@ -403,6 +403,9 @@ char *normalize_input(const char *in, const char *script_dir) {
     if (!strncmp(s, "file://", 7)) {
         const char *p = s + 7;
         if (*p != '/') { const char *sl = strchr(p, '/'); p = sl ? sl : p + strlen(p); }       /* host part */
+#ifdef _WIN32
+        if (p[0] == '/' && isalpha((unsigned char)p[1]) && p[2] == ':') p++;                   /* file:///C:/x -> C:/x */
+#endif
         size_t o = 0;
         for (; *p && o + 1 < sizeof out; p++) {
             if (p[0] == '%' && isxdigit((unsigned char)p[1]) && isxdigit((unsigned char)p[2])) {
@@ -420,9 +423,12 @@ char *normalize_input(const char *in, const char *script_dir) {
         if (h) { snprintf(home, sizeof home, "%s%s", h, s + 1); s = home; }
     }
     char full[8800];
-    if (s[0] == '/' || !script_dir || !*script_dir) { char *a = fsx_abspath(s); snprintf(full, sizeof full, "%s", a); free(a); }
+#ifdef _WIN32
+    for (char *c = s; *c; c++) if (*c == '\\') *c = '/';                              /* the engine keeps '/' separators */
+#endif
+    if (PATH_IS_ABSOLUTE(s) || !script_dir || !*script_dir) { char *a = fsx_abspath(s); snprintf(full, sizeof full, "%s", a); free(a); }
     else snprintf(full, sizeof full, "%s/%s", script_dir, s);
-    if (full[0] != '/') { char *a = fsx_abspath(full); snprintf(full, sizeof full, "%s", a); free(a); }
+    if (!PATH_IS_ABSOLUTE(full)) { char *a = fsx_abspath(full); snprintf(full, sizeof full, "%s", a); free(a); }
     return xstrdup(full);
 }
 

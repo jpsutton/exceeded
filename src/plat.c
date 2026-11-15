@@ -331,7 +331,7 @@ static int exec_head(void) {
             else while (*rest && *rest != ' ' && *rest != '\t' && o + 1 < sizeof tok) tok[o++] = *rest++;
             tok[o] = 0;
             char full[8192];
-            if (tok[0] == '/' || !script_dir_buf[0]) snprintf(full, sizeof full, "%s", tok);
+            if (PATH_IS_ABSOLUTE(tok) || !script_dir_buf[0]) snprintf(full, sizeof full, "%s", tok);
             else snprintf(full, sizeof full, "%s/%s", script_dir_buf, tok);
             plat_drop_add(full);
         }

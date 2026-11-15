@@ -7,6 +7,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* an absolute path in the engine's own notation ('/' separators; on Windows also a drive letter or \\) */
+#ifdef _WIN32
+#define PATH_IS_ABSOLUTE(p) ((p)[0] == '/' || (p)[0] == '\\' || ((((p)[0] >= 'A' && (p)[0] <= 'Z') || ((p)[0] >= 'a' && (p)[0] <= 'z')) && (p)[1] == ':'))
+#else
+#define PATH_IS_ABSOLUTE(p) ((p)[0] == '/')
+#endif
+
 #define ARRAY_LEN(a) ((int)(sizeof(a) / sizeof((a)[0])))
 
 static inline uint16_t rd16(const uint8_t *p) { return (uint16_t)(p[0] | (p[1] << 8)); }

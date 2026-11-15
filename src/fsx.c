@@ -3,13 +3,15 @@
 #include "util.h"
 #include <dirent.h>
 #include <errno.h>
+#ifndef _WIN32
 #include <pwd.h>
+#endif
 #include <sys/stat.h>
 #include <sys/statvfs.h>
 #include <unistd.h>
 
 char *fsx_abspath(const char *p) {
-    if (p[0] == '/') return xstrdup(p);
+    if (PATH_IS_ABSOLUTE(p)) return xstrdup(p);
     char cwd[4096];
     if (!getcwd(cwd, sizeof cwd)) return xstrdup(p);
     size_t n = strlen(cwd) + strlen(p) + 2;
@@ -78,7 +80,14 @@ int fsx_base_dir(const char *opt, char *out, size_t n, const char **from) {
         else {
             f = "default";
             const char *xdg = getenv("XDG_DATA_HOME"), *home = getenv("HOME");
-#ifdef __APPLE__
+#ifdef _WIN32
+            (void)xdg; (void)home;                          /* %LOCALAPPDATA%\OutNumbered (spec 14 section 1.1); the engine keeps '/' separators */
+            const char *la = getenv("LOCALAPPDATA"), *up = getenv("USERPROFILE");
+            if (la && *la) snprintf(tmp, sizeof tmp, "%s/OutNumbered", la);
+            else if (up && *up) snprintf(tmp, sizeof tmp, "%s/AppData/Local/OutNumbered", up);
+            else return -1;
+            for (char *c = tmp; *c; c++) if (*c == '\\') *c = '/';
+#elif defined(__APPLE__)
             (void)xdg;
             if (!home || !*home) { struct passwd *pw = getpwuid(getuid()); home = pw ? pw->pw_dir : NULL; }
             if (!home || !*home) return -1;
@@ -95,7 +104,7 @@ int fsx_base_dir(const char *opt, char *out, size_t n, const char **from) {
     }
     char *abs = fsx_abspath(tmp);
     size_t l = strlen(abs);
-    while (l > 1 && abs[l - 1] == '/') abs[--l] = 0;
+    while (l > 1 && abs[l - 1] == '/' && !(l == 3 && abs[1] == ':')) abs[--l] = 0;
     snprintf(out, n, "%s", abs);
     free(abs);
     if (from) *from = f;
